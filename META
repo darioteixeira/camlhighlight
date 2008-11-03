@@ -1,0 +1,7 @@
+name="Camlhighlight"
+version="0.1"
+description="Source code highlighting library"
+requires="extlib,ocsigen.xhtml,pxp"
+archive(byte) = "highlight.cma"
+archive(native) = "highlight.cmxa"
+

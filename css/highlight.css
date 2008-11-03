@@ -1,0 +1,46 @@
+.hl_div
+	{
+	border: 1px dashed #666;
+	color: #000000;
+	background-color: #f9f9f9;
+	font-size: 10pt;
+	font-family: monospace;
+	}
+
+.hl_nums
+	{
+	float: left;
+	margin: 0 1em 0 0;
+	border-right: 1px solid #999;
+	font-weight: bold;
+	color: #000;
+	}
+
+.hl_code
+	{
+	margin: 0;
+	padding:0;
+	}
+
+.hl_line
+	{
+	display: block;
+	padding: 0.1em 0.5em;
+	}
+
+.hl_even	{background: #f9f9f9;}
+.hl_odd		{background: #f3f6fc;}
+
+.hl_num		{color: #606; font-weight: bold;}
+.hl_esc		{color: #f06; font-weight: bold;}
+.hl_str		{color: #c33;}
+.hl_dstr	{color: #0ff;}
+.hl_slc		{color: #669; font-style: italic;}
+.hl_com		{color: #669; font-style: italic;}
+.hl_dir		{color: #600;}
+.hl_sym		{color: #060;}
+.hl_kwa		{color: #960; font-weight: bold;}
+.hl_kwb		{color: #006;}
+.hl_kwc		{color: #03c;}
+.hl_kwd		{color: #090; font-weight: bold;}
+
