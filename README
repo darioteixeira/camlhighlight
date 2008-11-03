@@ -1,0 +1,53 @@
+=========================================================================
+| README for Camlhighlight 0.5						|
+|									|
+| Dario Teixeira (dario.teixeira@yahoo.com)				|
+| November 2008								|
+=========================================================================
+
+1. Overview
+===========
+
+Camlhighlight provides syntax highlighting and pretty-printing facilities
+for displaying code samples in Ocsigen applications. The library works
+by parsing the output of Highlight [1], a widely available application
+supporting the most common programming and markup languages.
+
+
+2. Dependencies
+===============
+
+On the Ocaml side, Camlhighlight depends on ExtLib, Ocsigen, and PXP
+[2,3,4].  ExtLib lends a number of utility functions, while PXP is used
+to parse the output of the Highlight executable.  The Ocsigen libraries
+are required because Camlhighlight provides functions that output values
+from Ocsigen's XHTML.M module.
+
+Camlhighlight invokes the Highlight executable, which must of course
+be installed in the system.  Camlhighlight has been tested with version
+2.6.14 of Highlight.
+
+
+3. Building and installing
+==========================
+
+Typing "make" suffices to build the Camlhighlight library.  After
+building, "make install" will perform a findlib installation.  To
+generate the ocamldoc API documentation, use "make doc".
+
+
+4. License
+==========
+
+Camlhighlight is distributed under the terms of the GNU GPL version 2.
+See LICENSE file for full license text.
+
+
+References
+==========
+
+[1] http://www.andre-simon.de/doku/highlight/en/highlight.html
+[2] http://code.google.com/p/ocaml-extlib/
+[3] http://www.ocsigen.org/
+[4] http://projects.camlcity.org/projects/pxp.html
+
