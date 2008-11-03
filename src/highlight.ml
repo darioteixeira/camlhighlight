@@ -8,6 +8,10 @@
 *)
 (********************************************************************************)
 
+(**	The [Highlight] module provides facilities for parsing and pretty-printing
+	source code.
+*)
+
 open ExtList
 open ExtString
 open XHTML.M
@@ -252,14 +256,4 @@ let to_xhtml ?(linenums = false) ?(zebra = false) hilite =
 		(match linenums with
 			| true	-> [convert_nums (); convert_code ()]
 			| false -> [convert_code ()])
-	
-
-let output_highlight outf hilite =
-	let (_, code) = hilite in
-	let sprint_elem = function
-		| Default s		-> Printf.sprintf " «%s»" s
-		| Special (special, s)	-> Printf.sprintf " $%s: «%s»" (string_of_special special) s in
-	let print_line line =
-		Printf.fprintf outf "#%s#\n" (List.fold_left (^) "" (List.map sprint_elem line))
-	in List.iter print_line code
 

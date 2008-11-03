@@ -8,6 +8,11 @@
 *)
 (********************************************************************************)
 
+(**	The [Highlight] module provides facilities for parsing and pretty-printing
+	source code.
+*)
+
+
 (********************************************************************************)
 (**	{2 Public types}							*)
 (********************************************************************************)
@@ -42,6 +47,4 @@ type t = string * line_t list
 val from_string : string -> string -> t
 
 val to_xhtml : ?linenums:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
-
-val output_highlight : out_channel -> t -> unit
 
