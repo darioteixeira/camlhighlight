@@ -148,9 +148,6 @@ let string_of_special = function
 	| Kwd		-> "kwd"
 
 
-let class_of_special special = "hl_" ^ (string_of_special special)
-
-
 let special_of_attribute = function
 	| Value x	-> special_of_string x
 	| _		-> assert false
@@ -234,25 +231,30 @@ let from_string syntax source =
 	the generated XHTML should include line numbers for the code and/or
 	use fancy zebra stripes to distinguish each line.
 *)
-let to_xhtml ?(linenums = false) ?(zebra = false) hilite =
-	let (_, code) = hilite in
+let to_xhtml ?(linenums = false) ?(zebra = false) ?(prefix = "hl_") (_, code) =
+	let make_class names =
+		a_class (List.map (fun x -> prefix ^ x) names) in
 	let elem_to_xhtml = function
 		| Default s		-> XHTML.M.pcdata s
-		| Special (special, s)	-> XHTML.M.span ~a:[a_class [class_of_special special]] [XHTML.M.pcdata s] in
-	let line_class num = "hl_line" ^ (match (zebra, num mod 2 == 0) with
-		| (true, true)	-> " hl_even"
-		| (true, false)	-> " hl_odd"
-		| (false, _)	-> "") in
+		| Special (special, s)	-> XHTML.M.span ~a:[make_class [string_of_special special]] [XHTML.M.pcdata s] in
+	let line_class num =
+		make_class
+			[
+			match (zebra, num mod 2 == 0) with
+				| (true, true)	-> "line_even"
+				| (true, false)	-> "line_odd"
+				| (false, _)	-> "line"
+			] in
 	let convert_nums () =
 		let width = String.length (string_of_int (List.length code)) in
 		let numline_to_xhtml num =
-			XHTML.M.span ~a:[a_class [line_class num]] [XHTML.M.pcdata (Printf.sprintf "%0*d" width num)]
-		in XHTML.M.pre ~a:[a_class ["hl_nums"]] (List.map numline_to_xhtml (List.init (List.length code) (fun x -> x+1)))
+			XHTML.M.span ~a:[line_class num] [XHTML.M.pcdata (Printf.sprintf "%0*d\n" width num)]
+		in XHTML.M.pre ~a:[make_class ["nums"]] (List.map numline_to_xhtml (List.init (List.length code) (fun x -> x+1)))
 	and convert_code () =
 		let codeline_to_xhtml num line =
-			XHTML.M.span ~a:[a_class [line_class (num+1)]] (List.append (List.map elem_to_xhtml line) [XHTML.M.space ()])
-		in XHTML.M.pre ~a:[a_class ["hl_code"]] (List.mapi codeline_to_xhtml code)
-	in XHTML.M.div ~a:[a_class ["hl_div"]]
+			XHTML.M.span ~a:[line_class (num+1)] ((List.map elem_to_xhtml line) @ [XHTML.M.space (); XHTML.M.pcdata "\n"])
+		in XHTML.M.pre ~a:[make_class ["code"]] (List.mapi codeline_to_xhtml code)
+	in XHTML.M.div ~a:[make_class ["source"]]
 		(match linenums with
 			| true	-> [convert_nums (); convert_code ()]
 			| false -> [convert_code ()])

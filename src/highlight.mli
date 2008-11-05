@@ -46,5 +46,5 @@ type t = string * line_t list
 
 val from_string : string -> string -> t
 
-val to_xhtml : ?linenums:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
+val to_xhtml : ?linenums:bool -> ?zebra:bool -> ?prefix:string -> t -> [> `Div ] XHTML.M.elt
 

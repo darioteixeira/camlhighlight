@@ -22,14 +22,16 @@
 	padding:0;
 	}
 
-.hl_line
+.hl_line,
+.hl_line_even,
+.hl_line_odd
 	{
 	display: block;
 	padding: 0.1em 0.5em;
 	}
 
-.hl_even	{background: #f9f9f9;}
-.hl_odd		{background: #f3f6fc;}
+.hl_line_even	{background: #f9f9f9;}
+.hl_line_odd	{background: #f3f6fc;}
 
 .hl_num		{color: #606; font-weight: bold;}
 .hl_esc		{color: #f06; font-weight: bold;}
