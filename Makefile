@@ -6,7 +6,7 @@ LIB_NAME=highlight
 PKG_NAME=camlhighlight
 
 SRC_DIR=src
-DOC_DIR=apidoc
+DOC_DIR=doc/apidoc
 BUILD_DIR=$(SRC_DIR)/_build
 
 TARGETS=$(foreach EXT, cmi cma cmxa a, $(LIB_NAME).$(EXT))
