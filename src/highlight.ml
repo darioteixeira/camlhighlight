@@ -254,7 +254,7 @@ let to_xhtml ?(linenums = false) ?(zebra = false) ?(prefix = "hl_") (_, code) =
 		let codeline_to_xhtml num line =
 			XHTML.M.span ~a:[line_class (num+1)] ((List.map elem_to_xhtml line) @ [XHTML.M.space (); XHTML.M.pcdata "\n"])
 		in XHTML.M.pre ~a:[make_class ["code"]] (List.mapi codeline_to_xhtml code)
-	in XHTML.M.div ~a:[make_class ["source"]]
+	in XHTML.M.div ~a:[make_class ["main"]]
 		(match linenums with
 			| true	-> [convert_nums (); convert_code ()]
 			| false -> [convert_code ()])
