@@ -114,7 +114,7 @@ type line_t = elem_t list with sexp
 	of the sample's language represented as plain [string], and a list of
 	the sample's lines.
 *)
-type t = string * line_t list with sexp
+type t = string option * line_t list with sexp
 
 
 (********************************************************************************)
@@ -198,7 +198,7 @@ let parse_highlight html_str =
 
 let invoke_highlighter syntax source =
 	let exec = "/usr/bin/env" in
-	let params = ["highlight"; "--xhtml"; "--fragment"; "--syntax " ^ syntax; "--replace-tabs=8"] in
+	let params = ["highlight"; "--xhtml"; "--force"; "--fragment"; "--syntax " ^ syntax; "--replace-tabs=8"] in
 	let cmdline = String.concat " " (exec :: params) in
 	let (in_ch, out_ch) = Unix.open_process cmdline in
 	let () =
@@ -222,11 +222,14 @@ let invoke_highlighter syntax source =
 	{{:http://www.andre-simon.de/doku/highlight/en/highlight.html}Highlight}
 	executable.
 *)
-let from_string syntax source =
+let from_string maybe_syntax source =
+	let syntax = match maybe_syntax with
+		| Some x	-> x
+		| None		-> "none" in
 	let html_raw = invoke_highlighter syntax source in
 	let html_proper = "<source>" ^ html_raw ^ "</source>" in
 	let doc = parse_highlight html_proper
-	in (syntax, convert_document doc#root)
+	in (maybe_syntax, convert_document doc#root)
 
 
 (**	This converts a value of type {!t} containing a syntax-highlighted

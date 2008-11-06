@@ -38,14 +38,14 @@ type elem_t =
 
 type line_t = elem_t list with sexp
 
-type t = string * line_t list with sexp
+type t = string option * line_t list with sexp
 
 
 (********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-val from_string : string -> string -> t
+val from_string : string option -> string -> t
 
 val to_xhtml : ?class_prefix:string -> ?extra_classes:XHTML.M.nmtoken list -> ?numbered:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
 

@@ -17,9 +17,9 @@ open XHTML.M
 
 let source1 = Std.input_all (open_in "main.ml")
 
-let hilite1 = Highlight.from_string "ml" source1
+let hilite1 = Highlight.from_string (Some "ml") source1
 
-let hilite_xhtml1 = Highlight.to_xhtml ~linenums:true ~zebra:true hilite1
+let hilite_xhtml1 = Highlight.to_xhtml ~numbered:true ~zebra:true hilite1
 
 let test_handler sp () () =
 	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
