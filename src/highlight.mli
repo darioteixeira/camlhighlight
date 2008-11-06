@@ -16,6 +16,11 @@
 (**	{2 Public types}							*)
 (********************************************************************************)
 
+type lang_t =
+	| Lang_c
+	| Lang_ocaml
+	with sexp
+
 type special_t =
 	| Num
 	| Esc
@@ -38,14 +43,22 @@ type elem_t =
 
 type line_t = elem_t list with sexp
 
-type t = string option * line_t list with sexp
+type t = lang_t option * line_t list with sexp
+
+(********************************************************************************)
+(**	{2 Public exceptions}							*)
+(********************************************************************************)
+
+exception Unknown_language of string
 
 
 (********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-val from_string : string option -> string -> t
+val lang_of_string : string -> lang_t
+
+val from_string : lang_t option -> string -> t
 
 val to_xhtml : ?class_prefix:string -> ?extra_classes:XHTML.M.nmtoken list -> ?numbered:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
 

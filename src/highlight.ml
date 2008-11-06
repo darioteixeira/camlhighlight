@@ -76,6 +76,14 @@ end
 (**	{2 Public types}							*)
 (********************************************************************************)
 
+(**	The various supported languages.
+*)
+type lang_t =
+	| Lang_c
+	| Lang_ocaml
+	with sexp
+
+
 (**	The various kinds of syntactically meaningful tokens recognised
 	by the highlighter.
 *)
@@ -111,15 +119,25 @@ type line_t = elem_t list with sexp
 
 
 (**	The value of highlighted source-code samples.  It's a tuple consisting
-	of the sample's language represented as plain [string], and a list of
+	of the sample's language represented as [lang_t option], and a list of
 	the sample's lines.
 *)
-type t = string option * line_t list with sexp
+type t = lang_t option * line_t list with sexp
 
 
 (********************************************************************************)
 (**	{2 Private functions}							*)
 (********************************************************************************)
+
+let string_of_lang = function
+	| Lang_c	-> "c"
+	| Lang_ocaml	-> "ml"
+
+
+let string_of_maybe_lang = function
+	| Some lang	-> string_of_lang lang
+	| None		-> "dummy"
+
 
 let special_of_string = function
 	| "hl num"	-> Num
@@ -211,32 +229,49 @@ let invoke_highlighter syntax source =
 
 
 (********************************************************************************)
+(**	{2 Public exceptions}							*)
+(********************************************************************************)
+
+exception Unknown_language of string
+
+
+(********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-(**	An invocation of [from_string syntax source] will create a value of type
-	{!t} containing the syntax-highlighted version of the source-code in [string]
-	format passed in the [source] parameter.  The [syntax] parameter tells
-	the highlighter which conventions are used for highlighting.  It must
-	also be provided as a [string], with any of the values accepted by the
-	{{:http://www.andre-simon.de/doku/highlight/en/highlight.html}Highlight}
-	executable.
+(**	This utility function returns the {!lang_t} value that corresponds
+	to the provided [string].  It raises {!Unknown_language} should the
+	language be unknown.
 *)
-let from_string maybe_syntax source =
-	let syntax = match maybe_syntax with
-		| Some x	-> x
-		| None		-> "none" in
+let lang_of_string = function
+	| "c"		-> Lang_c
+	| "ocaml"	-> Lang_ocaml
+	| x		-> raise (Unknown_language x)
+
+
+(**	An invocation of [from_string lang source] will create a value of type {!t}
+	containing the syntax-highlighted version of the source-code in [string]
+	format passed in the [source] parameter.  The [lang] parameter tells the
+	highlighter which conventions are used for highlighting.  It is an optional
+	value of type {!lang_t}.  If [None], no proper syntax-highlighting will
+	be done (the returned value will contain only [Default] lines).
+*)
+let from_string maybe_lang source =
+	let syntax = string_of_maybe_lang maybe_lang in
 	let html_raw = invoke_highlighter syntax source in
 	let html_proper = "<source>" ^ html_raw ^ "</source>" in
 	let doc = parse_highlight html_proper
-	in (maybe_syntax, convert_document doc#root)
+	in (maybe_lang, convert_document doc#root)
 
 
 (**	This converts a value of type {!t} containing a syntax-highlighted
 	document into its Ocsigen's [XHTML.M] representation.  The optional
-	parameters [linenums] and [zebra] are both booleans indicating whether
-	the generated XHTML should include line numbers for the code and/or
-	use fancy zebra stripes to distinguish each line.
+	parameter [class_prefix] indicates the prefix for the class names
+	of all XHTML elements produced, while [extra_classes] can be used
+	to provide additional class names for the main container.  The,
+	also optional, parameters [numbered] and [zebra] are both booleans
+	indicating whether the generated XHTML should include line numbers
+	for the code and/or use fancy zebra stripes to distinguish each line.
 *)
 let to_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(numbered = false) ?(zebra = false) (_, code) =
 	let make_class ?(extra_classes = []) names =

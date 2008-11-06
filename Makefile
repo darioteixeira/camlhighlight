@@ -25,7 +25,7 @@ lib:
 
 apidoc: lib
 	mkdir -p $(DOC_DIR)
-	cd $(SRC_DIR) && ocamlfind ocamldoc -package extlib,ocsigen.xhtml,pxp -v -html -d ../$(DOC_DIR) -I _build/ $(LIB_NAME).mli $(LIB_NAME).ml
+	cd $(SRC_DIR) && ocamlfind ocamldoc -package extlib,sexplib.syntax,ocsigen.xhtml,pxp -syntax camlp4o -v -html -d ../$(DOC_DIR) -I _build/ $(LIB_NAME).mli $(LIB_NAME).ml
 
 install: lib
 	ocamlfind install $(PKG_NAME) META $(FQTARGETS)
