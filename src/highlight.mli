@@ -47,5 +47,5 @@ type t = string * line_t list with sexp
 
 val from_string : string -> string -> t
 
-val to_xhtml : ?linenums:bool -> ?zebra:bool -> ?prefix:string -> t -> [> `Div ] XHTML.M.elt
+val to_xhtml : ?class_prefix:string -> ?extra_classes:XHTML.M.nmtoken list -> ?numbered:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
 

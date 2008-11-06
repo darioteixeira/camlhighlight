@@ -235,9 +235,9 @@ let from_string syntax source =
 	the generated XHTML should include line numbers for the code and/or
 	use fancy zebra stripes to distinguish each line.
 *)
-let to_xhtml ?(linenums = false) ?(zebra = false) ?(prefix = "hl_") (_, code) =
-	let make_class names =
-		a_class (List.map (fun x -> prefix ^ x) names) in
+let to_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(numbered = false) ?(zebra = false) (_, code) =
+	let make_class ?(extra_classes = []) names =
+		a_class (extra_classes @ (List.map (fun x -> class_prefix ^ x) names)) in
 	let elem_to_xhtml = function
 		| Default s		-> XHTML.M.pcdata s
 		| Special (special, s)	-> XHTML.M.span ~a:[make_class [string_of_special special]] [XHTML.M.pcdata s] in
@@ -258,8 +258,8 @@ let to_xhtml ?(linenums = false) ?(zebra = false) ?(prefix = "hl_") (_, code) =
 		let codeline_to_xhtml num line =
 			XHTML.M.span ~a:[line_class (num+1)] ((List.map elem_to_xhtml line) @ [XHTML.M.space (); XHTML.M.pcdata "\n"])
 		in XHTML.M.pre ~a:[make_class ["code"]] (List.mapi codeline_to_xhtml code)
-	in XHTML.M.div ~a:[make_class ["main"]]
-		(match linenums with
+	in XHTML.M.div ~a:[make_class ~extra_classes ["main"]]
+		(match numbered with
 			| true	-> [convert_nums (); convert_code ()]
 			| false -> [convert_code ()])
 
