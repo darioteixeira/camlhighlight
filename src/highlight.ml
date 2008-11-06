@@ -1,5 +1,5 @@
 (********************************************************************************)
-(*	Implementation file for the Camlhighlight library.
+(*	Implementation file for Highlight.
 
 	Copyright (c) 2008 Dario Teixeira (dario.teixeira@yahoo.com)
 
@@ -11,6 +11,8 @@
 (**	The [Highlight] module provides facilities for parsing and pretty-printing
 	source code.
 *)
+
+TYPE_CONV_PATH "Highlight"
 
 open ExtList
 open ExtString
@@ -90,6 +92,7 @@ type special_t =
 	| Kwb		(** Keyword class B *)
 	| Kwc		(** Keyword class C *)
 	| Kwd		(** Keyword class D *)
+	with sexp
 
 
 (**	Any individual element in the source code is either a "boring" value
@@ -99,18 +102,19 @@ type special_t =
 type elem_t =
 	| Default of string
 	| Special of special_t * string
+	with sexp
 
 
 (**	A line is composed of a list of {!elem_t}.
 *)
-type line_t = elem_t list
+type line_t = elem_t list with sexp
 
 
 (**	The value of highlighted source-code samples.  It's a tuple consisting
 	of the sample's language represented as plain [string], and a list of
 	the sample's lines.
 *)
-type t = string * line_t list
+type t = string * line_t list with sexp
 
 
 (********************************************************************************)

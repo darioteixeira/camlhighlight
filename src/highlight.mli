@@ -1,5 +1,5 @@
 (********************************************************************************)
-(*	Interface file for the Camlhighlight library.
+(*	Interface file for Highlight.
 
 	Copyright (c) 2008 Dario Teixeira (dario.teixeira@yahoo.com)
 
@@ -11,7 +11,6 @@
 (**	The [Highlight] module provides facilities for parsing and pretty-printing
 	source code.
 *)
-
 
 (********************************************************************************)
 (**	{2 Public types}							*)
@@ -30,14 +29,16 @@ type special_t =
 	| Kwb
 	| Kwc
 	| Kwd
+	with sexp
 
 type elem_t =
 	| Default of string
 	| Special of special_t * string
+	with sexp
 
-type line_t = elem_t list
+type line_t = elem_t list with sexp
 
-type t = string * line_t list
+type t = string * line_t list with sexp
 
 
 (********************************************************************************)
