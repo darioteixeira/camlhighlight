@@ -15,7 +15,7 @@ FQTARGETS=$(foreach TARGET, $(TARGETS), $(BUILD_DIR)/$(TARGET))
 OCAMLBUILS_OPTS=
 
 #
-# Rules
+# Rules.
 #
 
 all: lib
@@ -39,4 +39,7 @@ reinstall: lib
 
 clean:
 	cd $(SRC_DIR) && ocamlbuild $(OCAMLBUILS_OPTS) -clean
+
+dist: clean
+	rm -rf $(DOC_DIR)
 
