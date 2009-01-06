@@ -229,13 +229,6 @@ let invoke_highlighter syntax source =
 
 
 (********************************************************************************)
-(**	{2 Public exceptions}							*)
-(********************************************************************************)
-
-exception Unknown_language of string
-
-
-(********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
@@ -246,7 +239,7 @@ exception Unknown_language of string
 let lang_of_string = function
 	| "c"		-> Lang_c
 	| "ocaml"	-> Lang_ocaml
-	| x		-> raise (Unknown_language x)
+	| x		-> invalid_arg x
 
 
 (**	An invocation of [from_string lang source] will create a value of type {!t}
@@ -269,11 +262,11 @@ let from_string maybe_lang source =
 	parameter [class_prefix] indicates the prefix for the class names
 	of all XHTML elements produced, while [extra_classes] can be used
 	to provide additional class names for the main container.  The,
-	also optional, parameters [numbered] and [zebra] are both booleans
+	also optional, parameters [linenums] and [zebra] are both booleans
 	indicating whether the generated XHTML should include line numbers
 	for the code and/or use fancy zebra stripes to distinguish each line.
 *)
-let to_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(numbered = false) ?(zebra = false) (_, code) =
+let to_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(linenums = false) ?(zebra = false) (_, code) =
 	let make_class ?(extra_classes = []) names =
 		a_class (extra_classes @ (List.map (fun x -> class_prefix ^ x) names)) in
 	let elem_to_xhtml = function
@@ -297,7 +290,7 @@ let to_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(numbered = false) ?
 			XHTML.M.span ~a:[line_class (num+1)] ((List.map elem_to_xhtml line) @ [XHTML.M.space (); XHTML.M.pcdata "\n"])
 		in XHTML.M.pre ~a:[make_class ["code"]] (List.mapi codeline_to_xhtml code)
 	in XHTML.M.div ~a:[make_class ~extra_classes ["main"]]
-		(match numbered with
+		(match linenums with
 			| true	-> [convert_nums (); convert_code ()]
 			| false -> [convert_code ()])
 

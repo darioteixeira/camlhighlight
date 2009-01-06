@@ -45,12 +45,6 @@ type line_t = elem_t list with sexp
 
 type t = lang_t option * line_t list with sexp
 
-(********************************************************************************)
-(**	{2 Public exceptions}							*)
-(********************************************************************************)
-
-exception Unknown_language of string
-
 
 (********************************************************************************)
 (**	{2 Public functions}							*)
@@ -60,5 +54,5 @@ val lang_of_string : string -> lang_t
 
 val from_string : lang_t option -> string -> t
 
-val to_xhtml : ?class_prefix:string -> ?extra_classes:XHTML.M.nmtoken list -> ?numbered:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
+val to_xhtml : ?class_prefix:string -> ?extra_classes:XHTML.M.nmtoken list -> ?linenums:bool -> ?zebra:bool -> t -> [> `Div ] XHTML.M.elt
 
