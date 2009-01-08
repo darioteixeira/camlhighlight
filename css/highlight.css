@@ -19,19 +19,20 @@
 .hl_code
 	{
 	margin: 0;
-	padding:0;
+	padding: 0;
 	}
 
 .hl_line,
-.hl_line_even,
-.hl_line_odd
+.hl_even,
+.hl_odd
 	{
 	display: block;
-	padding: 0.1em 0.5em;
+	padding: 0.1em 1em;
 	}
 
-.hl_line_even	{background: #f9f9f9;}
-.hl_line_odd	{background: #f3f6fc;}
+.hl_even	{background: #f9f9f9;}
+.hl_odd		{background: #f3f6fc;}
+.hl_dummy	{line-height: 0.5em;}
 
 .hl_num		{color: #606; font-weight: bold;}
 .hl_esc		{color: #f06; font-weight: bold;}
