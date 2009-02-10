@@ -17,7 +17,7 @@ TYPE_CONV_PATH "Highlight"
 open ExtList
 open ExtString
 open XHTML.M
-open Pxp_core_types
+open Pxp_types
 open Pxp_document
 open Pxp_yacc
 
