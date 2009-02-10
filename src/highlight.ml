@@ -298,7 +298,11 @@ let to_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true)
 		let after = if dummy_lines then [XHTML.M.span ~a:[line_class `After] suffix] else []
 		in XHTML.M.pre ~a:[make_class ["code"]] (before @ (List.mapi codeline_to_xhtml code) @ after)
 	in XHTML.M.div ~a:[make_class ~extra_classes ["main"]]
-		(match linenums with
-			| true	-> [convert_nums (); convert_code ()]
-			| false -> [convert_code ()])
+		[
+		XHTML.M.div
+			(match linenums with
+				| true	-> [convert_nums (); convert_code ()]
+				| false -> [convert_code ()])
+		]
+
 

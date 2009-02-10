@@ -59,6 +59,7 @@ val to_xhtml:
 	?extra_classes:XHTML.M.nmtoken list ->
 	?dummy_lines:bool ->
 	?linenums:bool ->
-	?zebra:bool -> t ->
+	?zebra:bool ->
+	t ->
 	[> `Div ] XHTML.M.elt
 
