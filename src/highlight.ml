@@ -81,7 +81,7 @@ end
 type lang_t =
 	| Lang_c
 	| Lang_ocaml
-	with sexp
+	with sexp, bin_io
 
 
 (**	The various kinds of syntactically meaningful tokens recognised
@@ -100,7 +100,7 @@ type special_t =
 	| Kwb		(** Keyword class B *)
 	| Kwc		(** Keyword class C *)
 	| Kwd		(** Keyword class D *)
-	with sexp
+	with sexp, bin_io
 
 
 (**	Any individual element in the source code is either a "boring" value
@@ -110,19 +110,19 @@ type special_t =
 type elem_t =
 	| Default of string
 	| Special of special_t * string
-	with sexp
+	with sexp, bin_io
 
 
 (**	A line is composed of a list of {!elem_t}.
 *)
-type line_t = elem_t list with sexp
+type line_t = elem_t list with sexp, bin_io
 
 
 (**	The value of highlighted source-code samples.  It's a tuple consisting
 	of the sample's language represented as [lang_t option], and a list of
 	the sample's lines.
 *)
-type t = lang_t option * line_t list with sexp
+type t = lang_t option * line_t list with sexp, bin_io
 
 
 (********************************************************************************)

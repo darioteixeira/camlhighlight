@@ -19,7 +19,7 @@
 type lang_t =
 	| Lang_c
 	| Lang_ocaml
-	with sexp
+	with sexp, bin_io
 
 type special_t =
 	| Num
@@ -34,16 +34,16 @@ type special_t =
 	| Kwb
 	| Kwc
 	| Kwd
-	with sexp
+	with sexp, bin_io
 
 type elem_t =
 	| Default of string
 	| Special of special_t * string
-	with sexp
+	with sexp, bin_io
 
-type line_t = elem_t list with sexp
+type line_t = elem_t list with sexp, bin_io
 
-type t = lang_t option * line_t list with sexp
+type t = lang_t option * line_t list with sexp, bin_io
 
 
 (********************************************************************************)
