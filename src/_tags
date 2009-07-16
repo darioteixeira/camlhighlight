@@ -1,2 +1,2 @@
-true: pkg_extlib, pkg_sexplib, pkg_bin_prot, pkg_ocsigen.xhtml, pkg_pxp
+true: pkg_extlib, pkg_sexplib, pkg_bin_prot, pkg_ocsigen.xhtml, pkg_pxp-engine, pkg_pxp-ulex-utf8
 <highlight.*>: pkg_sexplib.syntax, pkg_bin_prot.syntax, syntax_camlp4o
