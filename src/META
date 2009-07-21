@@ -1,0 +1,20 @@
+name = "camlhighlight"
+version = "0.7"
+description = ""
+requires = "threads, unix, extlib, sexplib, bin_prot, pcre, pxp-engine, pxp-ulex-utf8, ocsigen.xhtml"
+archive(byte) = "camlhighlight.cma"
+archive(native) = "camlhighlight.cmxa"
+archive(plugin,byte) = "camlhighlight.cma"
+archive(plugin,native) = "camlhighlight.cmxs"
+
+package "core"
+	(
+	name = "core"
+	version = "0.7"
+	requires = "threads, unix, extlib, sexplib, bin_prot, ocsigen.xhtml"
+	archive(byte) = "camlhighlight_core.cmo"
+	archive(native) = "camlhighlight_core.cmx"
+	archive(plugin,byte) = "camlhighlight_core.cmo"
+	archive(plugin,native) = "camlhighlight_core.cmxs"
+	)
+
