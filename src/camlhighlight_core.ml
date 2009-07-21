@@ -56,5 +56,5 @@ type line_t = elem_t list with sexp, bin_io
 	of the sample's language represented as [lang_t option], and a list of
 	the sample's lines.
 *)
-type t = lang_t option * line_t list with sexp, bin_io
+type t = lang_t * line_t list with sexp, bin_io
 

@@ -11,7 +11,7 @@
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-val write_xhtml:
+val write:
 	?class_prefix:string ->
 	?extra_classes:XHTML.M.nmtoken list ->
 	?dummy_lines:bool ->

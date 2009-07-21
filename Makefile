@@ -1,45 +1,22 @@
 #
-# Configuration options.
+# Makefile for Camlhighlight.
 #
 
-LIB_NAME=highlight
-PKG_NAME=camlhighlight
+#
+# Configure directory locations and options for C compiler.
+#
 
-SRC_DIR=src
-DOC_DIR=doc/apidoc
-BUILD_DIR=$(SRC_DIR)/_build
+export HIGHLIGHT_INC=$(HOME)/software/highlight-2.10/src/core
+export HIGHLIGHT_LIB=$(HOME)/.local/lib
+export HIGHLIGHT_DEF=$(HOME)/.local/share/highlight
 
-TARGETS=$(foreach EXT, cmi cma cmxa a, $(LIB_NAME).$(EXT))
-FQTARGETS=$(foreach TARGET, $(TARGETS), $(BUILD_DIR)/$(TARGET))
-
-OCAMLBUILS_OPTS=
+export CCOPT=-O2 -fno-defer-pop -D_FILE_OFFSET_BITS=64 -D_REENTRANT -fPIC
+export OCAML_LIB=$(shell ocamlc -where)
 
 #
 # Rules.
 #
 
-all: lib
-
-lib:
-	cd $(SRC_DIR) && ocamlbuild $(OCAMLBUILS_OPTS) $(TARGETS)
-
-apidoc: lib
-	mkdir -p $(DOC_DIR)
-	cd $(SRC_DIR) && ocamlfind ocamldoc -package extlib,sexplib.syntax,ocsigen.xhtml,pxp-engine,pxp-ulex-utf8 -syntax camlp4o -v -html -d ../$(DOC_DIR) -I _build/ $(LIB_NAME).mli $(LIB_NAME).ml
-
-install: lib
-	ocamlfind install $(PKG_NAME) META $(FQTARGETS)
-
-uninstall:
-	ocamlfind remove $(PKG_NAME)
-
-reinstall: lib
-	ocamlfind remove $(PKG_NAME)
-	ocamlfind install $(PKG_NAME) META $(FQTARGETS)
-
-clean:
-	cd $(SRC_DIR) && ocamlbuild $(OCAMLBUILS_OPTS) -clean
-
-dist: clean
-	rm -rf $(DOC_DIR)
+.DEFAULT all:
+	make $(MAKECMDGOALS) -C src
 

@@ -1,7 +1,7 @@
 name = "camlhighlight"
-version = "0.7"
-description = ""
-requires = "threads, unix, extlib, sexplib, bin_prot, pcre, pxp-engine, pxp-ulex-utf8, ocsigen.xhtml"
+version = "0.6"
+description = "Source code highlighting library"
+requires = "extlib, sexplib, bin_prot, pcre, pxp-engine, pxp-ulex-utf8, ocsigen.xhtml"
 archive(byte) = "camlhighlight.cma"
 archive(native) = "camlhighlight.cmxa"
 archive(plugin,byte) = "camlhighlight.cma"
@@ -10,11 +10,43 @@ archive(plugin,native) = "camlhighlight.cmxs"
 package "core"
 	(
 	name = "core"
-	version = "0.7"
-	requires = "threads, unix, extlib, sexplib, bin_prot, ocsigen.xhtml"
+	version = "0.6"
+	requires = "sexplib, bin_prot"
 	archive(byte) = "camlhighlight_core.cmo"
 	archive(native) = "camlhighlight_core.cmx"
 	archive(plugin,byte) = "camlhighlight_core.cmo"
 	archive(plugin,native) = "camlhighlight_core.cmxs"
+	)
+
+package "lowlevel"
+	(
+	name = "lowlevel"
+	version = "0.6"
+	archive(byte) = "camlhighlight_lowlevel.cmo"
+	archive(native) = "camlhighlight_lowlevel.cmx"
+	archive(plugin,byte) = "camlhighlight_lowlevel.cmo"
+	archive(plugin,native) = "camlhighlight_lowlevel.cmxs"
+	)
+
+package "parser"
+	(
+	name = "parser"
+	version = "0.6"
+	requires = "extlib, pxp-engine, pxp-ulex-utf8, camlhighlight.core, camlhighlight.lowlevel"
+	archive(byte) = "camlhighlight_parser.cmo"
+	archive(native) = "camlhighlight_parser.cmx"
+	archive(plugin,byte) = "camlhighlight_parser.cmo"
+	archive(plugin,native) = "camlhighlight_parser.cmxs"
+	)
+
+package "writer"
+	(
+	name = "writer"
+	version = "0.6"
+	requires = "extlib, ocsigen.xhtml, camlhighlight.core"
+	archive(byte) = "camlhighlight_writer.cmo"
+	archive(native) = "camlhighlight_writer.cmx"
+	archive(plugin,byte) = "camlhighlight_writer.cmo"
+	archive(plugin,native) = "camlhighlight_writer.cmxs"
 	)
 

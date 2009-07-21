@@ -11,6 +11,17 @@ open ExtString
 open Pxp_types
 open Pxp_document
 open Camlhighlight_core
+open Camlhighlight_lowlevel
+
+
+(********************************************************************************)
+(**	{2 Exceptions}								*)
+(********************************************************************************)
+
+exception Not_initialized
+exception Failed_loading_theme
+exception Failed_loading_language
+exception Failed_loading_language_regex
 
 
 (********************************************************************************)
@@ -67,9 +78,6 @@ end
 (**	{2 Private values and functions}					*)
 (********************************************************************************)
 
-let gen = Camlhighlight_lowlevel.create ()
-
-
 let special_of_string = function
 	| "hl num"	-> Num
 	| "hl esc"	-> Esc
@@ -125,24 +133,45 @@ let parse_highlight html_str =
 		raise exc
 
 
+let default_basedir = ref "/home/dario/.local/share/highlight"
+
+
+let gen = Camlhighlight_lowlevel.create ()
+
+
 (********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
+
+(**	Initialises the Camlhighlight parser.  This function must be invoked
+	before the {!from_string} can be used.
+*)
+let init ?basedir () =
+	let () = match basedir with
+		| Some basedir	-> default_basedir := basedir
+		| None		-> () in
+	let theme = !default_basedir ^ "/themes/kwrite.style"
+	in if not (Camlhighlight_lowlevel.init_theme gen theme)
+	then raise Failed_loading_theme
+	else ()
+
 
 (**	An invocation of [from_string lang source] will create a value of type
 	{!Camlhighlight.t} containing the syntax-highlighted version of the
 	source-code in [string] format passed in the [source] parameter.  The
 	[lang] parameter tells the highlighter which conventions are used for
-	highlighting.  It is an optional value of type {!Camlhighlight.lang_t}.
-	If [None], no proper syntax-highlighting will be done.
+	highlighting;  it is a value of type {!Camlhighlight.lang_t}.  Note
+	that you can specify [txt] as the language if you do not wish for
+	highlighting to be done.
 *)
-let from_string maybe_lang source =
-	let syntax = match maybe_lang with
-		| Some lang	-> lang
-		| None		-> "txt" in
-	let _ = Camlhighlight_lowlevel.load_language gen syntax in
+let from_string lang source =
+	let lang = !default_basedir ^ "/langDefs/" ^ lang ^ ".lang" in
+	let () = match Camlhighlight_lowlevel.load_language gen lang with
+		| Load_failed		-> raise Failed_loading_language
+		| Load_failed_regex	-> raise Failed_loading_language_regex
+		| _			-> () in
 	let html_raw = Camlhighlight_lowlevel.generate_string gen source in
 	let html_proper = "<source>" ^ html_raw ^ "</source>" in
 	let doc = parse_highlight html_proper
-	in (maybe_lang, convert_document doc#root)
+	in (lang, convert_document doc#root)
 

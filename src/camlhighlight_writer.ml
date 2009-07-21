@@ -38,12 +38,13 @@ let string_of_special = function
 	a syntax-highlighted document into its Ocsigen's [XHTML.M] representation.
 	The optional parameter [class_prefix] indicates the prefix for the class
 	names of all XHTML elements produced, while [extra_classes] can be used
-	to provide additional class names for the main container.  The also
-	optional parameters [linenums] and [zebra] are both booleans indicating
-	whether the generated XHTML should include line numbers for the code
-	and/or use fancy zebra stripes to distinguish each line.
+	to provide additional class names for the main container.  Also optional
+	are the boolean parameters [dummy_lines], [linenums], and [zebra].  They
+	indicate whether the generated XHTML should include dummy lines at the
+	beginning and end, line numbers for the code, and use fancy zebra stripes
+	to distinguish each line, respectively.
 *)
-let write_xhtml ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(linenums = false) ?(zebra = false) (_, code) =
+let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(linenums = false) ?(zebra = false) (_, code) =
 	let code_len = lazy (List.length code) in
 	let suffix = [XHTML.M.space (); XHTML.M.pcdata "\n"] in
 	let make_class ?(extra_classes = []) names =

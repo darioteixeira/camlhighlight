@@ -7,8 +7,19 @@
 (********************************************************************************)
 
 (********************************************************************************)
+(**	{2 Exceptions}								*)
+(********************************************************************************)
+
+exception Not_initialized
+exception Failed_loading_theme
+exception Failed_loading_language
+exception Failed_loading_language_regex
+
+
+(********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-val from_string: Camlhighlight_core.lang_t option -> string -> Camlhighlight_core.t
+val init: ?basedir:string -> unit -> unit
+val from_string: Camlhighlight_core.lang_t -> string -> Camlhighlight_core.t
 
