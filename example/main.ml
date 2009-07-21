@@ -1,12 +1,13 @@
 (********************************************************************************)
-(*	Test example of Camlhighlight library.
-
-	Copyright (c) 2008 Dario Teixeira (dario.teixeira@yahoo.com)
-
+(*	main.ml
+	Copyright (c) 2009 Dario Teixeira (dario.teixeira@yahoo.com)
 	This software is distributed under the terms of the GNU GPL version 2.
 	See LICENSE file for full license text.
 *)
 (********************************************************************************)
+
+(*	Basic demo of Camlhighlight library.
+*)
 
 open XHTML.M
 
@@ -15,11 +16,17 @@ open XHTML.M
 (* Definition of the Ocsigen service that displays the highlighted source code.	*)
 (********************************************************************************)
 
-let source1 = Std.input_all (open_in "main.ml")
+let source1 =
+	let ch = open_in "main.ml" in
+	let str = Std.input_all ch in
+	close_in ch;
+	str
 
-let hilite1 = Highlight.from_string (Some "ml") source1
+let () = Camlhighlight_parser.init ()
 
-let hilite_xhtml1 = Highlight.to_xhtml ~numbered:true ~zebra:true hilite1
+let hilite1 = Camlhighlight_parser.from_string "ml" source1
+
+let hilite_xhtml1 = Camlhighlight_writer.write ~linenums:true ~zebra:true hilite1
 
 let test_handler sp () () =
 	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
