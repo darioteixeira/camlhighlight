@@ -6,44 +6,40 @@
 *)
 (********************************************************************************)
 
-(*	Basic demo of Camlhighlight library.
+(*	Ocsigen demo of Camlhighlight library.
 *)
 
 open XHTML.M
 
 
-(********************************************************************************)
-(* Definition of the Ocsigen service that displays the highlighted source code.	*)
-(********************************************************************************)
+let test_service =
+	Eliom_services.new_service 
+		~path: [""]
+		~get_params: Eliom_parameters.unit
+		()
 
-let source1 =
-	let ch = open_in "test.ml" in
-	let str = Std.input_all ch in
-	close_in ch;
-	str
-
-let hilite1 = Camlhighlight_parser.from_string "ml" source1
-
-let hilite_xhtml1 = Camlhighlight_write_xhtml.write ~linenums:true ~zebra:true hilite1
 
 let test_handler sp () () =
+	let ch = open_in "test.ml" in
+	let str = Std.input_all ch in
+	let () = close_in ch in
+	let hilite = Camlhighlight_parser.from_string "ml" str in
+	let hilite_xhtml = Camlhighlight_write_xhtml.write ~linenums:true ~zebra:true hilite in
 	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
 	in Lwt.return
 		(html
 			(head (title (pcdata "Test")) [Eliom_predefmod.Xhtml.css_link ~a:[(a_media [`All]); (a_title "Default")] ~uri:css_uri ()])
-			(body	[hilite_xhtml1]))
+			(body [hilite_xhtml]))
 
-let test_service =
-	Eliom_predefmod.Xhtml.register_new_service 
-		~path: [""]
-		~get_params: Eliom_parameters.unit
-		test_handler
+
+let () = Eliom_predefmod.Xhtml.register test_service test_handler
 
 
 (********************************************************************************)
-(* The following code does nothing; it is used to illustrate how the syntax	*)
-(* highlighter colours different categories of syntactical elements.		*)
-(********************************************************************************)
+
+(**	The following code does nothing; it is used to illustrate the syntax
+	highlighting on different language elements.
+*)
 
 let ola1 = 10
 
