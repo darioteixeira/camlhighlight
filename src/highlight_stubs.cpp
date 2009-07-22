@@ -108,6 +108,18 @@ extern "C" CAMLprim void set_fragment_code (value v_custom, value v_fragment)
 	}
 
 
+extern "C" CAMLprim void set_preformatting (value v_custom, value v_wrap_mode, value v_line_length, value v_number_spaces)
+	{
+	CAMLparam4 (v_custom, v_wrap_mode, v_line_length, v_number_spaces);
+	obj_t* obj = (obj_t*) Data_custom_val (v_custom);
+	WrapMode wrap_mode = (WrapMode) Int_val (v_wrap_mode);
+	unsigned int line_length = Int_val (v_line_length);
+	int number_spaces = Int_val (v_number_spaces);
+	obj -> gen -> setPreformatting (wrap_mode, line_length, number_spaces);
+	CAMLreturn0;
+	}
+
+
 extern "C" CAMLprim value get_style_name (value v_custom)
 	{
 	CAMLparam1 (v_custom);

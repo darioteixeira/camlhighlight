@@ -135,7 +135,8 @@ let parse_highlight html_str =
 let gen = Camlhighlight_lowlevel.create ()
 
 let () =
-	Camlhighlight_lowlevel.set_fragment_code gen true
+	Camlhighlight_lowlevel.set_fragment_code gen true;
+	Camlhighlight_lowlevel.set_preformatting gen Wrap_disabled 0 8
 
 
 (********************************************************************************)

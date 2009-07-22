@@ -23,7 +23,7 @@ FOREIGN_LIB=$(HIGHLIGHT_LIB)
 TARGETS_FOREIGN=lib$(FOREIGN_STUBS).a dll$(FOREIGN_STUBS).so
 TARGETS_CAML=$(foreach PART, $(CAMLPARTS), $(PART).cmi $(PART).cmo $(PART).cmx)
 TARGETS_PROJECT=$(foreach EXT, cma cmxa a, $(PROJECT).$(EXT))
-TARGETS=$(TARGETS_FOREIGN) $(TARGETS_CAML) $(TARGETS_PROJECT)
+TARGETS=$(TARGETS_FOREIGN) $(TARGETS_CAML) $(TARGETS_PROJECT) $(PROJECT).cmxs
 
 OBJS_FOREIGN=$(FOREIGN_STUBS).o
 OBJS_CAML=$(foreach PART, $(CAMLPARTS), $(PART).cmo $(PART).cmx)
@@ -49,6 +49,13 @@ reinstall: lib
 
 clean:
 	rm -f *.cm* *.a *.o *.so
+
+#
+# Build plugin.
+#
+
+%.cmxs: %.cmxa
+	ocamlopt -shared -linkall -I $(FOREIGN_LIB) -I `pwd` -o $@ $<
 
 
 #
