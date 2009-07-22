@@ -16,5 +16,5 @@ test.cmx: test.ml
 	ocamlfind ocamlopt -thread -package lwt,ocsigen,camlhighlight -c $<
 
 clean:
-	rm -f *.cm[ioax] *.cmx[sa]
+	rm -f *.cm[ioax] *.cmx[sa] *.[oa]
 
