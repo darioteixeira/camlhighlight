@@ -17,16 +17,14 @@ open XHTML.M
 (********************************************************************************)
 
 let source1 =
-	let ch = open_in "main.ml" in
+	let ch = open_in "test.ml" in
 	let str = Std.input_all ch in
 	close_in ch;
 	str
 
-let () = Camlhighlight_parser.init ()
-
 let hilite1 = Camlhighlight_parser.from_string "ml" source1
 
-let hilite_xhtml1 = Camlhighlight_writer.write ~linenums:true ~zebra:true hilite1
+let hilite_xhtml1 = Camlhighlight_write_xhtml.write ~linenums:true ~zebra:true hilite1
 
 let test_handler sp () () =
 	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
