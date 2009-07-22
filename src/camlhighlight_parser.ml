@@ -166,7 +166,6 @@ let from_string ?(basedir = "/home/dario/.local/share/highlight") lang source =
 		| _			-> () in
 	let html_raw = Camlhighlight_lowlevel.generate_string gen source in
 	let html_proper = "<source>\n" ^ html_raw ^ "\n</source>" in
-	let () = Printf.printf "##%s##\n" html_proper in
 	let doc = parse_highlight html_proper
 	in (lang, convert_document doc#root)
 
