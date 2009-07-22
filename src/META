@@ -39,14 +39,14 @@ package "parser"
 	archive(plugin,native) = "camlhighlight_parser.cmxs"
 	)
 
-package "writer"
+package "write_xhtml"
 	(
-	name = "writer"
+	name = "write_xhtml"
 	version = "0.6"
 	requires = "extlib, ocsigen.xhtml, camlhighlight.core"
-	archive(byte) = "camlhighlight_writer.cmo"
-	archive(native) = "camlhighlight_writer.cmx"
-	archive(plugin,byte) = "camlhighlight_writer.cmo"
-	archive(plugin,native) = "camlhighlight_writer.cmxs"
+	archive(byte) = "camlhighlight_write_xhtml.cmo"
+	archive(native) = "camlhighlight_write_xhtml.cmx"
+	archive(plugin,byte) = "camlhighlight_write_xhtml.cmo"
+	archive(plugin,native) = "camlhighlight_write_xhtml.cmxs"
 	)
 

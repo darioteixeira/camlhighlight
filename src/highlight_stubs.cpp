@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include "codegenerator.h"
 
 
@@ -106,5 +105,16 @@ extern "C" CAMLprim void set_fragment_code (value v_custom, value v_fragment)
 	bool fragment = Bool_val (v_fragment);
 	obj -> gen -> setFragmentCode (fragment);
 	CAMLreturn0;
+	}
+
+
+extern "C" CAMLprim value get_style_name (value v_custom)
+	{
+	CAMLparam1 (v_custom);
+	CAMLlocal1 (v_res);
+	obj_t* obj = (obj_t*) Data_custom_val (v_custom);
+	string res = obj -> gen -> getStyleName ();
+	v_res = caml_copy_string (res.c_str ());
+	CAMLreturn (v_res);
 	}
 

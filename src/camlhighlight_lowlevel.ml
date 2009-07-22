@@ -24,4 +24,5 @@ external load_language: generator_t -> string -> load_result_t = "load_language"
 external generate_string: generator_t -> string -> string = "generate_string"
 external set_encoding: generator_t -> string -> unit = "set_encoding"
 external set_fragment_code: generator_t -> bool -> unit = "set_fragment_code"
+external get_style_name: generator_t -> string = "get_style_name"
 

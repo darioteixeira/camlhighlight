@@ -11,8 +11,9 @@ PROJECT=camlhighlight
 CORE=camlhighlight_core
 LOWLEVEL=camlhighlight_lowlevel
 PARSER=camlhighlight_parser
-WRITER=camlhighlight_writer
-CAMLPARTS=$(CORE) $(LOWLEVEL) $(PARSER) $(WRITER)
+WRITE_XHTML=camlhighlight_write_xhtml
+WRITE_TEX=camlhighlight_write_tex
+CAMLPARTS=$(CORE) $(LOWLEVEL) $(PARSER) $(WRITE_XHTML) $(WRITE_TEX)
 
 FOREIGN=highlight
 FOREIGN_STUBS=highlight_stubs
@@ -85,10 +86,17 @@ $(PARSER).cmo $(PARSER).cmx: $(PARSER).ml $(PARSER).cmi $(CORE).cmi $(LOWLEVEL).
 	ocamlfind ocamlc -package extlib,pxp-engine,pxp-ulex-utf8 -o $@ -c $<
 	ocamlfind ocamlopt -package extlib,pxp-engine,pxp-ulex-utf8 -o $@ -c $<
 
-$(WRITER).cmi: $(WRITER).mli $(CORE).cmi
+$(WRITE_XHTML).cmi: $(WRITE_XHTML).mli $(CORE).cmi
 	ocamlfind ocamlc -package extlib,ocsigen.xhtml -o $@ -c $<
 
-$(WRITER).cmo $(WRITER).cmx: $(WRITER).ml $(WRITER).cmi $(CORE).cmi
+$(WRITE_XHTML).cmo $(WRITE_XHTML).cmx: $(WRITE_XHTML).ml $(WRITE_XHTML).cmi $(CORE).cmi
 	ocamlfind ocamlc -package extlib,ocsigen.xhtml -o $@ -c $<
 	ocamlfind ocamlopt -package extlib,ocsigen.xhtml -o $@ -c $<
+
+$(WRITE_TEX).cmi: $(WRITE_TEX).mli $(CORE).cmi
+	ocamlfind ocamlc -o $@ -c $<
+
+$(WRITE_TEX).cmo $(WRITE_TEX).cmx: $(WRITE_TEX).ml $(WRITE_TEX).cmi $(CORE).cmi
+	ocamlfind ocamlc -o $@ -c $<
+	ocamlfind ocamlopt -o $@ -c $<
 

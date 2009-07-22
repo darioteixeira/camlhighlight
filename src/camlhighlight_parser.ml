@@ -18,8 +18,7 @@ open Camlhighlight_lowlevel
 (**	{2 Exceptions}								*)
 (********************************************************************************)
 
-exception Not_initialized
-exception Failed_loading_theme
+exception Failed_loading_style
 exception Failed_loading_language
 exception Failed_loading_language_regex
 
@@ -133,27 +132,15 @@ let parse_highlight html_str =
 		raise exc
 
 
-let default_basedir = ref "/home/dario/.local/share/highlight"
-
-
 let gen = Camlhighlight_lowlevel.create ()
+
+let () =
+	Camlhighlight_lowlevel.set_fragment_code gen true
 
 
 (********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
-
-(**	Initialises the Camlhighlight parser.  This function must be invoked
-	before the {!from_string} can be used.
-*)
-let init ?basedir () =
-	let () = match basedir with
-		| Some basedir	-> default_basedir := basedir
-		| None		-> () in
-	let theme = !default_basedir ^ "/themes/kwrite.style"
-	in if not (Camlhighlight_lowlevel.init_theme gen theme)
-	then raise Failed_loading_theme
-	else ()
 
 
 (**	An invocation of [from_string lang source] will create a value of type
@@ -164,14 +151,22 @@ let init ?basedir () =
 	that you can specify [txt] as the language if you do not wish for
 	highlighting to be done.
 *)
-let from_string lang source =
-	let lang = !default_basedir ^ "/langDefs/" ^ lang ^ ".lang" in
-	let () = match Camlhighlight_lowlevel.load_language gen lang with
+let from_string ?(basedir = "/home/dario/.local/share/highlight") lang source =
+	let () = match Camlhighlight_lowlevel.get_style_name gen with
+		| "" ->
+			let style = basedir ^ "/themes/kwrite.style"
+			in if not (Camlhighlight_lowlevel.init_theme gen style)
+			then raise Failed_loading_style
+		| _ ->
+			() in
+	let lang_def = basedir ^ "/langDefs/" ^ lang ^ ".lang" in
+	let () = match Camlhighlight_lowlevel.load_language gen lang_def with
 		| Load_failed		-> raise Failed_loading_language
 		| Load_failed_regex	-> raise Failed_loading_language_regex
 		| _			-> () in
 	let html_raw = Camlhighlight_lowlevel.generate_string gen source in
-	let html_proper = "<source>" ^ html_raw ^ "</source>" in
+	let html_proper = "<source>\n" ^ html_raw ^ "\n</source>" in
+	let () = Printf.printf "##%s##\n" html_proper in
 	let doc = parse_highlight html_proper
 	in (lang, convert_document doc#root)
 
