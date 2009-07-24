@@ -1,5 +1,5 @@
 =========================================================================
-| README for Camlhighlight 0.6						|
+| README for Camlhighlight 0.7						|
 |									|
 | Dario Teixeira (dario.teixeira@yahoo.com)				|
 | July 2009								|
@@ -17,11 +17,9 @@ application supporting the most common programming and markup languages.
 2. Dependencies
 ===============
 
-On the Ocaml side, Camlhighlight depends on ExtLib, Ocsigen, and PXP
-[2,3,4].  ExtLib lends a number of utility functions, while PXP is used
-to parse the output of the Highlight library.  The Ocsigen libraries
-are required because Camlhighlight provides functions that output values
-from Ocsigen's XHTML.M module.
+On the Ocaml side, Camlhighlight depends on ExtLib, Ocaml-Pcre, and Ocsigen
+[2,3,4].  The Ocsigen libraries are required because Camlhighlight provides
+functions that output values from Ocsigen's XHTML.M module.
 
 Camlhighlight requires also Highlight.  Use version 2.10 or higher, since
 earlier releases do not make a clean separation between the core library
@@ -32,7 +30,8 @@ and the command line application.
 ==========================
 
 Edit Camlhighlight's top-level Makefile to configure the location of
-Highlight's libhighlight.a and C++ header files.
+Highlight's libhighlight.a, C++ header files, and the style and language
+definition files (*.style and *.lang).
 
 Typing "make" suffices to build the Camlhighlight library.  After
 building, "make install" will perform a findlib installation.  To
@@ -51,6 +50,6 @@ References
 
 [1] http://www.andre-simon.de/doku/highlight/en/highlight.html
 [2] http://code.google.com/p/ocaml-extlib/
-[3] http://www.ocsigen.org/
-[4] http://projects.camlcity.org/projects/pxp.html
+[3] http://www.ocaml.info/home/ocaml_sources.html
+[4] http://www.ocsigen.org/
 
