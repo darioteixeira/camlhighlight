@@ -71,9 +71,9 @@ let translate_html =
 
 let gen =
 	let gen = Camlhighlight_lowlevel.create (Html) in
-	let () = Camlhighlight_lowlevel.set_fragment_code gen true in
-	let () = Camlhighlight_lowlevel.set_preformatting gen Wrap_disabled 0 8
-	in gen
+	Camlhighlight_lowlevel.set_fragment_code gen true;
+	Camlhighlight_lowlevel.set_preformatting gen Wrap_disabled 0 8;
+	gen
 
 
 (********************************************************************************)
@@ -89,7 +89,7 @@ let gen =
 	that you can specify [txt] as the language if you do not wish for
 	highlighting to be done.
 *)
-let from_string ?(basedir = "/home/dario/.local/share/highlight") lang source =
+let from_string ?(basedir = "__CONFIG_BASEDIR__") lang source =
 	let () = match Camlhighlight_lowlevel.get_style_name gen with
 		| "" ->
 			let style = basedir ^ "/themes/kwrite.style"
