@@ -8,8 +8,6 @@
 
 open ExtList
 open ExtString
-open Pxp_types
-open Pxp_document
 open Camlhighlight_core
 open Camlhighlight_lowlevel
 
@@ -24,119 +22,58 @@ exception Failed_loading_language_regex
 
 
 (********************************************************************************)
-(**	{2 Aggregator submodule}						*)
-(********************************************************************************)
-
-(**	This module provides a set of utility functions that allow us to transform
-	a stream of tokens from the PXP parser into a {!Highlight.t} value.
-*)
-module Aggregator:
-sig
-	type 'a t
-
-	val create : unit -> 'a t
-	val add : 'a t -> 'a -> unit
-	val newline : 'a t -> unit
-	val to_list_list : 'a t -> 'a list list
-end =
-struct
-	type 'a t =
-		{
-		history: 'a DynArray.t DynArray.t;
-		accum: 'a DynArray.t;
-		}
-
-	let create () =
-		let history = DynArray.create ()
-		and accum = DynArray.create ()
-		in {history = history; accum = accum}
-
-	let add agg el =
-		DynArray.add agg.accum el
-
-	let newline agg =
-		DynArray.add agg.history (DynArray.copy agg.accum);
-		DynArray.clear agg.accum
-
-	let trim arr =
-		try
-			while (DynArray.empty (DynArray.get arr 0)) do DynArray.delete arr 0 done;
-			while (DynArray.empty (DynArray.last arr)) do DynArray.delete_last arr done
-		with
-			DynArray.Invalid_arg _ -> ()
-
-	let to_list_list agg =
-	let clone = DynArray.copy agg.history
-	in	DynArray.add clone agg.accum;
-		trim clone;
-		DynArray.to_list (DynArray.map DynArray.to_list clone)
-end
-
-
-(********************************************************************************)
 (**	{2 Private values and functions}					*)
 (********************************************************************************)
 
-let special_of_string = function
-	| "hl num"	-> Num
-	| "hl esc"	-> Esc
-	| "hl str"	-> Str
-	| "hl dstr"	-> Dstr
-	| "hl slc"	-> Slc
-	| "hl com"	-> Com
-	| "hl dir"	-> Dir
-	| "hl sym"	-> Sym
-	| "hl kwa"	-> Kwa
-	| "hl kwb"	-> Kwb
-	| "hl kwc"	-> Kwc
-	| "hl kwd"	-> Kwd
-	| _		-> assert false
+let regexp alpha = ['a' - 'z']
+let regexp begin_special = "<span class=\"hl " alpha+ "\">"
+let regexp end_special = "</span>"
+let regexp regular = [^ '<' ]+
 
 
-let convert_node agg node = match node#node_type with
-	| T_element _ ->
-		Aggregator.add agg (Special (special_of_string (node#required_string_attribute "class"), node#data))
-	| T_data ->
-		let lines = String.nsplit node#data "\n" in
-		let adder = function
-			| ""	-> ()
-			| x	-> Aggregator.add agg (Default x)
-		in (match lines with
-			| hd :: tl      -> adder hd; List.iter (fun el -> Aggregator.newline agg; adder el) tl
-			| []            -> ())
-	| _ ->
-		assert false
+let rec translator accum context = lexer
+	| begin_special ->
+		let last = (Ulexing.lexeme_length lexbuf) - 18 in
+		let spec = Ulexing.utf8_sub_lexeme lexbuf 16 last
+		in translator accum (`Special_context spec) lexbuf
+	| end_special ->
+		translator accum `Top_context lexbuf
+	| regular ->
+		let lexeme = Ulexing.utf8_lexeme lexbuf in
+		let addition = match context with
+			| `Top_context		-> Default (lexeme)
+			| `Special_context s	-> Special (s, lexeme)
+		in translator (addition::accum) context lexbuf
+	| eof ->
+		accum
 
 
-let convert_document root = match root#node_type with
-	| T_element _ ->
-		let nodes = root#sub_nodes in
-		let agg = Aggregator.create () 
-		in	List.iter (convert_node agg) nodes;
-			Aggregator.to_list_list agg
-	| _ ->
-		assert false
+let translate_html =
+	let rex = Pcre.regexp "&(\\w+|(#\\d+));" in
+	fun str ->
+		let subst = function
+			| "&lt;"	-> "<"
+			| "&gt;"	-> ">"
+			| "&amp;"	-> "&"
+			| "&quot;"	-> "\""
+			| "&#64;"	-> "@"
+			| x		-> x in
+		let convert_entities = function
+			| Default x	 -> Default (Pcre.substitute ~rex ~subst x)
+			| Special (s, x) -> Special (s, Pcre.substitute ~rex ~subst x) in
+		let translate_line line =
+			let lexbuf = Ulexing.from_utf8_string line in
+			let rev_trans = translator [] `Top_context lexbuf
+			in List.rev_map convert_entities rev_trans in
+		let lines = String.nsplit str "\n"
+		in List.map translate_line lines
 
 
-let parse_highlight html_str =
-	let config =
-		{
-		default_config with
-		encoding = `Enc_utf8;
-		drop_ignorable_whitespace = false;
-		}
-	in try
-		Pxp_tree_parser.parse_wfdocument_entity config (Pxp_types.from_string html_str) Pxp_tree_parser.default_spec
-	with
-		exc -> print_endline (Pxp_types.string_of_exn exc);
-		raise exc
-
-
-let gen = Camlhighlight_lowlevel.create ()
-
-let () =
-	Camlhighlight_lowlevel.set_fragment_code gen true;
-	Camlhighlight_lowlevel.set_preformatting gen Wrap_disabled 0 8
+let gen =
+	let gen = Camlhighlight_lowlevel.create (Html) in
+	let () = Camlhighlight_lowlevel.set_fragment_code gen true in
+	let () = Camlhighlight_lowlevel.set_preformatting gen Wrap_disabled 0 8
+	in gen
 
 
 (********************************************************************************)
@@ -165,8 +102,6 @@ let from_string ?(basedir = "/home/dario/.local/share/highlight") lang source =
 		| Load_failed		-> raise Failed_loading_language
 		| Load_failed_regex	-> raise Failed_loading_language_regex
 		| _			-> () in
-	let html_raw = Camlhighlight_lowlevel.generate_string gen source in
-	let html_proper = "<source>\n" ^ html_raw ^ "\n</source>" in
-	let doc = parse_highlight html_proper
-	in (lang, convert_document doc#root)
+	let html = Camlhighlight_lowlevel.generate_string gen source
+	in (lang, translate_html html)
 

@@ -40,12 +40,13 @@ static struct custom_operations custom_ops =
 	};
 
 
-extern "C" CAMLprim value create (void)
+extern "C" CAMLprim value create (value v_markup)
 	{
-	CAMLparam0 ();
+	CAMLparam1 (v_markup);
 	CAMLlocal1 (v_custom);
+	OutputType markup = (OutputType) Int_val (v_markup);
 	obj_t obj;
-	obj.gen = CodeGenerator::getInstance (highlight::HTML);
+	obj.gen = CodeGenerator::getInstance (markup);
 	v_custom = caml_alloc_custom (&custom_ops, sizeof (obj_t), 0, 1);
 	memcpy (Data_custom_val (v_custom), &obj, sizeof (obj_t));
 	CAMLreturn (v_custom);

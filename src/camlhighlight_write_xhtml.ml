@@ -12,25 +12,6 @@ open Camlhighlight_core
 
 
 (********************************************************************************)
-(**	{2 Private functions}							*)
-(********************************************************************************)
-
-let string_of_special = function
-	| Num		-> "num"
-	| Esc		-> "esc"
-	| Str		-> "str"
-	| Dstr		-> "dstr"
-	| Slc		-> "slc"
-	| Com		-> "com"
-	| Dir		-> "dir"
-	| Sym		-> "sym"
-	| Kwa		-> "kwa"
-	| Kwb		-> "kwb"
-	| Kwc		-> "kwc"
-	| Kwd		-> "kwd"
-
-
-(********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
@@ -51,7 +32,7 @@ let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(
 		a_class (extra_classes @ (List.map (fun x -> class_prefix ^ x) names)) in
 	let elem_to_xhtml = function
 		| Default s		-> XHTML.M.pcdata s
-		| Special (special, s)	-> XHTML.M.span ~a:[make_class [string_of_special special]] [XHTML.M.pcdata s] in
+		| Special (special, s)	-> XHTML.M.span ~a:[make_class [special]] [XHTML.M.pcdata s] in
 	let line_class where =
 		let (dumbness, num) = match where with
 			| `Before	-> (["dummy"], 0)

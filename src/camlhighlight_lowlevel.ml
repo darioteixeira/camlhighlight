@@ -12,6 +12,18 @@
 
 type generator_t
 
+type output_type_t =
+	| Html
+	| Xhtml
+	| Tex
+	| Latex
+	| Rtf
+	| Xml
+	| Ansi
+	| Xterm256
+	| Html32
+	| Svg
+
 type wrap_mode_t =
 	| Wrap_disabled
 	| Wrap_simple
@@ -23,7 +35,7 @@ type load_result_t =
 	| Load_new
 	| Load_none
 
-external create: unit -> generator_t = "create"
+external create: output_type_t -> generator_t = "create"
 external init_theme: generator_t -> string -> bool = "init_theme"
 external load_language: generator_t -> string -> load_result_t = "load_language"
 external generate_string: generator_t -> string -> string = "generate_string"

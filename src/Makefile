@@ -83,8 +83,8 @@ $(PARSER).cmi: $(PARSER).mli $(CORE).cmi
 	ocamlfind ocamlc -o $@ -c $<
 
 $(PARSER).cmo $(PARSER).cmx: $(PARSER).ml $(PARSER).cmi $(CORE).cmi $(LOWLEVEL).cmi
-	ocamlfind ocamlc -package extlib,pxp-engine,pxp-ulex-utf8 -o $@ -c $<
-	ocamlfind ocamlopt -package extlib,pxp-engine,pxp-ulex-utf8 -o $@ -c $<
+	ocamlfind ocamlc -package extlib,pcre,ulex -syntax camlp4o -o $@ -c $<
+	ocamlfind ocamlopt -package extlib,pcre,ulex -syntax camlp4o -o $@ -c $<
 
 $(WRITE_XHTML).cmi: $(WRITE_XHTML).mli $(CORE).cmi
 	ocamlfind ocamlc -package extlib,ocsigen.xhtml -o $@ -c $<

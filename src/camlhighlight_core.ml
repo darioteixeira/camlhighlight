@@ -18,32 +18,13 @@ TYPE_CONV_PATH "Camlhighlight_core"
 type lang_t = string with sexp, bin_io
 
 
-(**	The various kinds of syntactically meaningful tokens recognised
-	by the highlighter.
-*)
-type special_t =
-	| Num		(** Number *)
-	| Esc		(** Escaped character *)
-	| Str		(** String *)
-	| Dstr		(** String directive *)
-	| Slc		(** Single line comment *)
-	| Com		(** Regular comment *)
-	| Dir		(** Compiler directive *)
-	| Sym		(** Symbol *)
-	| Kwa		(** Keyword class A *)
-	| Kwb		(** Keyword class B *)
-	| Kwc		(** Keyword class C *)
-	| Kwd		(** Keyword class D *)
-	with sexp, bin_io
-
-
 (**	Any individual element in the source code is either a "boring" value
 	using the [Default] colour, or it's a [Special] value that should be
 	highlight in a different colour.
 *)
 type elem_t =
 	| Default of string
-	| Special of special_t * string
+	| Special of string * string	(* (class, value) *)
 	with sexp, bin_io
 
 
