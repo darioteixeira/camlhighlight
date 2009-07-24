@@ -14,6 +14,7 @@ PARSER=camlhighlight_parser
 WRITE_XHTML=camlhighlight_write_xhtml
 WRITE_TEX=camlhighlight_write_tex
 CAMLPARTS=$(CORE) $(LOWLEVEL) $(PARSER) $(WRITE_XHTML) $(WRITE_TEX)
+CAMLSRCS=$(CORE).ml $(LOWLEVEL).ml $(PARSER).mli $(PARSER).ml $(WRITE_XHTML).mli $(WRITE_XHTML).ml
 
 FOREIGN=highlight
 FOREIGN_STUBS=highlight_stubs
@@ -37,6 +38,9 @@ OBJS_CAML=$(foreach PART, $(CAMLPARTS), $(PART).cmo $(PART).cmx)
 all: lib
 
 lib: $(TARGETS)
+
+apidoc: lib $(CAMLSRCS)
+	ocamlfind ocamldoc -package extlib,pcre,ocsigen.xhtml,ulex,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
 
 install: lib
 	ocamlfind install $(PROJECT) META $(TARGETS)
@@ -73,8 +77,8 @@ $(FOREIGN_STUBS).o: $(FOREIGN_STUBS).cpp
 #
 
 $(CORE).cmi $(CORE).cmo $(CORE).cmx: $(CORE).ml
-	ocamlfind ocamlc -package sexplib.syntax,bin_prot.syntax -syntax camlp4o -o $@ -c $<
-	ocamlfind ocamlopt -package sexplib.syntax,bin_prot.syntax -syntax camlp4o -o $@ -c $<
+	ocamlfind ocamlc -package sexplib.syntax -syntax camlp4o -o $@ -c $<
+	ocamlfind ocamlopt -package sexplib.syntax -syntax camlp4o -o $@ -c $<
 
 $(LOWLEVEL).cmi $(LOWLEVEL).cmo $(LOWLEVEL).cmx: $(LOWLEVEL).ml
 	ocamlfind ocamlc -o $@ -c $<

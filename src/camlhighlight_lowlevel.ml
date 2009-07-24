@@ -7,7 +7,8 @@
 (********************************************************************************)
 
 (**	This module provides a low-level interface to the C++ Highlight library.
-	Normally, it should not be necessary to use it directly.
+	Normally, it should not be necessary to use it directly.  Please see
+	Highlight's documentation for information about these types and functions.
 *)
 
 type generator_t

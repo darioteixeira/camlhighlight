@@ -6,6 +6,9 @@
 *)
 (********************************************************************************)
 
+(**	Definition of the basic [Camlhighlight] types.
+*)
+
 TYPE_CONV_PATH "Camlhighlight_core"
 
 
@@ -15,7 +18,7 @@ TYPE_CONV_PATH "Camlhighlight_core"
 
 (**	The highlighted language.
 *)
-type lang_t = string with sexp, bin_io
+type lang_t = string with sexp
 
 
 (**	Any individual element in the source code is either a "boring" value
@@ -25,17 +28,17 @@ type lang_t = string with sexp, bin_io
 type elem_t =
 	| Default of string
 	| Special of string * string	(* (class, value) *)
-	with sexp, bin_io
+	with sexp
 
 
 (**	A line is composed of a list of {!elem_t}.
 *)
-type line_t = elem_t list with sexp, bin_io
+type line_t = elem_t list with sexp
 
 
 (**	The value of highlighted source-code samples.  It's a tuple consisting
 	of the sample's language represented as [lang_t option], and a list of
 	the sample's lines.
 *)
-type t = lang_t * line_t list with sexp, bin_io
+type t = lang_t * line_t list with sexp
 

@@ -17,13 +17,15 @@ application supporting the most common programming and markup languages.
 2. Dependencies
 ===============
 
-On the Ocaml side, Camlhighlight depends on ExtLib, Ocaml-Pcre, and Ocsigen
-[2,3,4].  The Ocsigen libraries are required because Camlhighlight provides
-functions that output values from Ocsigen's XHTML.M module.
+On the Ocaml side, Camlhighlight depends on ExtLib, Sexplib, Ulex, Ocsigen,
+and Ocaml-Pcre [2,3,4,5,6].  The Ocsigen libraries are required because
+Camlhighlight provides functions that output values from Ocsigen's XHTML.M
+module.  Sexplib is used to provide serialisation facilities, and Ulex
+is the lexer generator used.
 
-Camlhighlight requires also Highlight.  Use version 2.10 or higher, since
-earlier releases do not make a clean separation between the core library
-and the command line application.
+Camlhighlight requires also Highlight, of course.  Use version 2.10 or
+higher, since earlier releases do not make a clean separation between
+the core library and the command line application.
 
 
 3. Building and installing
@@ -51,5 +53,7 @@ References
 [1] http://www.andre-simon.de/doku/highlight/en/highlight.html
 [2] http://code.google.com/p/ocaml-extlib/
 [3] http://www.ocaml.info/home/ocaml_sources.html
-[4] http://www.ocsigen.org/
+[4] http://www.cduce.org/download.html
+[5] http://www.ocsigen.org/
+[6] http://www.ocaml.info/home/ocaml_sources.html
 

@@ -82,12 +82,12 @@ let gen =
 
 
 (**	An invocation of [from_string lang source] will create a value of type
-	{!Camlhighlight.t} containing the syntax-highlighted version of the
-	source-code in [string] format passed in the [source] parameter.  The
-	[lang] parameter tells the highlighter which conventions are used for
-	highlighting;  it is a value of type {!Camlhighlight.lang_t}.  Note
-	that you can specify [txt] as the language if you do not wish for
-	highlighting to be done.
+	{!Camlhighlight_core.t} containing the syntax-highlighted version of
+	the source-code in [string] format passed in the [source] parameter.
+	The [lang] parameter tells the highlighter which conventions are used
+	for highlighting;  it is a value of type {!Camlhighlight_core.lang_t}.
+	Note that you can specify [txt] as the language if you do not wish
+	for highlighting to be done.
 *)
 let from_string ?(basedir = "__CONFIG_BASEDIR__") lang source =
 	let () = match Camlhighlight_lowlevel.get_style_name gen with
