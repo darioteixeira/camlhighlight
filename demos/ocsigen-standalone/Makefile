@@ -1,19 +1,21 @@
+NAME=test
+PKGS=extlib,lwt,ocsigen,camlhighlight
 STATIC_PKGS=ocsigen.parsecommandline,ocsigen.server,ocsigen.ext.ocsipersist-sqlite,ocsigen.ext.eliom,ocsigen.ext.staticmod,extlib,camlhighlight
 
-all: myserver myserver.opt
+all: $(NAME) $(NAME).opt
 
-myserver: test.cmo
+$(NAME): $(NAME).cmo
 	ocamlfind ocamlc -package $(STATIC_PKGS) $+ -o $@ -linkpkg -thread
 
-myserver.opt: test.cmx
+$(NAME).opt: $(NAME).cmx
 	ocamlfind ocamlopt -package $(STATIC_PKGS) $+ -o $@ -linkpkg -thread
 
 %.cmo: %.ml
-	ocamlfind ocamlc -thread -package extlib,lwt,ocsigen,camlhighlight -c $<
+	ocamlfind ocamlc -thread -package $(PKGS) -c $<
 
 %.cmx: %.ml
-	ocamlfind ocamlopt -thread -package extlib,lwt,ocsigen,camlhighlight -c $<
+	ocamlfind ocamlopt -thread -package $(PKGS) -c $<
 
 clean:
-	rm -f *.cm[ioax] *.cmx[as] *.[oa] myserver myserver.opt
+	rm -f $(NAME).cm[ioax] $(NAME).cmx[as] $(NAME).[oa] $(NAME) $(NAME).opt
 

@@ -1,20 +1,23 @@
-all: test.cma test.cmxs
+NAME=test
+PKGS=lwt,ocsigen,camlhighlight
 
-test.cma: test.cmo
+all: $(NAME).cma $(NAME).cmxs
+
+$(NAME).cma: $(NAME).cmo
 	ocamlc -a -o $@ $+
 
-test.cmxs: test.cmxa
+$(NAME).cmxs: $(NAME).cmxa
 	ocamlopt -shared -linkall -I `pwd` -o $@ $<
 
-test.cmxa: test.cmx
+$(NAME).cmxa: $(NAME).cmx
 	ocamlopt -a -o $@ $+
 
-test.cmo: test.ml
-	ocamlfind ocamlc -thread -package lwt,ocsigen,camlhighlight -c $<
+$(NAME).cmo: $(NAME).ml
+	ocamlfind ocamlc -thread -package $(PKGS) -c $<
 
-test.cmx: test.ml
-	ocamlfind ocamlopt -thread -package lwt,ocsigen,camlhighlight -c $<
+$(NAME).cmx: $(NAME).ml
+	ocamlfind ocamlopt -thread -package $(PKGS) -c $<
 
 clean:
-	rm -f *.cm[ioax] *.cmx[sa] *.[oa]
+	rm -f $(NAME).cm[ioax] $(NAME).cmx[sa] $(NAME).[oa]
 

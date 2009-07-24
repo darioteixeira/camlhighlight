@@ -6,7 +6,7 @@
 *)
 (********************************************************************************)
 
-(*	Basic demo of Camlhighlight library.
+(*	Test of the lowlevel facilities of the Camlhighlight library.
 *)
 
 open Camlhighlight_lowlevel
@@ -19,7 +19,7 @@ let () =
 	let basedir = "/home/dario/.local/share/highlight" in
 	let style = basedir ^ "/themes/kwrite.style" in
 	let lang = basedir ^ "/langDefs/ml.lang" in
-	let gen = Camlhighlight_lowlevel.create () in
+	let gen = Camlhighlight_lowlevel.create (Html) in
 	let _ = Camlhighlight_lowlevel.init_theme gen style in
 	let _ = Camlhighlight_lowlevel.load_language gen lang in
 	let () = Camlhighlight_lowlevel.set_fragment_code gen true in

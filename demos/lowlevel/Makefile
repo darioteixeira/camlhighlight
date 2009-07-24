@@ -1,17 +1,20 @@
-all: test.byte test.native
+NAME=test
+PKGS=extlib,camlhighlight
 
-test.byte: test.cmo
-	ocamlfind ocamlc -package extlib,camlhighlight -linkpkg -o $@ $<
+all: $(NAME).byte $(NAME).native
 
-test.native: test.cmx
-	ocamlfind ocamlopt -package extlib,camlhighlight -linkpkg -o $@ $<
+$(NAME).byte: $(NAME).cmo
+	ocamlfind ocamlc -package $(PKGS) -linkpkg -o $@ $<
 
-test.cmo: test.ml
-	ocamlfind ocamlc -package extlib,camlhighlight -c $<
+$(NAME).native: $(NAME).cmx
+	ocamlfind ocamlopt -package $(PKGS) -linkpkg -o $@ $<
 
-test.cmx: test.ml
-	ocamlfind ocamlopt -package extlib,camlhighlight -c $<
+$(NAME).cmo: $(NAME).ml
+	ocamlfind ocamlc -package $(PKGS) -c $<
+
+$(NAME).cmx: $(NAME).ml
+	ocamlfind ocamlopt -package $(PKGS) -c $<
 
 clean:
-	rm -f *.cm[iox] *.o *.byte *.native
+	rm -f $(NAME).cm[iox] $(NAME).o $(NAME).byte $(NAME).native
 
