@@ -18,7 +18,7 @@ TYPE_CONV_PATH "Camlhighlight_core"
 
 (**	How the source language is specified.
 *)
-type lang_t = string
+type lang_t = string with sexp
 
 (**	Any individual element in the source code is either a "boring" value
 	using the [Default] colour, or it's a [Special] value that should be
