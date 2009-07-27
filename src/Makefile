@@ -14,7 +14,7 @@ PARSER=camlhighlight_parser
 WRITE_XHTML=camlhighlight_write_xhtml
 WRITE_TEX=camlhighlight_write_tex
 CAMLPARTS=$(CORE) $(LOWLEVEL) $(PARSER) $(WRITE_XHTML) $(WRITE_TEX)
-CAMLSRCS=$(CORE).ml $(LOWLEVEL).ml $(PARSER).mli $(PARSER).ml $(WRITE_XHTML).mli $(WRITE_XHTML).ml
+CAMLSRCS=$(CORE).mli $(CORE).ml $(LOWLEVEL).ml $(PARSER).mli $(PARSER).ml $(WRITE_XHTML).mli $(WRITE_XHTML).ml
 
 FOREIGN=highlight
 FOREIGN_STUBS=highlight_stubs
@@ -76,7 +76,10 @@ $(FOREIGN_STUBS).o: $(FOREIGN_STUBS).cpp
 # Rules for the Ocaml modules.
 #
 
-$(CORE).cmi $(CORE).cmo $(CORE).cmx: $(CORE).ml
+$(CORE).cmi: $(CORE).mli
+	ocamlfind ocamlc -package sexplib.syntax -syntax camlp4o -o $@ -c $<
+
+$(CORE).cmo $(CORE).cmx: $(CORE).ml $(CORE).cmi
 	ocamlfind ocamlc -package sexplib.syntax -syntax camlp4o -o $@ -c $<
 	ocamlfind ocamlopt -package sexplib.syntax -syntax camlp4o -o $@ -c $<
 

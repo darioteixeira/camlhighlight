@@ -6,7 +6,6 @@
 *)
 (********************************************************************************)
 
-open ExtList
 open ExtString
 open Camlhighlight_core
 open Camlhighlight_lowlevel
@@ -16,9 +15,9 @@ open Camlhighlight_lowlevel
 (**	{2 Exceptions}								*)
 (********************************************************************************)
 
-exception Failed_loading_style
-exception Failed_loading_language
-exception Failed_loading_language_regex
+exception Failed_loading_style of string
+exception Failed_loading_language of string
+exception Failed_loading_language_regex of string
 
 
 (********************************************************************************)
@@ -76,10 +75,29 @@ let gen =
 	gen
 
 
+let basedir = "__CONFIG_BASEDIR__"
+
+
+let load_style () = match Camlhighlight_lowlevel.get_style_name gen with
+	| "" ->
+		let style = basedir ^ "/themes/kwrite.style"
+		in if not (Camlhighlight_lowlevel.init_theme gen style)
+		then raise (Failed_loading_style style)
+	| _ ->
+		()
+
+
+let load_language lang =
+	let lang_def = basedir ^ "/langDefs/" ^ lang ^ ".lang"
+	in match Camlhighlight_lowlevel.load_language gen lang_def with
+		| Load_failed		-> raise (Failed_loading_language lang_def)
+		| Load_failed_regex	-> raise (Failed_loading_language_regex lang_def)
+		| _			-> ()
+
+
 (********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
-
 
 (**	An invocation of [from_string lang source] will create a value of type
 	{!Camlhighlight_core.t} containing the syntax-highlighted version of the
@@ -88,20 +106,10 @@ let gen =
 	it is a value of type {!Camlhighlight_core.lang_t option}.  If [None], no
 	highlighting will be done (equivalent to specifying ["txt"] as the language.
 *)
-let from_string ?(basedir = "__CONFIG_BASEDIR__") maybe_lang source =
-	let () = match Camlhighlight_lowlevel.get_style_name gen with
-		| "" ->
-			let style = basedir ^ "/themes/kwrite.style"
-			in if not (Camlhighlight_lowlevel.init_theme gen style)
-			then raise Failed_loading_style
-		| _ ->
-			() in
-	let lang = match maybe_lang with Some l -> l | None -> "txt" in
-	let lang_def = basedir ^ "/langDefs/" ^ lang ^ ".lang" in
-	let () = match Camlhighlight_lowlevel.load_language gen lang_def with
-		| Load_failed		-> raise Failed_loading_language
-		| Load_failed_regex	-> raise Failed_loading_language_regex
-		| _			-> () in
+let from_string maybe_lang source =
+	let () = load_style () in
+	let lang = match maybe_lang with Some l -> (string_of_lang l) | None -> "txt" in
+	let () = load_language lang in
 	let html = Camlhighlight_lowlevel.generate_string gen source
 	in translate_html html
 

@@ -13,14 +13,14 @@
 (**	{2 Exceptions}								*)
 (********************************************************************************)
 
-exception Failed_loading_style
-exception Failed_loading_language
-exception Failed_loading_language_regex
+exception Failed_loading_style of string
+exception Failed_loading_language of string
+exception Failed_loading_language_regex of string
 
 
 (********************************************************************************)
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-val from_string: ?basedir: string -> Camlhighlight_core.lang_t option -> string -> Camlhighlight_core.t
+val from_string: Camlhighlight_core.lang_t option -> string -> Camlhighlight_core.t
 
