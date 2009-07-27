@@ -82,14 +82,13 @@ let gen =
 
 
 (**	An invocation of [from_string lang source] will create a value of type
-	{!Camlhighlight_core.t} containing the syntax-highlighted version of
-	the source-code in [string] format passed in the [source] parameter.
-	The [lang] parameter tells the highlighter which conventions are used
-	for highlighting;  it is a value of type {!Camlhighlight_core.lang_t}.
-	Note that you can specify [txt] as the language if you do not wish
-	for highlighting to be done.
+	{!Camlhighlight_core.t} containing the syntax-highlighted version of the
+	source-code in [string] format passed in the [source] parameter.  The [lang]
+	parameter tells the highlighter which conventions are used for highlighting;
+	it is a value of type {!Camlhighlight_core.lang_t option}.  If [None], no
+	highlighting will be done (equivalent to specifying ["txt"] as the language.
 *)
-let from_string ?(basedir = "__CONFIG_BASEDIR__") lang source =
+let from_string ?(basedir = "__CONFIG_BASEDIR__") maybe_lang source =
 	let () = match Camlhighlight_lowlevel.get_style_name gen with
 		| "" ->
 			let style = basedir ^ "/themes/kwrite.style"
@@ -97,11 +96,12 @@ let from_string ?(basedir = "__CONFIG_BASEDIR__") lang source =
 			then raise Failed_loading_style
 		| _ ->
 			() in
+	let lang = match maybe_lang with Some l -> l | None -> "txt" in
 	let lang_def = basedir ^ "/langDefs/" ^ lang ^ ".lang" in
 	let () = match Camlhighlight_lowlevel.load_language gen lang_def with
 		| Load_failed		-> raise Failed_loading_language
 		| Load_failed_regex	-> raise Failed_loading_language_regex
 		| _			-> () in
 	let html = Camlhighlight_lowlevel.generate_string gen source
-	in (lang, translate_html html)
+	in translate_html html
 

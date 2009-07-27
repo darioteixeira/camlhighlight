@@ -16,10 +16,9 @@ TYPE_CONV_PATH "Camlhighlight_core"
 (**	{2 Public types}							*)
 (********************************************************************************)
 
-(**	The highlighted language.
+(**	How the source language is specified.
 *)
-type lang_t = string with sexp
-
+type lang_t = string
 
 (**	Any individual element in the source code is either a "boring" value
 	using the [Default] colour, or it's a [Special] value that should be
@@ -36,9 +35,7 @@ type elem_t =
 type line_t = elem_t list with sexp
 
 
-(**	The value of highlighted source-code samples.  It's a tuple consisting
-	of the sample's language represented as [lang_t option], and a list of
-	the sample's lines.
+(**	The value of highlighted source-code samples.  It's just a list of lines.
 *)
-type t = lang_t * line_t list with sexp
+type t = line_t list with sexp
 

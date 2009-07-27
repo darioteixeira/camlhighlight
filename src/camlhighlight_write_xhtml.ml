@@ -25,7 +25,7 @@ open Camlhighlight_core
 	beginning and end, line numbers for the code, and use fancy zebra stripes
 	to distinguish each line, respectively.
 *)
-let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(linenums = false) ?(zebra = false) (_, code) =
+let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(linenums = false) ?(zebra = false) code =
 	let code_len = lazy (List.length code) in
 	let suffix = [XHTML.M.space (); XHTML.M.pcdata "\n"] in
 	let make_class ?(extra_classes = []) names =
