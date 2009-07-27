@@ -13,7 +13,8 @@ let () =
 	let ch = open_in "test.ml" in
 	let src = Std.input_all ch in
 	let () = close_in ch in
-	let hilite = Camlhighlight_parser.from_string "ml" src in
+	let lang = Some (Camlhighlight_core.lang_of_string "ml") in
+	let hilite = Camlhighlight_parser.from_string lang src in
 	let str = Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_t hilite)
 	in print_endline str
 
