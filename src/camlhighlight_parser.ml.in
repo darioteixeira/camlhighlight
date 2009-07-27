@@ -64,7 +64,7 @@ let translate_html =
 			let lexbuf = Ulexing.from_utf8_string line in
 			let rev_trans = translator [] `Top_context lexbuf
 			in List.rev_map convert_entities rev_trans in
-		let lines = String.nsplit str "\n"
+		let lines = String.nsplit (String.strip str) "\n"
 		in List.map translate_line lines
 
 
