@@ -40,6 +40,7 @@ all: lib
 lib: $(TARGETS)
 
 apidoc: lib $(CAMLSRCS)
+	mkdir -p ../doc/apidoc
 	ocamlfind ocamldoc -package extlib,pcre,ocsigen.xhtml,ulex,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
 
 install: lib
