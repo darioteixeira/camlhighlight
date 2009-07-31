@@ -103,7 +103,7 @@ let load_language lang =
 	{!Camlhighlight_core.t} containing the syntax-highlighted version of the
 	source-code in [string] format passed in the [source] parameter.  The [lang]
 	parameter tells the highlighter which conventions are used for highlighting;
-	it is a value of type {!Camlhighlight_core.lang_t option}.  If [None], no
+	it is an optional value of type {!Camlhighlight_core.lang_t}.  If [None], no
 	highlighting will be done (equivalent to specifying ["txt"] as the language.
 *)
 let from_string maybe_lang source =
