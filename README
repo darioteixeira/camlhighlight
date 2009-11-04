@@ -1,8 +1,8 @@
 =========================================================================
-| README for Camlhighlight 0.8						|
+| README for Camlhighlight 0.9						|
 |									|
 | Dario Teixeira (dario.teixeira@yahoo.com)				|
-| July 2009								|
+| November 2009								|
 =========================================================================
 
 1. Overview
@@ -31,13 +31,13 @@ the core library and the command line application.
 3. Building and installing
 ==========================
 
-Edit Camlhighlight's top-level Makefile to configure the location of
-Highlight's libhighlight.a, C++ header files, and the style and language
-definition files (*.style and *.lang).
+Change into the 'src' directory and edit the Makefile to configure the
+location of Highlight's libhighlight.a, C++ header files, and the style
+and language definition files (*.style and *.lang).
 
-Typing "make" suffices to build the Camlhighlight library.  After
-building, "make install" will perform a findlib installation.  To
-generate the ocamldoc API documentation, use "make apidoc".
+Typing 'make' suffices to build the Camlhighlight library.  After
+building, 'make install' will perform a findlib installation.  To
+generate the ocamldoc API documentation, use 'make apidoc'.
 
 
 4. License
