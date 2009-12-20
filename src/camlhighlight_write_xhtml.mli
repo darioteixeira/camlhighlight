@@ -20,7 +20,6 @@ val write:
 	?extra_classes:XHTML.M.nmtoken list ->
 	?dummy_lines:bool ->
 	?linenums:bool ->
-	?zebra:bool ->
 	Camlhighlight_core.t ->
 	[> `Div ] XHTML.M.elt
 
