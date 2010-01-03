@@ -1,10 +1,9 @@
 .hl_main
 	{
-	font-size: 10pt;
 	font-family: monospace;
 	border: 1px dashed #666;
-	color: #000000;
-	background: #f9f9f9;
+	background: #f3f6f9;
+	color #000;
 	}
 
 .hl_nums
@@ -13,26 +12,32 @@
 	margin: 0 1em 0 0;
 	border-right: 1px solid #999;
 	font-weight: bold;
-	color: #000;
+	white-space: normal;
 	}
 
 .hl_code
 	{
 	margin: 0;
 	padding: 0;
+	white-space: normal;
 	}
 
-.hl_line,
-.hl_even,
-.hl_odd
+.hl_line
 	{
 	display: block;
-	padding: 0.1em 1em;
+	white-space: pre;
+	padding: 0.2em 1em;
 	}
 
-.hl_even	{background: #f9f9f9;}
-.hl_odd		{background: #f3f6fc;}
-.hl_dummy	{line-height: 0.5em;}
+.hl_dummy
+	{
+	display: block;
+	height: 0;
+	padding: 0.5em 0;
+	}
+
+.hl_zebra > .hl_code > .hl_line:nth-child(odd) {background: #f3f6fc;}
+.hl_zebra > .hl_code > .hl_line:nth-child(even) {background: #f9f9f9;}
 
 .hl_num		{color: #606; font-weight: bold;}
 .hl_esc		{color: #f06; font-weight: bold;}
