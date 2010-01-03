@@ -4,6 +4,7 @@
 	border: 1px dashed #666;
 	background: #f3f6f9;
 	color #000;
+	line-height: 2em;
 	}
 
 .hl_nums
@@ -26,7 +27,9 @@
 	{
 	display: block;
 	white-space: pre;
-	padding: 0.2em 1em;
+	height: 2em;
+	vertical-align: bottom;
+	padding: 0 1em;
 	}
 
 .hl_dummy
