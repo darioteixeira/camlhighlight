@@ -14,7 +14,7 @@
 (**	{2 Public types}							*)
 (********************************************************************************)
 
-type lang_t with sexp
+type lang_t = string with sexp
 
 type elem_t =
 	| Default of string
@@ -24,12 +24,4 @@ type elem_t =
 type line_t = elem_t list with sexp
 
 type t = line_t list with sexp
-
-
-(********************************************************************************)
-(**	{2 Public values and functions}						*)
-(********************************************************************************)
-
-val lang_of_string: string -> lang_t
-val string_of_lang: lang_t -> string
 

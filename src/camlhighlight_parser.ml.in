@@ -6,6 +6,7 @@
 *)
 (********************************************************************************)
 
+open Unix
 open ExtString
 open Camlhighlight_core
 open Camlhighlight_lowlevel
@@ -76,6 +77,7 @@ let gen =
 
 
 let basedir = "__CONFIG_BASEDIR__"
+let langdir = basedir ^ "/langDefs/"
 
 
 let load_style () = match Camlhighlight_lowlevel.get_style_name gen with
@@ -88,7 +90,7 @@ let load_style () = match Camlhighlight_lowlevel.get_style_name gen with
 
 
 let load_language lang =
-	let lang_def = basedir ^ "/langDefs/" ^ lang ^ ".lang"
+	let lang_def = langdir ^ lang ^ ".lang"
 	in match Camlhighlight_lowlevel.load_language gen lang_def with
 		| Load_failed		-> raise (Failed_loading_language lang_def)
 		| Load_failed_regex	-> raise (Failed_loading_language_regex lang_def)
@@ -99,16 +101,44 @@ let load_language lang =
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-(**	An invocation of [from_string lang source] will create a value of type
-	{!Camlhighlight_core.t} containing the syntax-highlighted version of the
-	source-code in [string] format passed in the [source] parameter.  The [lang]
-	parameter tells the highlighter which conventions are used for highlighting;
-	it is an optional value of type {!Camlhighlight_core.lang_t}.  If [None], no
-	highlighting will be done (equivalent to specifying ["txt"] as the language.
+(**	Returns a list of all languages for which syntax highlighting is available.
+	Each language is returned as a {!Camlhighlight_core.lang_t}, which can be
+	given directly to function {!from_string}.
 *)
-let from_string maybe_lang source =
+let get_available_langs () =
+	let rec get_next dh accum =
+		try
+			let name = Unix.readdir dh in
+			let path = langdir ^ "/" ^ name in
+			let valid = ((Unix.stat path).st_kind == S_REG) && (String.ends_with name ".lang")
+			in if valid then get_next dh ((String.slice ~last:(-5) name)::accum) else get_next dh accum
+		with
+			| End_of_file -> accum in
+	let dh = Unix.opendir langdir in
+	let langs = get_next dh [] in
+	let () = Unix.closedir dh
+	in langs
+
+
+(**	Returns a boolean indicating whether syntax highlighting is available for
+	the given language.
+*)
+let is_available_lang lang =
+	try load_language lang; true
+	with _ -> false
+
+
+(**	An invocation of [from_string lang source] will create a value of type
+	{!Camlhighlight_core.t} containing the syntax-highlighted version of
+	the source-code in [string] format passed in the [source] parameter.
+	The [lang] optional parameter tells the highlighter which language
+	conventions should be used for highlighting.  This parameter expects
+	a value of type {!Camlhighlight_core.lang_t}; no actual highlighting
+	will be done if it is not provided (in fact equivalent to specifying
+	["txt"] as the language).
+*)
+let from_string ?(lang = "txt") source =
 	let () = load_style () in
-	let lang = match maybe_lang with Some l -> (string_of_lang l) | None -> "txt" in
 	let () = load_language lang in
 	let html = Camlhighlight_lowlevel.generate_string gen source
 	in translate_html html

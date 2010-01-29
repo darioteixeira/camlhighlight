@@ -38,12 +38,3 @@ type line_t = elem_t list with sexp
 *)
 type t = line_t list with sexp
 
-
-(********************************************************************************)
-(**	{2 Public values and functions}						*)
-(********************************************************************************)
-
-let lang_of_string str = str
-
-let string_of_lang lang = lang
-

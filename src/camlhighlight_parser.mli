@@ -22,5 +22,7 @@ exception Failed_loading_language_regex of string
 (**	{2 Public functions}							*)
 (********************************************************************************)
 
-val from_string: Camlhighlight_core.lang_t option -> string -> Camlhighlight_core.t
+val get_available_langs: unit -> Camlhighlight_core.lang_t list
+val is_available_lang: Camlhighlight_core.lang_t -> bool
+val from_string: ?lang:Camlhighlight_core.lang_t -> string -> Camlhighlight_core.t
 
