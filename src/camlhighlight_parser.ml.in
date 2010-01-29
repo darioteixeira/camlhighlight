@@ -128,10 +128,10 @@ let is_available_lang lang =
 	with _ -> false
 
 
-(**	An invocation of [from_string lang source] will create a value of type
+(**	An invocation of [from_string ~lang source] will create a value of type
 	{!Camlhighlight_core.t} containing the syntax-highlighted version of
-	the source-code in [string] format passed in the [source] parameter.
-	The [lang] optional parameter tells the highlighter which language
+	the source-code in string format passed in the [source] parameter.
+	The optional parameter [lang] tells the highlighter which language
 	conventions should be used for highlighting.  This parameter expects
 	a value of type {!Camlhighlight_core.lang_t}; no actual highlighting
 	will be done if it is not provided (in fact equivalent to specifying
