@@ -9,12 +9,20 @@
 (*	Basic demo of Camlhighlight library.
 *)
 
-let () =
+let availability () =
+	let langs = Camlhighlight_parser.get_available_langs () in
+	let check_lang lang = Printf.printf "Is '%s' available? -> %B\n" lang (Camlhighlight_parser.is_available_lang lang)
+	in List.iter check_lang langs
+
+let highlight () =
 	let ch = open_in "test.ml" in
 	let src = Std.input_all ch in
 	let () = close_in ch in
-	let lang = Some (Camlhighlight_core.lang_of_string "ml") in
-	let hilite = Camlhighlight_parser.from_string lang src in
+	let hilite = Camlhighlight_parser.from_string ~lang:"ml" src in
 	let str = Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_t hilite)
 	in print_endline str
+
+let () =
+	availability ();
+	highlight ()
 

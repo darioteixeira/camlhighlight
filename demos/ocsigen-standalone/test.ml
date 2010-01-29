@@ -23,8 +23,7 @@ let test_handler sp () () =
 	let ch = open_in "test.ml" in
 	let str = Std.input_all ch in
 	let () = close_in ch in
-	let lang = Some (Camlhighlight_core.lang_of_string "ml") in
-	let hilite = Camlhighlight_parser.from_string lang str in
+	let hilite = Camlhighlight_parser.from_string ~lang:"ml" str in
 	let hilite_xhtml = Camlhighlight_write_xhtml.write ~linenums:true ~extra_classes:["hl_zebra"] hilite in
 	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
 	in Lwt.return
