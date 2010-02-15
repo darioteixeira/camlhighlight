@@ -58,7 +58,7 @@ reinstall: lib
 	ocamlfind install $(PROJECT) META $(TARGETS)
 
 clean:
-	rm -f *.cm* *.a *.o *.so $(PARSER).ml
+	rm -f *.cm* *.a *.o *.so
 
 
 #
@@ -89,13 +89,13 @@ $(PARSER).cmi: $(PARSER).mli $(CORE).cmi
 	ocamlfind ocamlc -o $@ -c $<
 
 $(PARSER).cmo $(PARSER).cmx: $(PARSER).ml $(PARSER).cmi $(CORE).cmi
-	ocamlfind ocamlc -package extlib,sexplib.syntax -syntax camlp4o -o $@ -c $<
-	ocamlfind ocamlopt -package extlib,sexplib.syntax -syntax camlp4o -o $@ -c $<
+	ocamlfind ocamlc -package extlib,sexplib -o $@ -c $<
+	ocamlfind ocamlopt -package extlib,sexplib -o $@ -c $<
 
 $(WRITE_XHTML).cmi: $(WRITE_XHTML).mli $(CORE).cmi
-	ocamlfind ocamlc -package extlib,ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlc -package ocsigen.xhtml -o $@ -c $<
 
 $(WRITE_XHTML).cmo $(WRITE_XHTML).cmx: $(WRITE_XHTML).ml $(WRITE_XHTML).cmi $(CORE).cmi
-	ocamlfind ocamlc -package extlib,sexplib,ocsigen.xhtml -o $@ -c $<
-	ocamlfind ocamlopt -package extlib,sexplib,ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlc -package extlib,ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlopt -package extlib,ocsigen.xhtml -o $@ -c $<
 

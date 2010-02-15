@@ -17,38 +17,13 @@ TYPE_CONV_PATH "Camlhighlight_core"
 *)
 type lang_t = string with sexp
 
-type normal_style_t =
-	[ `Nrm	(** normal *)
-	] with sexp
 
-type special_style_t =
-	[ `Kwd	(** keyword *)
-	| `Typ	(** type *) 
-	| `Uty	(** usertype *)
-	| `Str	(** string *)
-	| `Rex	(** regexp *)
-	| `Sch	(** specialchar *)
-	| `Com	(** comment *)
-	| `Num	(** number *)
-	| `Pre	(** preproc *)
-	| `Sym	(** symbol *)
-	| `Fun	(** function *)
-	| `Brk	(** cbracket *)
-	| `Tod	(** todo *)
-	] with sexp
-
-
-(**	List of possible styles.
+(**	An element is a pair consisting of a style and the contents.
 *)
-type style_t = [ normal_style_t | special_style_t ] with sexp
+type elem_t = string * string with sexp
 
 
-(**	An element consists of a style and a string.
-*)
-type elem_t = style_t * string with sexp
-
-
-(**	A line is composed of a list of {!elem_t}.
+(**	A line is composed of a list of individual elements.
 *)
 type line_t = elem_t list with sexp
 

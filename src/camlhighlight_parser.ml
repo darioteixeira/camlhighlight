@@ -7,18 +7,6 @@
 (********************************************************************************)
 
 open ExtString
-open Camlhighlight_core
-
-TYPE_CONV_PATH "Camlhighlight_parser"
-
-
-(********************************************************************************)
-(**	{1 Private types}							*)
-(********************************************************************************)
-
-type prv_elem_t = string * string with sexp
-
-type prv_line_t = prv_elem_t list with sexp
 
 
 (********************************************************************************)
@@ -27,24 +15,6 @@ type prv_line_t = prv_elem_t list with sexp
 
 external get_mapping: string -> string = "get_mapping"
 external highlight: string -> string -> string = "highlight"
-
-
-let translate_style : string -> Camlhighlight_core.style_t = function
-	| "normal"	-> `Nrm
-	| "keyword"	-> `Kwd
-	| "type"	-> `Typ
-	| "usertype"	-> `Uty
-	| "string"	-> `Str
-	| "regexp"	-> `Rex
-	| "specialchar"	-> `Sch
-	| "comment"	-> `Com
-	| "number"	-> `Num
-	| "preproc"	-> `Pre
-	| "symbol"	-> `Sym
-	| "function"	-> `Fun
-	| "cbracket"	-> `Brk
-	| "todo"	-> `Tod
-	| x		-> failwith x
 
 
 (********************************************************************************)
@@ -63,8 +33,6 @@ let translate_style : string -> Camlhighlight_core.style_t = function
 let from_string ?(lang = "txt") source =
 	let langdef = get_mapping lang in
 	let lines = String.nsplit (highlight source langdef) "\n" in
-	let conv line =
-		let prv_line = prv_line_t_of_sexp (Sexplib.Sexp.of_string ("(" ^ line ^ ")"))
-		in List.map (fun (prv_style, str) -> (translate_style prv_style, str)) prv_line
+	let conv line = Camlhighlight_core.line_t_of_sexp (Sexplib.Sexp.of_string ("(" ^ line ^ ")"))
 	in List.map conv lines
 

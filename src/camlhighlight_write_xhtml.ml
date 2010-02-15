@@ -12,14 +12,6 @@ open Camlhighlight_core
 
 
 (********************************************************************************)
-(**	{1 Private functions and values}					*)
-(********************************************************************************)
-
-let class_of_special special =
-	Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_special_style_t special)
-
-
-(********************************************************************************)
 (**	{1 Public functions and values}						*)
 (********************************************************************************)
 
@@ -37,8 +29,8 @@ let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(
 	let normal_line content = [pcdata "\n"; XHTML.M.code ~a:[make_class ["line"]] content] in
 	let dummy = if dummy_lines then [pcdata "\n"; XHTML.M.code ~a:[make_class ["line"; "dummy"]] []] else [] in
 	let elem_to_xhtml = function
-		| (`Nrm, str) -> XHTML.M.pcdata str
-		| (#special_style_t as special, str) -> XHTML.M.span ~a:[make_class [class_of_special special]] [XHTML.M.pcdata str] in
+		| ("normal", str) -> XHTML.M.pcdata str
+		| (special, str)  -> XHTML.M.span ~a:[make_class [special]] [XHTML.M.pcdata str] in
 	let convert_nums () =
 		let code_len = List.length code in
 		let width = String.length (string_of_int code_len) in
