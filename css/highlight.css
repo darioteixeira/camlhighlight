@@ -42,16 +42,17 @@
 .hl_zebra > .hl_code > .hl_line:nth-child(odd) {background: #f3f6fc;}
 .hl_zebra > .hl_code > .hl_line:nth-child(even) {background: #f9f9f9;}
 
-.hl_num		{color: #606; font-weight: bold;}
-.hl_esc		{color: #f06; font-weight: bold;}
-.hl_str		{color: #c33;}
-.hl_dstr	{color: #0ff;}
-.hl_slc		{color: #669; font-style: italic;}
-.hl_com		{color: #669; font-style: italic;}
-.hl_dir		{color: #600;}
-.hl_sym		{color: #060;}
-.hl_kwa		{color: #960; font-weight: bold;}
-.hl_kwb		{color: #006;}
-.hl_kwc		{color: #03c;}
-.hl_kwd		{color: #090; font-weight: bold;}
+.hl_kwd	{color: #0000ff; font-weight: bold;}
+.hl_typ	{color: #008000;}
+.hl_uty	{color: #008080;}
+.hl_str	{color: #ff0000;}
+.hl_rex	{color: #ffa500;}
+.hl_sch	{color: #ffc0cb;}
+.hl_com	{color: #a52a2a; font-style: italic;}
+.hl_num	{color: #800080;}
+.hl_pre	{color: #000080; font-weight: bold;}
+.hl_sym	{color: #800000; font-weight: bold;}
+.hl_fun	{color: #000000; font-weight: bold;}
+.hl_brk	{color: #ff0000;}
+.hl_tdo	{color: #00ffff; font-weight: bold;}
 
