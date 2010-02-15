@@ -1,0 +1,52 @@
+name = "camlhighlight"
+version = "1.0"
+description = "Source code highlighting library"
+requires = "unix, extlib, pcre, ulex, sexplib, ocsigen.xhtml"
+archive(byte) = "camlhighlight.cma"
+archive(native) = "camlhighlight.cmxa"
+archive(plugin,byte) = "camlhighlight.cma"
+archive(plugin,native) = "camlhighlight.cmxs"
+
+package "core"
+	(
+	name = "core"
+	version = "1.0"
+	requires = "sexplib"
+	archive(byte) = "camlhighlight_core.cmo"
+	archive(native) = "camlhighlight_core.cmx"
+	archive(plugin,byte) = "camlhighlight_core.cmo"
+	archive(plugin,native) = "camlhighlight_core.cmxs"
+	)
+
+package "lowlevel"
+	(
+	name = "lowlevel"
+	version = "1.0"
+	archive(byte) = "camlhighlight_lowlevel.cmo"
+	archive(native) = "camlhighlight_lowlevel.cmx"
+	archive(plugin,byte) = "camlhighlight_lowlevel.cmo"
+	archive(plugin,native) = "camlhighlight_lowlevel.cmxs"
+	)
+
+package "parser"
+	(
+	name = "parser"
+	version = "1.0"
+	requires = "unix, extlib, pcre, ulex, camlhighlight.core, camlhighlight.lowlevel"
+	archive(byte) = "camlhighlight_parser.cmo"
+	archive(native) = "camlhighlight_parser.cmx"
+	archive(plugin,byte) = "camlhighlight_parser.cmo"
+	archive(plugin,native) = "camlhighlight_parser.cmxs"
+	)
+
+package "write_xhtml"
+	(
+	name = "write_xhtml"
+	version = "1.0"
+	requires = "extlib, ocsigen.xhtml, camlhighlight.core"
+	archive(byte) = "camlhighlight_write_xhtml.cmo"
+	archive(native) = "camlhighlight_write_xhtml.cmx"
+	archive(plugin,byte) = "camlhighlight_write_xhtml.cmo"
+	archive(plugin,native) = "camlhighlight_write_xhtml.cmxs"
+	)
+
