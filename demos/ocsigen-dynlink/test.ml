@@ -23,8 +23,7 @@ let test_handler sp () () =
 	let ch = open_in "test.ml" in
 	let str = Std.input_all ch in
 	let () = close_in ch in
-	let () = Printf.eprintf "### Is Ocaml available? -> %B\n%!" (Camlhighlight_parser.is_available_lang "ocaml") in
-	let hilite = Camlhighlight_parser.from_string ~lang:"ocaml" "(* Comment *)" in
+	let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
 	let hilite_xhtml = Camlhighlight_write_xhtml.write ~linenums:true ~extra_classes:["hl_zebra"] hilite in
 	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
 	in Lwt.return
