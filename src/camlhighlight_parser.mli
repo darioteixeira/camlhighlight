@@ -13,7 +13,7 @@
 (**	{1 Exceptions}								*)
 (********************************************************************************)
 
-exception Unknown_lang of Camlhighlight_core.lang_t
+exception Unknown_language of Camlhighlight_core.lang_t
 
 
 (********************************************************************************)

@@ -96,6 +96,6 @@ $(WRITE_XHTML).cmi: $(WRITE_XHTML).mli $(CORE).cmi
 	ocamlfind ocamlc -package ocsigen.xhtml -o $@ -c $<
 
 $(WRITE_XHTML).cmo $(WRITE_XHTML).cmx: $(WRITE_XHTML).ml $(WRITE_XHTML).cmi $(CORE).cmi
-	ocamlfind ocamlc -package extlib,ocsigen.xhtml -o $@ -c $<
-	ocamlfind ocamlopt -package extlib,ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlc -package extlib,sexplib,ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlopt -package extlib,sexplib,ocsigen.xhtml -o $@ -c $<
 

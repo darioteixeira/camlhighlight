@@ -1,4 +1,10 @@
 -------------------------
+(2010-??-??) version 2.0:
+
+  * Now using GNU Source-highlight as backend.
+
+
+-------------------------
 (2010-01-29) version 1.0:
 
   * First public release.

@@ -7,6 +7,7 @@
 (********************************************************************************)
 
 open ExtString
+open Sexplib
 
 
 (********************************************************************************)
@@ -23,7 +24,7 @@ external highlight: string -> string -> string = "highlight"
 (**	{1 Exceptions}								*)
 (********************************************************************************)
 
-exception Unknown_lang of Camlhighlight_core.lang_t
+exception Unknown_language of Camlhighlight_core.lang_t
 
 
 (********************************************************************************)
@@ -32,7 +33,7 @@ exception Unknown_lang of Camlhighlight_core.lang_t
 
 let () =
 	init ();
-	Callback.register_exception "invalid_lang" (Unknown_lang "")
+	Callback.register_exception "unknown_language" (Unknown_language "")
 
 
 (********************************************************************************)
@@ -62,7 +63,55 @@ let is_available_lang = has_mapping
 	["txt"] as the language).
 *)
 let from_string ?(lang = "txt") source =
+	let conv_style = function
+		| "normal"		-> `Norm
+		| "keyword"		-> `Kwd
+		| "type"		-> `Type
+		| "usertype"		-> `Utyp
+		| "string"		-> `Str
+		| "regexp"		-> `Rex
+		| "specialchar"		-> `Sch
+		| "comment"		-> `Com
+		| "number"		-> `Num
+		| "preproc"		-> `Prep
+		| "symbol"		-> `Sym
+		| "function"		-> `Fun
+		| "cbracket"		-> `Cbrk
+		| "predef_var"		-> `Pvar
+		| "predef_func"		-> `Pfun
+		| "classname"		-> `Clas
+		| "linenum"		-> `Line
+		| "url"			-> `Url
+		| "date"		-> `Date
+		| "time"		-> `Time
+		| "file"		-> `File
+		| "ip"			-> `Ip
+		| "name"		-> `Name
+		| "variable"		-> `Var
+		| "italics"		-> `Ital
+		| "bold"		-> `Bold
+		| "underline"		-> `Undr
+		| "fixed"		-> `Fixd
+		| "argument"		-> `Arg
+		| "optionalargument"	-> `Oarg
+		| "math"		-> `Math
+		| "bibtex"		-> `Bibx
+		| "oldfile"		-> `Old
+		| "newfile"		-> `New
+		| "difflines"		-> `Diff
+		| "selector"		-> `Sel
+		| "property"		-> `Prop
+		| "value"		-> `Val
+		| "atom"		-> `Atom
+		| "meta"		-> `Meta
+		| _			-> `Norm in
+	let elem_of_sexp = function
+		| Sexp.List [Sexp.Atom s; Sexp.Atom c] -> (conv_style s, c)
+		| _				       -> failwith "elem_of_sexp" in
+	let line_of_sexp = function
+		| Sexp.List l -> List.map elem_of_sexp l
+		| _	      -> failwith "line_of_sexp" in
 	let lines = String.nsplit (highlight lang source) "\n" in
-	let conv line = Camlhighlight_core.line_t_of_sexp (Sexplib.Sexp.of_string ("(" ^ line ^ ")"))
+	let conv line = line_of_sexp (Sexp.of_string ("(" ^ line ^ ")"))
 	in List.map conv lines
 

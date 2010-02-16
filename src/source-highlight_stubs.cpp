@@ -83,7 +83,7 @@ extern "C" CAMLprim value highlight (value v_lang, value v_src)
 
 	if (langdef == "")
 		{
-		caml_raise_with_string (*caml_named_value ("invalid_lang"), lang.c_str ());
+		caml_raise_with_string (*caml_named_value ("unknown_language"), lang.c_str ());
 		}
 
 	istringstream in (src);

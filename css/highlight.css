@@ -42,17 +42,43 @@
 .hl_zebra > .hl_code > .hl_line:nth-child(odd) {background: #f3f6fc;}
 .hl_zebra > .hl_code > .hl_line:nth-child(even) {background: #f9f9f9;}
 
-.hl_kwd	{color: #0000ff; font-weight: bold;}
-.hl_typ	{color: #008000;}
-.hl_uty	{color: #008080;}
-.hl_str	{color: #ff0000;}
-.hl_rex	{color: #ffa500;}
-.hl_sch	{color: #ffc0cb;}
-.hl_com	{color: #a52a2a; font-style: italic;}
-.hl_num	{color: #800080;}
-.hl_pre	{color: #000080; font-weight: bold;}
-.hl_sym	{color: #800000; font-weight: bold;}
-.hl_fun	{color: #000000; font-weight: bold;}
-.hl_brk	{color: #ff0000;}
-.hl_tdo	{color: #00ffff; font-weight: bold;}
+.hl_Kwd		{color: #0000ff; font-weight: bold;}
+.hl_Type	{color: #007f00;}
+.hl_Utyp	{color: #007f7f;}
+.hl_Str		{color: #ff0000;}
+.hl_Rex		{color: #ff9f00;}
+.hl_Sch		{color: #ffbfcf;}
+.hl_Com		{color: #9f2f2f; font-style: italic;}
+.hl_Num		{color: #7f007f;}
+.hl_Prep	{color: #00007f; font-weight: bold;}
+.hl_Sym		{color: #7f0000;}
+.hl_Fun		{color: #000000; font-weight: bold;}
+.hl_Cbrk	{color: #ff0000;}
+.hl_Pvar	{color: #00007f;}
+.hl_Pfun	{color: #00007f; font-weight: bold;}
+.hl_Clas	{color: #007f7f;}
+.hl_Line	{color: #000000;}
+.hl_Url		{color: #0000ff; text-decoration: underline;}
+.hl_Date	{color: #0000ff; font-weight: bold;}
+.hl_Time	{color: #00007f; font-weight: bold;}
+.hl_File	{color: #00007f; font-weight: bold;}
+.hl_Ip		{color: #007f00;}
+.hl_Name	{color: #007f00;}
+.hl_Var		{color: #007f00;}
+.hl_Ital	{color: #007f00; font-style: italic;}
+.hl_Bold	{color: #007f00; font-weight: bold;}
+.hl_Undr	{color: #007f00; text-decoration: underline;}
+.hl_Fixd	{color: #00ff00;}
+.hl_Arg		{color: #007f00;}
+.hl_Oarg	{color: #7f007f;}
+.hl_Math	{color: #ff9f00;}
+.hl_Bibx	{color: #0000ff;}
+.hl_Old		{color: #ff9f00;}
+.hl_New		{color: #007f00;}
+.hl_Diff	{color: #0000ff;}
+.hl_Sel		{color: #7f007f;}
+.hl_Prop	{color: #0000ff;}
+.hl_Val		{color: #007f00;}
+.hl_Atom	{color: #ff9f00;}
+.hl_Meta	{color: #000000; font-style: italic;}
 
