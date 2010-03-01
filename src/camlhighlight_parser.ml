@@ -15,6 +15,7 @@ open Sexplib
 (********************************************************************************)
 
 external init: unit -> unit = "init"
+external set_tabspaces: int -> unit = "set_tabspaces"
 external get_langs: unit -> string list = "get_langs"
 external has_mapping: string -> bool = "has_mapping"
 external highlight: string -> string -> string = "highlight"
@@ -39,6 +40,11 @@ let () =
 (********************************************************************************)
 (**	{1 Public values and functions}						*)
 (********************************************************************************)
+
+(**	Sets the number of spaces per TAB character.
+*)
+let set_tabspaces = set_tabspaces
+
 
 (**	Returns a list of all languages for which syntax highlighting is available.
 	Each language is returned as a {!Camlhighlight_core.lang_t}, which can be

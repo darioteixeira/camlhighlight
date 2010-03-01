@@ -20,6 +20,7 @@ exception Unknown_language of Camlhighlight_core.lang_t
 (**	{1 Public functions and values}						*)
 (********************************************************************************)
 
+val set_tabspaces: int -> unit
 val get_available_langs: unit -> Camlhighlight_core.lang_t list
 val is_available_lang: Camlhighlight_core.lang_t -> bool
 val from_string: ?lang:Camlhighlight_core.lang_t -> string -> Camlhighlight_core.t

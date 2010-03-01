@@ -33,7 +33,21 @@ static LangMap mapper ("lang.map");
 extern "C" CAMLprim value init (value v_unit)
 	{
 	CAMLparam1 (v_unit);
+
 	mapper.open ();
+	hiliter.setTabSpaces (8);
+
+	CAMLreturn (Val_unit);
+	}
+
+
+extern "C" CAMLprim value set_tabspaces (value v_num)
+	{
+	CAMLparam1 (v_num);
+
+	int num = Int_val (v_num);
+	hiliter.setTabSpaces (num);
+
 	CAMLreturn (Val_unit);
 	}
 
