@@ -6,8 +6,11 @@
 # Configure directory locations and options for C compiler.
 #
 
-export CCOPT=-O2 -fno-defer-pop -D_FILE_OFFSET_BITS=64 -D_REENTRANT -fPIC
-export OCAML_LIB=$(shell ocamlc -where)
+FOREIGN_INC=/usr/include
+FOREIGN_LIB=source-highlight
+
+CCOPT=-O2 -fno-defer-pop -D_FILE_OFFSET_BITS=64 -D_REENTRANT -fPIC
+OCAML_LIB=$(shell ocamlc -where)
 
 #
 # Internal configuration options.
@@ -23,8 +26,6 @@ CAMLSRCS=$(CORE).ml $(PARSER).mli $(PARSER).ml $(WRITE_XHTML).mli $(WRITE_XHTML)
 
 FOREIGN=source-highlight
 FOREIGN_STUBS=source-highlight_stubs
-FOREIGN_INC=/usr/include
-FOREIGN_LIB=$(FOREIGN)
 
 TARGETS_FOREIGN=lib$(FOREIGN_STUBS).a dll$(FOREIGN_STUBS).so
 TARGETS_CAML=$(foreach PART, $(CAMLPARTS), $(PART).cmi $(PART).cmo $(PART).cmx $(PART).o)
@@ -45,7 +46,7 @@ lib: $(TARGETS)
 
 apidoc: lib $(CAMLSRCS)
 	mkdir -p ../doc/apidoc
-	ocamlfind ocamldoc -package extlib,pcre,ocsigen.xhtml,ulex,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
+	ocamlfind ocamldoc -package extlib,ocsigen.xhtml,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
 
 install: lib
 	ocamlfind install $(PROJECT) META $(TARGETS)

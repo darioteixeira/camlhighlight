@@ -1,8 +1,8 @@
 =========================================================================
-| README for Camlhighlight 1.0						|
+| README for Camlhighlight 2.0						|
 |									|
 | Dario Teixeira (dario.teixeira@yahoo.com)				|
-| January 2010								|
+| March 2010								|
 =========================================================================
 
 1. Overview
@@ -10,34 +10,42 @@
 
 Camlhighlight provides syntax highlighting and pretty-printing facilities
 for displaying code samples in Ocsigen applications. The library works by
-interfacing with the core portion of Highlight [1], a popular application
-supporting the most common programming and markup languages.
+interfacing with the library portion of GNU Source-highlight [1], a popular
+application supporting the most common programming and markup languages.
 
 
 2. Dependencies
 ===============
 
-On the Ocaml side, Camlhighlight depends on ExtLib, Sexplib, Ulex, Ocsigen,
-and Pcre-Ocaml [2,3,4,5,6].  The Ocsigen libraries are required because
-Camlhighlight provides functions that output values from Ocsigen's XHTML.M
-module.  Sexplib is used to provide serialisation facilities, and Ulex
-is the lexer generator used.
+On the Ocaml side, Camlhighlight depends on ExtLib, Sexplib, and Ocsigen
+[2,3,4].  The Ocsigen libraries are required because Camlhighlight provides
+functions that output values from Ocsigen's XHTML.M module, whereas Sexplib
+is used to provide serialisation facilities.
 
-Camlhighlight requires also Highlight, of course.  Use version 2.10 or
-higher, since earlier releases do not make a clean separation between
-the core library and the command line application.
+Camlhighlight requires also GNU Source-highlight, of course.  The library has
+been tested with version 3.1, though subsequent versions should also work.
+Note that for most Linux distros you may need to manually download and build
+the source-code for GNU Source-highlight.  There are however some distros
+that already package the library's runtime and development versions:
+
+  * Ubuntu "Karmic Koala" and derivatives:
+
+    Install packages 'libsource-highlight1' and 'libsource-highlight-dev'.
+
+  * Ubuntu "Lucid Lynx" and derivatives:
+
+    Install packages 'libsource-highlight3' and 'libsource-highlight-dev'.
 
 
 3. Building and installing
 ==========================
 
 Change into the 'src' directory and edit the Makefile to configure the
-location of Highlight's libhighlight.a, C++ header files, and the style
-and language definition files (*.style and *.lang).
+location of GNU Source-highlight's C++ header files and libraries.
 
-Typing 'make' suffices to build the Camlhighlight library.  After
-building, 'make install' will perform a findlib installation.  To
-generate the ocamldoc API documentation, use 'make apidoc'.
+Typing 'make' suffices to build the Camlhighlight library.  After building,
+'make install' will perform a findlib installation.  To generate the ocamldoc
+API documentation, use 'make apidoc'.
 
 
 4. License
@@ -50,10 +58,8 @@ See LICENSE file for full license text.
 References
 ==========
 
-[1] http://www.andre-simon.de/doku/highlight/en/highlight.html
+[1] http://www.gnu.org/software/src-highlite/
 [2] http://code.google.com/p/ocaml-extlib/
 [3] http://www.ocaml.info/home/ocaml_sources.html
-[4] http://www.cduce.org/download.html
-[5] http://www.ocsigen.org/
-[6] http://www.ocaml.info/home/ocaml_sources.html
+[4] http://www.ocsigen.org/
 
