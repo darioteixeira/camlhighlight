@@ -14,7 +14,8 @@ open Sexplib
 (**	{1 Private values and functions}					*)
 (********************************************************************************)
 
-external init: unit -> unit = "init"
+external init_hiliter: unit -> unit = "init_hiliter"
+external init_mapper: unit -> unit = "init_mapper"
 external set_tabspaces: int -> unit = "set_tabspaces"
 external get_langs: unit -> string list = "get_langs"
 external has_mapping: string -> bool = "has_mapping"
@@ -42,7 +43,8 @@ let () =
 	Callback.register_exception "Uninitialized" (Uninitialized);
 	Callback.register_exception "Unknown_language" (Unknown_language "");
 	Callback.register_exception "Hiliter_error" (Hiliter_error "");
-	init ()
+	init_hiliter ();
+	init_mapper ()
 
 
 (********************************************************************************)

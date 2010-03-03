@@ -28,14 +28,25 @@ using namespace std;
 using namespace srchilite;
 
 
-static string outlang ("camlhighlight.outlang");
-static SourceHighlight *hiliter = 0;
-static LangMap *mapper = 0;
+/********************************************************************************/
+/* Module variables and constants.						*/
+/********************************************************************************/
+
+static string outlang ("camlhighlight.outlang");	// Default outlang definition file.
+static string langmap ("lang.map");			// Default language map file.
+static SourceHighlight *hiliter = 0;			// The global hiliter.
+static LangMap *mapper = 0;				// The global mapper.
 
 
-extern "C" CAMLprim value init (value v_unit)
+/********************************************************************************/
+/* API functions.								*/
+/********************************************************************************/
+
+extern "C" CAMLprim value init_hiliter (value v_unit)
 	{
 	CAMLparam1 (v_unit);
+
+	if (hiliter) {delete hiliter;}
 
 	try	{
 		hiliter = new SourceHighlight (outlang);
@@ -47,8 +58,18 @@ extern "C" CAMLprim value init (value v_unit)
 		caml_raise_constant (*caml_named_value ("Cannot_initialize_hiliter"));
 		}
 	
+	CAMLreturn (Val_unit);
+	}
+
+
+extern "C" CAMLprim value init_mapper (value v_unit)
+	{
+	CAMLparam1 (v_unit);
+
+	if (mapper) {delete mapper;}
+
 	try	{
-		mapper = new LangMap ("lang.map");
+		mapper = new LangMap (langmap);
 		mapper -> open ();
 		}
 	catch (...)
