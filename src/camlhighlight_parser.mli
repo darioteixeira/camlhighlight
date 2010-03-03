@@ -13,7 +13,11 @@
 (**	{1 Exceptions}								*)
 (********************************************************************************)
 
+exception Cannot_initialize_hiliter
+exception Cannot_initialize_mapper
+exception Uninitialized
 exception Unknown_language of Camlhighlight_core.lang_t
+exception Hiliter_error of string
 
 
 (********************************************************************************)

@@ -25,7 +25,11 @@ external highlight: string -> string -> string = "highlight"
 (**	{1 Exceptions}								*)
 (********************************************************************************)
 
+exception Cannot_initialize_hiliter
+exception Cannot_initialize_mapper
+exception Uninitialized
 exception Unknown_language of Camlhighlight_core.lang_t
+exception Hiliter_error of string
 
 
 (********************************************************************************)
@@ -33,8 +37,12 @@ exception Unknown_language of Camlhighlight_core.lang_t
 (********************************************************************************)
 
 let () =
-	init ();
-	Callback.register_exception "unknown_language" (Unknown_language "")
+	Callback.register_exception "Cannot_initialize_hiliter" (Cannot_initialize_hiliter);
+	Callback.register_exception "Cannot_initialize_mapper" (Cannot_initialize_mapper);
+	Callback.register_exception "Uninitialized" (Uninitialized);
+	Callback.register_exception "Unknown_language" (Unknown_language "");
+	Callback.register_exception "Hiliter_error" (Hiliter_error "");
+	init ()
 
 
 (********************************************************************************)
