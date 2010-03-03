@@ -1,7 +1,9 @@
 -------------------------
-(2010-03-02) version 2.0:
+(2010-03-03) version 2.0:
 
   * Now using GNU Source-highlight as backend.
+  * Added Camlhighlight_parser.set_tabspaces to API.
+  * Improved error handling.
 
 
 -------------------------

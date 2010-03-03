@@ -6,8 +6,6 @@
 */
 /********************************************************************************/
 
-#include <iostream>
-
 #include <string>
 #include <sstream>
 #include "srchilite/sourcehighlight.h"
