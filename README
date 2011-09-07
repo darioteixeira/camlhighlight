@@ -28,13 +28,9 @@ Note that for most Linux distros you may need to manually download and build
 the source-code for GNU Source-highlight.  There are however some distros
 that already package the library's runtime and development versions:
 
-  * Ubuntu "Karmic Koala" and derivatives:
+  * Ubuntu "Lucid Lynx" and more recent versions:
 
-    Install packages 'libsource-highlight1' and 'libsource-highlight-dev'.
-
-  * Ubuntu "Lucid Lynx" and derivatives:
-
-    Install packages 'libsource-highlight3' and 'libsource-highlight-dev'.
+    Install packages 'source-highlight', 'libsource-highlight3' and 'libsource-highlight-dev'.
 
 
 3. Building and installing
