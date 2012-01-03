@@ -17,7 +17,7 @@
 
 val write:
 	?class_prefix:string ->
-	?extra_classes:XHTML.M.nmtoken list ->
+	?extra_classes:XHTML_types.nmtoken list ->
 	?dummy_lines:bool ->
 	?linenums:bool ->
 	Camlhighlight_core.t ->

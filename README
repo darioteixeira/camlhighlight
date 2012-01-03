@@ -1,8 +1,8 @@
 =========================================================================
-| README for Camlhighlight 2.0						|
+| README for Camlhighlight 2.1						|
 |									|
 | Dario Teixeira (dario.teixeira@yahoo.com)				|
-| March 2010								|
+| January 2012								|
 =========================================================================
 
 1. Overview
@@ -17,10 +17,10 @@ application supporting the most common programming and markup languages.
 2. Dependencies
 ===============
 
-On the Ocaml side, Camlhighlight depends on ExtLib, Sexplib, and Ocsigen
-[2,3,4].  The Ocsigen libraries are required because Camlhighlight provides
-functions that output values from Ocsigen's XHTML.M module, whereas Sexplib
-is used to provide serialisation facilities.
+On the Ocaml side, Camlhighlight depends on ExtLib, Sexplib, and TyXML
+[2,3,4].  TyXML (which is part of the Ocsigen project [5]) is required because
+Camlhighlight provides functions that output valid XHTML values using TyXML's
+XHTML.M module, whereas Sexplib is used to provide serialisation facilities.
 
 Camlhighlight requires also GNU Source-highlight, of course.  The library has
 been tested with version 3.1, though subsequent versions should also work.
@@ -43,9 +43,9 @@ Typing 'make' suffices to build the Camlhighlight library.  After building,
 'make install' will perform a findlib installation.  To generate the ocamldoc
 API documentation, use 'make apidoc'.
 
-Modules for OCamlduce will built automatically if you have
-OCamlduce installed. But if you want to build a package without
-OCamlduce support, run 'make DUCE=no && make DUCE=no install'.
+Modules for OCamlduce will built automatically if you have OCamlduce
+installed. But if you want to build a package without OCamlduce support,
+run 'make DUCE=no && make DUCE=no install'.
 
 You will also need to manually copy the file 'src/camlhighlight.outlang' into
 GNU Source-highlight's data directory (normally '/usr/share/source-highlight').
@@ -63,6 +63,7 @@ References
 
 [1] http://www.gnu.org/software/src-highlite/
 [2] http://code.google.com/p/ocaml-extlib/
-[3] http://www.ocaml.info/home/ocaml_sources.html
-[4] http://www.ocsigen.org/
+[3] http://forge.ocamlcore.org/projects/sexplib/
+[4] http://www.ocsigen.org/tyxml
+[5] http://www.ocsigen.org/
 

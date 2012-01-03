@@ -72,12 +72,12 @@ apidoc: lib $(CAMLSRCS) $(DUCESRC)
 	mkdir -p temp
 	camlp4o -I `ocamlfind query sexplib` -I `ocamlfind query type-conv.syntax` pa_type_conv.cmo nums.cma bigarray.cma sexplib.cma pa_sexp_conv.cmo camlhighlight_core.ml -o temp/$(CORE).ml
 	mkdir -p ../doc/apidoc
-	ocamlducefind ocamldoc -package extlib,ocsigen.xhtml,sexplib.syntax -html -d ../doc/apidoc temp/$(CORE).ml $(PARSER).mli $(PARSER).ml $(WRITE_XHTML).mli $(WRITE_XHTML).ml $(DUCESRC)
+	ocamlducefind ocamldoc -package extlib,tyxml,sexplib.syntax -html -d ../doc/apidoc temp/$(CORE).ml $(PARSER).mli $(PARSER).ml $(WRITE_XHTML).mli $(WRITE_XHTML).ml $(DUCESRC)
 	rm -r temp
 else
 apidoc: lib $(CAMLSRCS)
 	mkdir -p ../doc/apidoc
-	ocamlfind ocamldoc -package extlib,ocsigen.xhtml,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
+	ocamlfind ocamldoc -package extlib,tyxml,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
 endif
 
 install: lib
@@ -126,16 +126,16 @@ $(PARSER).cmo $(PARSER).cmx: $(PARSER).ml $(PARSER).cmi $(CORE).cmi
 	ocamlfind ocamlopt -package extlib,sexplib -o $@ -c $<
 
 $(WRITE_XHTML).cmi: $(WRITE_XHTML).mli $(CORE).cmi
-	ocamlfind ocamlc -package ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlc -package tyxml -o $@ -c $<
 
 $(WRITE_XHTML).cmo $(WRITE_XHTML).cmx: $(WRITE_XHTML).ml $(WRITE_XHTML).cmi $(CORE).cmi
-	ocamlfind ocamlc -package extlib,sexplib,ocsigen.xhtml -o $@ -c $<
-	ocamlfind ocamlopt -package extlib,sexplib,ocsigen.xhtml -o $@ -c $<
+	ocamlfind ocamlc -package extlib,sexplib,tyxml -o $@ -c $<
+	ocamlfind ocamlopt -package extlib,sexplib,tyxml -o $@ -c $<
 
 $(WRITE_DUCE).cmi: $(WRITE_DUCE).mli $(CORE).cmi
-	ocamlducefind ocamlc -thread -package ocsigen -o $@ -c $<
+	ocamlducefind ocamlc -thread -package tyxml.duce -o $@ -c $<
 
 $(WRITE_DUCE).cmo $(WRITE_DUCE).cmx: $(WRITE_DUCE).ml $(WRITE_DUCE).cmi $(CORE).cmi
-	ocamlducefind ocamlc -thread -package extlib,sexplib,ocsigen -o $@ -c $<
-	ocamlducefind ocamlopt -thread -package extlib,sexplib,ocsigen -o $@ -c $<
+	ocamlducefind ocamlc -thread -package extlib,sexplib,tyxml.duce -o $@ -c $<
+	ocamlducefind ocamlopt -thread -package extlib,sexplib,tyxml.duce -o $@ -c $<
 

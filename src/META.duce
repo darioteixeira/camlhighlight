@@ -2,7 +2,7 @@ package "write_xhtml_duce"
 	(
 	name = "write_xhtml_duce"
 	version = "2.0"
-	requires = "extlib, ocamlduce, ocsigen.ext.eliom_duce, camlhighlight.core"
+	requires = "extlib, ocamlduce, tyxml.duce, camlhighlight.core"
 	archive(byte) = "camlhighlight_write_xhtml_duce.cmo"
 	archive(native) = "camlhighlight_write_xhtml_duce.cmx"
 	archive(plugin,byte) = "camlhighlight_write_xhtml_duce.cmo"

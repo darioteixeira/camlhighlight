@@ -1,6 +1,6 @@
 NAME=test
 PKGS=extlib,lwt,ocsigen,camlhighlight
-STATIC_PKGS=ocsigen.parsecommandline,ocsigen.server,ocsigen.ext.ocsipersist-sqlite,ocsigen.ext.eliom,ocsigen.ext.staticmod,extlib,camlhighlight
+STATIC_PKGS=ocsigen.commandline,ocsigen.server,ocsigen.ext.ocsipersist-sqlite,ocsigen.ext.eliom,ocsigen.ext.staticmod,extlib,camlhighlight
 
 all: $(NAME) $(NAME).opt
 
