@@ -6,7 +6,7 @@
 *)
 (********************************************************************************)
 
-(**	Facilities for converting highlighted code into Ocsigen's [Xhtmltypes_duce]
+(**	Facilities for converting highlighted code into TyXML's [XHTML_types_duce]
 	representation.
 *)
 
@@ -16,7 +16,7 @@
 (********************************************************************************)
 
 (**	This function converts a value of type {!Camlhighlight_core.t} containing
-	a syntax-highlighted document into its Ocsigen's [Xhtmltypes_duce] representation.
+	a syntax-highlighted document into its TyXML's [XHTML_types_duce] representation.
 	The optional parameter [class_prefix] indicates the prefix for the class
 	names of all XHTML elements produced, while [extra_classes] can be used
 	to provide additional class names for the main container.  Also optional
@@ -30,5 +30,5 @@ val write:
 	?dummy_lines:bool ->
 	?linenums:bool ->
 	Camlhighlight_core.t ->
-	Xhtmltypes_duce._div
+	XHTML_types_duce._div
 

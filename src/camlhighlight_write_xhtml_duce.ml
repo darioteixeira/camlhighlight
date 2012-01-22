@@ -7,7 +7,7 @@
 (********************************************************************************)
 
 open ExtList
-open Xhtmltypes_duce
+open XHTML_types_duce
 open Camlhighlight_core
 
 let write
