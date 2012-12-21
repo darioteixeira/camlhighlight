@@ -1,0 +1,63 @@
+OASISFormat:		0.3
+Name:			camlhighlight
+Version:		3.0
+Synopsis:		Syntax highlighting for Ocsigen/Eliom applications
+Authors:		Dario Teixeira
+License:		GPL-2.0
+LicenseFile:		LICENSE
+Plugins:		META (0.3), DevFiles (0.3)
+BuildTools:		ocamlbuild
+Description:
+  Camlhighlight provides syntax highlighting and pretty-printing facilities
+  for displaying code samples in Ocsigen/Eliom applications. The library works
+  by interfacing with the library portion of GNU Source-highlight, a popular
+  application supporting the most common programming and markup languages.
+
+Library "camlhighlight"
+  Path:			src
+  FindlibName:		camlhighlight
+  Modules:		Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html5
+  CSources:		source-highlight_stubs.c
+  CCLib:		-lsource-highlight
+  CCOpt:		-x c++ -Wall -W -Wextra -O2
+  CompiledObject:	best
+  BuildDepends:		threads, extlib, sexplib, eliom.server
+
+Library "camlhighlight_core"
+  Path:			src
+  FindlibParent:	camlhighlight
+  FindlibName:		core
+  Modules:		Camlhighlight_core
+  CCOpt:		-x c++ -Wall -W -Wextra -O2
+  CompiledObject:	best
+  BuildDepends:		sexplib
+
+Library "camlhighlight_parser"
+  Path:			src
+  FindlibParent:	camlhighlight
+  FindlibName:		parser
+  Modules:		Camlhighlight_parser
+  CSources:		source-highlight_stubs.c
+  CCLib:		-lsource-highlight
+  CCOpt:		-x c++ -Wall -W -Wextra -O2
+  CompiledObject:	best
+  BuildDepends:		extlib, sexplib, camlhighlight.core
+
+Library "camlhighlight_write_html5"
+  Path:			src
+  FindlibParent:	camlhighlight
+  FindlibName:		write_html5
+  Modules:		Camlhighlight_write_html5
+  CCOpt:		-x c++ -Wall -W -Wextra -O2
+  CompiledObject:	best
+  BuildDepends:		threads, extlib, eliom.server, camlhighlight.core
+
+Document "camlhighlight"
+  Install:		true
+  InstallDir:		$htmldir/api
+  Title:		API reference for Camlhighlight
+  Type:			ocamlbuild (0.3)
+  BuildTools+:		ocamldoc
+  XOCamlbuildPath:	src
+  XOCamlbuildLibraries:	camlhighlight
+

@@ -1,16 +1,16 @@
 (********************************************************************************)
-(*	Camlhighlight_write_xhtml.mli
+(*	Camlhighlight_write_html5.mli
 	Copyright (c) 2010 Dario Teixeira (dario.teixeira@yahoo.com)
 	This software is distributed under the terms of the GNU GPL version 2.
 	See LICENSE file for full license text.
 *)
 (********************************************************************************)
 
-(**	Facilities for converting highlighted code into Ocsigen's [XHTML.M]
+(**	Facilities for converting highlighted code into Eliom's [Html5.F]
 	representation.
 *)
 
-open Eliom_pervasives
+open Eliom_content
 
 
 (********************************************************************************)
@@ -19,9 +19,9 @@ open Eliom_pervasives
 
 val write:
 	?class_prefix:string ->
-	?extra_classes:XHTML_types.nmtoken list ->
+	?extra_classes:Html5_types.nmtoken list ->
 	?dummy_lines:bool ->
 	?linenums:bool ->
 	Camlhighlight_core.t ->
-	[> `Div ] XHTML.M.elt
+	[> `Div ] Html5.F.elt
 
