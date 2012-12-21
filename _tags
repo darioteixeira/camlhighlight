@@ -1,0 +1,53 @@
+# OASIS_START
+# DO NOT EDIT (digest: a90cdb8fb514fa75373b9c774f1cf7b2)
+# Ignore VCS directories, you can use the same kind of rule outside 
+# OASIS_START/STOP if you want to exclude directories that contains 
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library camlhighlight
+"src/camlhighlight.cmxs": use_camlhighlight
+<src/*.ml{,i}>: oasis_library_camlhighlight_ccopt
+"src/source-highlight_stubs.c": oasis_library_camlhighlight_ccopt
+<src/camlhighlight.{cma,cmxa}>: oasis_library_camlhighlight_cclib
+"src/libcamlhighlight_stubs.lib": oasis_library_camlhighlight_cclib
+"src/dllcamlhighlight_stubs.dll": oasis_library_camlhighlight_cclib
+"src/libcamlhighlight_stubs.a": oasis_library_camlhighlight_cclib
+"src/dllcamlhighlight_stubs.so": oasis_library_camlhighlight_cclib
+<src/camlhighlight.{cma,cmxa}>: use_libcamlhighlight_stubs
+"src/source-highlight_stubs.c": pkg_threads
+"src/source-highlight_stubs.c": pkg_eliom.server
+# Library camlhighlight_core
+"src/camlhighlight_core.cmxs": use_camlhighlight_core
+<src/*.ml{,i}>: oasis_library_camlhighlight_core_ccopt
+# Library camlhighlight_parser
+"src/camlhighlight_parser.cmxs": use_camlhighlight_parser
+<src/*.ml{,i}>: oasis_library_camlhighlight_parser_ccopt
+"src/source-highlight_stubs.c": oasis_library_camlhighlight_parser_ccopt
+<src/camlhighlight_parser.{cma,cmxa}>: oasis_library_camlhighlight_parser_cclib
+"src/libcamlhighlight_parser_stubs.lib": oasis_library_camlhighlight_parser_cclib
+"src/dllcamlhighlight_parser_stubs.dll": oasis_library_camlhighlight_parser_cclib
+"src/libcamlhighlight_parser_stubs.a": oasis_library_camlhighlight_parser_cclib
+"src/dllcamlhighlight_parser_stubs.so": oasis_library_camlhighlight_parser_cclib
+<src/camlhighlight_parser.{cma,cmxa}>: use_libcamlhighlight_parser_stubs
+"src/source-highlight_stubs.c": use_camlhighlight_core
+"src/source-highlight_stubs.c": pkg_extlib
+"src/source-highlight_stubs.c": pkg_sexplib
+# Library camlhighlight_write_html5
+"src/camlhighlight_write_html5.cmxs": use_camlhighlight_write_html5
+<src/*.ml{,i}>: oasis_library_camlhighlight_write_html5_ccopt
+<src/*.ml{,i}>: use_camlhighlight_core
+<src/*.ml{,i}>: pkg_threads
+<src/*.ml{,i}>: pkg_extlib
+<src/*.ml{,i}>: pkg_eliom.server
+<src/*.ml{,i}>: pkg_sexplib
+# OASIS_STOP
+"src/camlhighlight_core.ml": pkg_sexplib.syntax, syntax_camlp4o
