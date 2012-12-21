@@ -1,5 +1,5 @@
 NAME=test
-PKGS=lwt,ocsigen,camlhighlight
+PKGS=lwt,eliom.server,camlhighlight
 
 all: $(NAME).cma $(NAME).cmxs
 

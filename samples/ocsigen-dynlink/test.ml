@@ -9,31 +9,32 @@
 (*	Ocsigen demo of Camlhighlight library.
 *)
 
-open XHTML.M
+open Eliom_content
+open Html5.F
 
 
 let test_service =
-	Eliom_services.new_service 
-		~path: [""]
-		~get_params: Eliom_parameters.unit
+	Eliom_service.service 
+		~path: []
+		~get_params: Eliom_parameter.unit
 		()
 
 
-let test_handler sp () () =
+let test_handler () () =
 	let ch = open_in "test.ml" in
 	let str = Std.input_all ch in
 	let () = close_in ch in
 	let () = Camlhighlight_parser.set_tabspaces 8 in
 	let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
-	let hilite_xhtml = Camlhighlight_write_xhtml.write ~linenums:true ~extra_classes:["hl_zebra"] hilite in
-	let css_uri = Eliom_predefmod.Xhtml.make_uri (Eliom_services.static_dir sp) sp ["css"; "highlight.css"]
+	let hilite_xhtml = Camlhighlight_write_html5.write ~linenums:true ~extra_classes:["hl_zebra"] hilite in
+	let css_uri = make_uri (Eliom_service.static_dir ()) ["css"; "highlight.css"]
 	in Lwt.return
 		(html
-			(head (title (pcdata "Test")) [Eliom_predefmod.Xhtml.css_link ~a:[(a_media [`All]); (a_title "Default")] ~uri:css_uri ()])
+			(head (title (pcdata "Test")) [css_link ~a:[(a_media [`All]); (a_title "Default")] ~uri:css_uri ()])
 			(body [hilite_xhtml]))
 
 
-let () = Eliom_predefmod.Xhtml.register test_service test_handler
+let () = Eliom_registration.Html5.register test_service test_handler
 
 
 (********************************************************************************)
