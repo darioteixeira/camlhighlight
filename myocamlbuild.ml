@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 998a3bf8f9b819d5c3f794d56fee3df4) *)
+(* DO NOT EDIT (digest: 863f76fc93aaabb4497a5502b0cef572) *)
 module OASISGettext = struct
 (* # 21 "/home/dario/.opam/4.00.1/build/oasis.0.3.0/src/oasis/OASISGettext.ml" *)
 
@@ -573,7 +573,7 @@ let package_default =
                    ])
             ])
        ];
-     includes = [];
+     includes = [("tests", ["src"])];
      }
   ;;
 

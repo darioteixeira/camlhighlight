@@ -61,3 +61,15 @@ Document "camlhighlight"
   XOCamlbuildPath:	src
   XOCamlbuildLibraries:	camlhighlight
 
+Executable "test_parser"
+  Build$:		flag(tests)
+  Path:			tests
+  MainIs:		test_parser.ml
+  Install:		false
+  BuildDepends:		camlhighlight
+  CompiledObject:	best
+
+Test "test_parser"
+  Run$:			flag(tests)
+  Command:		$test_parser
+  WorkingDirectory:	tests

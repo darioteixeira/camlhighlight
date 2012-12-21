@@ -15,10 +15,10 @@ let availability () =
 	in List.iter check_lang langs
 
 let highlight () =
-	let ch = open_in "test.ml" in
+	let ch = open_in "test_parser.ml" in
 	let src = Std.input_all ch in
 	let () = close_in ch in
-	let hilite = Camlhighlight_parser.from_string ~lang:"ocaml" src in
+	let hilite = Camlhighlight_parser.from_string ~lang:"caml" src in
 	let str = Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_t hilite)
 	in print_endline str
 

@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: a90cdb8fb514fa75373b9c774f1cf7b2)
+# DO NOT EDIT (digest: cb2986e5c69cabab6c70cc0d71db903f)
 # Ignore VCS directories, you can use the same kind of rule outside 
 # OASIS_START/STOP if you want to exclude directories that contains 
 # useless stuff for the build process
@@ -49,5 +49,16 @@
 <src/*.ml{,i}>: pkg_extlib
 <src/*.ml{,i}>: pkg_eliom.server
 <src/*.ml{,i}>: pkg_sexplib
+# Executable test_parser
+<tests/test_parser.{native,byte}>: use_camlhighlight
+<tests/test_parser.{native,byte}>: pkg_threads
+<tests/test_parser.{native,byte}>: pkg_extlib
+<tests/test_parser.{native,byte}>: pkg_eliom.server
+<tests/test_parser.{native,byte}>: pkg_sexplib
+<tests/*.ml{,i}>: use_camlhighlight
+<tests/*.ml{,i}>: pkg_threads
+<tests/*.ml{,i}>: pkg_extlib
+<tests/*.ml{,i}>: pkg_eliom.server
+<tests/*.ml{,i}>: pkg_sexplib
 # OASIS_STOP
 "src/camlhighlight_core.ml": pkg_sexplib.syntax, syntax_camlp4o
