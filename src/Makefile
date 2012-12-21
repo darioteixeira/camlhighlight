@@ -77,7 +77,7 @@ apidoc: lib $(CAMLSRCS) $(DUCESRC)
 else
 apidoc: lib $(CAMLSRCS)
 	mkdir -p ../doc/apidoc
-	ocamlfind ocamldoc -package extlib,tyxml,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
+	ocamlfind ocamldoc -package extlib,eliom.server,sexplib.syntax -syntax camlp4o -html -d ../doc/apidoc $(CAMLSRCS)
 endif
 
 install: lib
@@ -126,11 +126,11 @@ $(PARSER).cmo $(PARSER).cmx: $(PARSER).ml $(PARSER).cmi $(CORE).cmi
 	ocamlfind ocamlopt -package extlib,sexplib -o $@ -c $<
 
 $(WRITE_XHTML).cmi: $(WRITE_XHTML).mli $(CORE).cmi
-	ocamlfind ocamlc -package tyxml -o $@ -c $<
+	ocamlfind ocamlc -thread -package eliom.server -o $@ -c $<
 
 $(WRITE_XHTML).cmo $(WRITE_XHTML).cmx: $(WRITE_XHTML).ml $(WRITE_XHTML).cmi $(CORE).cmi
-	ocamlfind ocamlc -package extlib,sexplib,tyxml -o $@ -c $<
-	ocamlfind ocamlopt -package extlib,sexplib,tyxml -o $@ -c $<
+	ocamlfind ocamlc -thread -package extlib,sexplib,eliom.server -o $@ -c $<
+	ocamlfind ocamlopt -thread -package extlib,sexplib,eliom.server -o $@ -c $<
 
 $(WRITE_DUCE).cmi: $(WRITE_DUCE).mli $(CORE).cmi
 	ocamlducefind ocamlc -thread -package tyxml.duce -o $@ -c $<

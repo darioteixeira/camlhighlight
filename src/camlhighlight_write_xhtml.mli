@@ -10,6 +10,8 @@
 	representation.
 *)
 
+open Eliom_pervasives
+
 
 (********************************************************************************)
 (**	{2 Public functions}							*)

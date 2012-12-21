@@ -6,8 +6,9 @@
 *)
 (********************************************************************************)
 
-open ExtList
+open Eliom_pervasives
 open XHTML.M
+open ExtList
 open Camlhighlight_core
 
 
