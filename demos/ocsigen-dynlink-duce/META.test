@@ -1,5 +1,0 @@
-directory = "."
-requires = "camlhighlight,camlhighlight.write_xhtml_duce"
-archive(plugin,byte) = "test.cma"
-archive(plugin,native) = "test.cmxs"
-
