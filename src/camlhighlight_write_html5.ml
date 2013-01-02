@@ -6,10 +6,10 @@
 *)
 (********************************************************************************)
 
-open Eliom_content
-open Html5.F
-open ExtList
+open Eliom_content.Html5.F
 open Camlhighlight_core
+
+module List = struct include List include BatList end
 
 
 (********************************************************************************)
@@ -25,26 +25,26 @@ open Camlhighlight_core
 	whether the generated HTML5 should include dummy lines at the beginning
 	and end, and line numbers for the code, respectively.
 *)
-let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(linenums = false) code =
+let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(linenums = false) source =
 	let make_class ?(extra_classes = []) names = a_class (extra_classes @ (List.map (fun x -> class_prefix ^ x) names)) in
-	let normal_line content = [pcdata "\n"; Html5.F.code ~a:[make_class ["line"]] content] in
-	let dummy = if dummy_lines then [pcdata "\n"; Html5.F.code ~a:[make_class ["line"; "dummy"]] []] else [] in
+	let normal_line content = [pcdata "\n"; code ~a:[make_class ["line"]] content] in
+	let dummy = if dummy_lines then [pcdata "\n"; code ~a:[make_class ["line"; "dummy"]] []] else [] in
 	let class_of_special special =
 		Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_special_style_t special) in
 	let elem_to_xhtml = function
-		| (#normal_style_t, str)	     -> Html5.F.pcdata str
-		| (#special_style_t as special, str) -> Html5.F.span ~a:[make_class [class_of_special special]] [Html5.F.pcdata str] in
+		| (#normal_style_t, str)	     -> pcdata str
+		| (#special_style_t as special, str) -> span ~a:[make_class [class_of_special special]] [pcdata str] in
 	let convert_nums () =
-		let code_len = List.length code in
-		let width = String.length (string_of_int code_len) in
-		let numline_to_xhtml num = normal_line [Html5.F.pcdata (Printf.sprintf "%0*d" width num)]
-		in Html5.F.pre ~a:[make_class ["nums"]] (dummy @ (List.flatten (List.map numline_to_xhtml (List.init code_len (fun x -> x+1)))) @ dummy)
-	and convert_code () =
-		let codeline_to_xhtml line = normal_line (List.map elem_to_xhtml line)
-		in Html5.F.pre ~a:[make_class ["code"]] (dummy @ (List.flatten (List.map codeline_to_xhtml code)) @ dummy)
-	in Html5.F.div ~a:[make_class ~extra_classes ["main"]]
+		let source_len = List.length source in
+		let width = String.length (string_of_int source_len) in
+		let numline_to_xhtml num = normal_line [pcdata (Printf.sprintf "%0*d" width num)]
+		in pre ~a:[make_class ["nums"]] (dummy @ (List.flatten (List.map numline_to_xhtml (List.init source_len (fun x -> x+1)))) @ dummy)
+	and convert_source () =
+		let source_line_to_xhtml line = normal_line (List.map elem_to_xhtml line)
+		in pre ~a:[make_class ["source"]] (dummy @ (List.flatten (List.map source_line_to_xhtml source)) @ dummy)
+	in div ~a:[make_class ~extra_classes ["main"]]
 		(match linenums with
-			| true	-> [convert_nums (); convert_code ()]
-			| false -> [convert_code ()])
+			| true	-> [convert_nums (); convert_source ()]
+			| false -> [convert_source ()])
 
 

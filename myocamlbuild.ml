@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 863f76fc93aaabb4497a5502b0cef572) *)
+(* DO NOT EDIT (digest: b599a406151c91888f10259e08350b73) *)
 module OASISGettext = struct
 (* # 21 "/home/dario/.opam/4.00.1/build/oasis.0.3.0/src/oasis/OASISGettext.ml" *)
 
@@ -477,15 +477,8 @@ end
 open Ocamlbuild_plugin;;
 let package_default =
   {
-     MyOCamlbuildBase.lib_ocaml =
-       [
-          ("camlhighlight", ["src"]);
-          ("camlhighlight_core", ["src"]);
-          ("camlhighlight_parser", ["src"]);
-          ("camlhighlight_write_html5", ["src"])
-       ];
-     lib_c =
-       [("camlhighlight", "src", []); ("camlhighlight_parser", "src", [])];
+     MyOCamlbuildBase.lib_ocaml = [("camlhighlight", ["src"])];
+     lib_c = [("camlhighlight", "src", [])];
      flags =
        [
           (["oasis_library_camlhighlight_ccopt"; "compile"],
@@ -510,68 +503,7 @@ let package_default =
           (["oasis_library_camlhighlight_cclib"; "link"],
             [(OASISExpr.EBool true, S [A "-cclib"; A "-lsource-highlight"])]);
           (["oasis_library_camlhighlight_cclib"; "ocamlmklib"; "c"],
-            [(OASISExpr.EBool true, S [A "-lsource-highlight"])]);
-          (["oasis_library_camlhighlight_core_ccopt"; "compile"],
-            [
-               (OASISExpr.EBool true,
-                 S
-                   [
-                      A "-ccopt";
-                      A "-x";
-                      A "-ccopt";
-                      A "c++";
-                      A "-ccopt";
-                      A "-Wall";
-                      A "-ccopt";
-                      A "-W";
-                      A "-ccopt";
-                      A "-Wextra";
-                      A "-ccopt";
-                      A "-O2"
-                   ])
-            ]);
-          (["oasis_library_camlhighlight_parser_ccopt"; "compile"],
-            [
-               (OASISExpr.EBool true,
-                 S
-                   [
-                      A "-ccopt";
-                      A "-x";
-                      A "-ccopt";
-                      A "c++";
-                      A "-ccopt";
-                      A "-Wall";
-                      A "-ccopt";
-                      A "-W";
-                      A "-ccopt";
-                      A "-Wextra";
-                      A "-ccopt";
-                      A "-O2"
-                   ])
-            ]);
-          (["oasis_library_camlhighlight_parser_cclib"; "link"],
-            [(OASISExpr.EBool true, S [A "-cclib"; A "-lsource-highlight"])]);
-          (["oasis_library_camlhighlight_parser_cclib"; "ocamlmklib"; "c"],
-            [(OASISExpr.EBool true, S [A "-lsource-highlight"])]);
-          (["oasis_library_camlhighlight_write_html5_ccopt"; "compile"],
-            [
-               (OASISExpr.EBool true,
-                 S
-                   [
-                      A "-ccopt";
-                      A "-x";
-                      A "-ccopt";
-                      A "c++";
-                      A "-ccopt";
-                      A "-Wall";
-                      A "-ccopt";
-                      A "-W";
-                      A "-ccopt";
-                      A "-Wextra";
-                      A "-ccopt";
-                      A "-O2"
-                   ])
-            ])
+            [(OASISExpr.EBool true, S [A "-lsource-highlight"])])
        ];
      includes = [("tests", ["src"])];
      }
@@ -579,6 +511,6 @@ let package_default =
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default package_default;;
 
-# 583 "myocamlbuild.ml"
+# 515 "myocamlbuild.ml"
 (* OASIS_STOP *)
 Ocamlbuild_plugin.dispatch dispatch_default;;

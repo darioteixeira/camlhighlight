@@ -21,36 +21,7 @@ Library "camlhighlight"
   CCLib:		-lsource-highlight
   CCOpt:		-x c++ -Wall -W -Wextra -O2
   CompiledObject:	best
-  BuildDepends:		threads, extlib, sexplib, eliom.server
-
-Library "camlhighlight_core"
-  Path:			src
-  FindlibParent:	camlhighlight
-  FindlibName:		core
-  Modules:		Camlhighlight_core
-  CCOpt:		-x c++ -Wall -W -Wextra -O2
-  CompiledObject:	best
-  BuildDepends:		sexplib
-
-Library "camlhighlight_parser"
-  Path:			src
-  FindlibParent:	camlhighlight
-  FindlibName:		parser
-  Modules:		Camlhighlight_parser
-  CSources:		source-highlight_stubs.c
-  CCLib:		-lsource-highlight
-  CCOpt:		-x c++ -Wall -W -Wextra -O2
-  CompiledObject:	best
-  BuildDepends:		extlib, sexplib, camlhighlight.core
-
-Library "camlhighlight_write_html5"
-  Path:			src
-  FindlibParent:	camlhighlight
-  FindlibName:		write_html5
-  Modules:		Camlhighlight_write_html5
-  CCOpt:		-x c++ -Wall -W -Wextra -O2
-  CompiledObject:	best
-  BuildDepends:		threads, extlib, eliom.server, camlhighlight.core
+  BuildDepends:		threads, batteries, sexplib, eliom.server
 
 Document "camlhighlight"
   Install:		true

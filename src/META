@@ -1,44 +1,12 @@
 # OASIS_START
-# DO NOT EDIT (digest: 7a831f1e9fc23ad28aa026bd5a5c6f90)
+# DO NOT EDIT (digest: f09b98df3f57b7c686cc246d8a7e63c8)
 version = "3.0"
 description = "Syntax highlighting for Ocsigen/Eliom applications"
-requires = "threads extlib sexplib eliom.server"
+requires = "threads batteries sexplib eliom.server"
 archive(byte) = "camlhighlight.cma"
 archive(byte, plugin) = "camlhighlight.cma"
 archive(native) = "camlhighlight.cmxa"
 archive(native, plugin) = "camlhighlight.cmxs"
 exists_if = "camlhighlight.cma"
-package "write_html5" (
- version = "3.0"
- description = "Syntax highlighting for Ocsigen/Eliom applications"
- requires = "threads extlib eliom.server camlhighlight.core"
- archive(byte) = "camlhighlight_write_html5.cma"
- archive(byte, plugin) = "camlhighlight_write_html5.cma"
- archive(native) = "camlhighlight_write_html5.cmxa"
- archive(native, plugin) = "camlhighlight_write_html5.cmxs"
- exists_if = "camlhighlight_write_html5.cma"
-)
-
-package "parser" (
- version = "3.0"
- description = "Syntax highlighting for Ocsigen/Eliom applications"
- requires = "extlib sexplib camlhighlight.core"
- archive(byte) = "camlhighlight_parser.cma"
- archive(byte, plugin) = "camlhighlight_parser.cma"
- archive(native) = "camlhighlight_parser.cmxa"
- archive(native, plugin) = "camlhighlight_parser.cmxs"
- exists_if = "camlhighlight_parser.cma"
-)
-
-package "core" (
- version = "3.0"
- description = "Syntax highlighting for Ocsigen/Eliom applications"
- requires = "sexplib"
- archive(byte) = "camlhighlight_core.cma"
- archive(byte, plugin) = "camlhighlight_core.cma"
- archive(native) = "camlhighlight_core.cmxa"
- archive(native, plugin) = "camlhighlight_core.cmxs"
- exists_if = "camlhighlight_core.cma"
-)
 # OASIS_STOP
 
