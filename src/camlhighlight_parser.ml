@@ -8,7 +8,7 @@
 
 open Sexplib
 
-module String = struct include String include BatString end
+module String = BatString
 
 
 (********************************************************************************)

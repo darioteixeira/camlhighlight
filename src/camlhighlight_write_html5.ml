@@ -9,7 +9,7 @@
 open Eliom_content.Html5.F
 open Camlhighlight_core
 
-module List = struct include List include BatList end
+module List = BatList
 
 
 (********************************************************************************)
