@@ -41,7 +41,7 @@ let write ?(class_prefix = "hl_") ?(extra_classes = []) ?(dummy_lines = true) ?(
 		in pre ~a:[make_class ["nums"]] (dummy @ (List.flatten (List.map numline_to_xhtml (List.init source_len (fun x -> x+1)))) @ dummy)
 	and convert_source () =
 		let source_line_to_xhtml line = normal_line (List.map elem_to_xhtml line)
-		in pre ~a:[make_class ["source"]] (dummy @ (List.flatten (List.map source_line_to_xhtml source)) @ dummy)
+		in pre ~a:[make_class ["code"]] (dummy @ (List.flatten (List.map source_line_to_xhtml source)) @ dummy)
 	in div ~a:[make_class ~extra_classes ["main"]]
 		(match linenums with
 			| true	-> [convert_nums (); convert_source ()]
