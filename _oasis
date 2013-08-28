@@ -25,7 +25,7 @@ Library "camlhighlight"
 
 Document "camlhighlight"
   Install:		true
-  InstallDir:		$htmldir/api
+  InstallDir:		$htmldir
   Title:		API reference for Camlhighlight
   Type:			ocamlbuild (0.3)
   BuildTools+:		ocamldoc
