@@ -18,7 +18,7 @@
 (**	A functorial interface is used because the user may wish to use this module
 	together with Eliom (for instance).  This particular use case is achieved by
 	feeding Eliom's [Html5.F.Raw] and [Eliom_content.Svg.F.Raw] to the functor,
-	as examplified by the code below:
+	as exemplified by the code below:
 	{v
 	module My_writer = Camlhighlight_write_html5.Make
 	(struct
