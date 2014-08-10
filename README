@@ -19,35 +19,25 @@ application supporting the most common programming and markup languages.
 2. Dependencies
 ===============
 
-On the Ocaml side, Camlhighlight depends on ExtLib, Sexplib, and TyXML
-[2,3,4].  TyXML (which is part of the Ocsigen project [5]) is required because
-Camlhighlight provides functions that output valid XHTML values using TyXML's
-XHTML.M module, whereas Sexplib is used to provide serialisation facilities.
+On the OCaml side, Camlhighlight depends on Batteries, Sexplib, and TyXML [2,3,4].
+TyXML (which is part of the Ocsigen project [5]) is required because Camlhighlight
+provides functions that output valid Html5 values using TyXML's Html5 module,
+whereas Sexplib is used to provide serialisation facilities.
 
-Camlhighlight requires also GNU Source-highlight, of course.  The library has
-been tested with version 3.1, though subsequent versions should also work.
-Note that for most Linux distros you may need to manually download and build
-the source-code for GNU Source-highlight.  There are however some distros
-that already package the library's runtime and development versions:
-
-  * Ubuntu "Lucid Lynx" and more recent versions:
-
-    Install packages 'source-highlight', 'libsource-highlight3' and 'libsource-highlight-dev'.
+Camlhighlight requires also GNU Source-highlight, of course.  Note that for many
+Linux distributions you may need to manually download and build the source-code
+for GNU Source-highlight.  There are however some distros that already package the
+library's runtime and development versions.  Debian and Ubuntu users, for instance,
+should install packages 'libsource-highlight-common', 'libsource-highlight4' and
+'libsource-highlight-dev'.
 
 
 3. Building and installing
 ==========================
 
-Change into the 'src' directory and edit the Makefile to configure the
-location of GNU Source-highlight's C++ header files and libraries.
-
-Typing 'make' suffices to build the Camlhighlight library.  After building,
-'make install' will perform a findlib installation.  To generate the ocamldoc
-API documentation, use 'make apidoc'.
-
-Modules for OCamlduce will built automatically if you have OCamlduce
-installed. But if you want to build a package without OCamlduce support,
-run 'make DUCE=no && make DUCE=no install'.
+The build system relies on OASIS.  The customary sequence of './configure',
+'make', and 'make install' is used to build and install the library.  Run
+'make doc' to generate the API documentation.
 
 You will also need to manually copy the file 'src/camlhighlight.outlang' into
 GNU Source-highlight's data directory (normally '/usr/share/source-highlight').
@@ -64,7 +54,7 @@ References
 ==========
 
 [1] http://www.gnu.org/software/src-highlite/
-[2] http://code.google.com/p/ocaml-extlib/
+[2] http://batteries.forge.ocamlcore.org/
 [3] http://forge.ocamlcore.org/projects/sexplib/
 [4] http://www.ocsigen.org/tyxml
 [5] http://www.ocsigen.org/

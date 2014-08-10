@@ -1,8 +1,8 @@
 # OASIS_START
-# DO NOT EDIT (digest: f09b98df3f57b7c686cc246d8a7e63c8)
+# DO NOT EDIT (digest: c6d716635a72af554d5d17ed70c698b3)
 version = "3.0"
-description = "Syntax highlighting for Ocsigen/Eliom applications"
-requires = "threads batteries sexplib eliom.server"
+description = "Syntax highlighting for Ocsigen applications"
+requires = "threads batteries sexplib tyxml"
 archive(byte) = "camlhighlight.cma"
 archive(byte, plugin) = "camlhighlight.cma"
 archive(native) = "camlhighlight.cmxa"

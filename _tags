@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 006bde552ce118d00d056928f4983a0a)
+# DO NOT EDIT (digest: 69a3e4ca53eb72bb7d7575c18961356b)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
@@ -24,23 +24,23 @@
 "src/dllcamlhighlight_stubs.so": oasis_library_camlhighlight_cclib
 <src/camlhighlight.{cma,cmxa}>: use_libcamlhighlight_stubs
 <src/*.ml{,i}>: pkg_batteries
-<src/*.ml{,i}>: pkg_eliom.server
 <src/*.ml{,i}>: pkg_sexplib
 <src/*.ml{,i}>: pkg_threads
+<src/*.ml{,i}>: pkg_tyxml
 "src/source-highlight_stubs.c": pkg_batteries
-"src/source-highlight_stubs.c": pkg_eliom.server
 "src/source-highlight_stubs.c": pkg_sexplib
 "src/source-highlight_stubs.c": pkg_threads
+"src/source-highlight_stubs.c": pkg_tyxml
 # Executable test_parser
 <tests/test_parser.{native,byte}>: pkg_batteries
-<tests/test_parser.{native,byte}>: pkg_eliom.server
 <tests/test_parser.{native,byte}>: pkg_sexplib
 <tests/test_parser.{native,byte}>: pkg_threads
+<tests/test_parser.{native,byte}>: pkg_tyxml
 <tests/test_parser.{native,byte}>: use_camlhighlight
 <tests/*.ml{,i}>: pkg_batteries
-<tests/*.ml{,i}>: pkg_eliom.server
 <tests/*.ml{,i}>: pkg_sexplib
 <tests/*.ml{,i}>: pkg_threads
+<tests/*.ml{,i}>: pkg_tyxml
 <tests/*.ml{,i}>: use_camlhighlight
 # OASIS_STOP
 "src/camlhighlight_core.ml": pkg_sexplib.syntax, syntax_camlp4o

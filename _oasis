@@ -1,7 +1,7 @@
 OASISFormat:		0.3
 Name:			camlhighlight
 Version:		3.0
-Synopsis:		Syntax highlighting for Ocsigen/Eliom applications
+Synopsis:		Syntax highlighting for Ocsigen applications
 Authors:		Dario Teixeira
 License:		GPL-2.0
 LicenseFile:		LICENSE
@@ -9,7 +9,7 @@ Plugins:		META (0.3), DevFiles (0.3)
 BuildTools:		ocamlbuild
 Description:
   Camlhighlight provides syntax highlighting and pretty-printing facilities
-  for displaying code samples in Ocsigen/Eliom applications. The library works
+  for displaying code samples in Ocsigen applications. The library works
   by interfacing with the library portion of GNU Source-highlight, a popular
   application supporting the most common programming and markup languages.
 
@@ -21,7 +21,7 @@ Library "camlhighlight"
   CCLib:		-lsource-highlight
   CCOpt:		-x c++ -Wall -W -Wextra -O2
   CompiledObject:	best
-  BuildDepends:		threads, batteries, sexplib, eliom.server
+  BuildDepends:		threads, batteries, sexplib, tyxml
 
 Document "camlhighlight"
   Install:		true
