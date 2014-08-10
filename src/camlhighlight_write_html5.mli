@@ -12,7 +12,7 @@
 
 
 (********************************************************************************)
-(**	{2 Public functors}							*)
+(**	{1 Public functors}							*)
 (********************************************************************************)
 
 (**	A functorial interface is used because the user may wish to use this module
@@ -29,6 +29,15 @@
 *)
 module Make: functor (Html5: Html5_sigs.T with type 'a Xml.wrap = 'a and type 'a wrap = 'a and type 'a list_wrap = 'a list) ->
 sig
+	(**	This function converts a value of type {!Camlhighlight_core.t} containing
+		a syntax-highlighted document into its [Html5] representation.
+		The optional parameter [class_prefix] indicates the prefix for the class
+		names of all HTML5 elements produced, while [extra_classes] can be used
+		to provide additional class names for the main container.  Also optional
+		are the boolean parameters [dummy_lines], and [linenums].  They indicate
+		whether the generated HTML5 should include dummy lines at the beginning
+		and end, and line numbers for the code, respectively.
+	*)
 	val write:
 		?class_prefix:string ->
 		?extra_classes:Html5_types.nmtoken list ->
