@@ -39,7 +39,7 @@ The build system relies on OASIS.  The customary sequence of './configure',
 'make', and 'make install' is used to build and install the library.  Run
 'make doc' to generate the API documentation.
 
-You will also need to manually copy the file 'src/camlhighlight.outlang' into
+You will also need to manually copy the file 'src/sexp.outlang' into
 GNU Source-highlight's data directory (normally '/usr/share/source-highlight').
 
 

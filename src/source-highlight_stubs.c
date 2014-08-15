@@ -30,7 +30,7 @@ using namespace srchilite;
 /* Module variables and constants.						*/
 /********************************************************************************/
 
-static string outlang ("camlhighlight.outlang");	// Default outlang definition file.
+static string outlang ("sexp.outlang");			// Default outlang definition file.
 static string langmap ("lang.map");			// Default language map file.
 static SourceHighlight *hiliter = 0;			// The global hiliter.
 static LangMap *mapper = 0;				// The global mapper.
