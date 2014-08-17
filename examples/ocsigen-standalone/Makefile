@@ -1,13 +1,13 @@
 NAME=test
-PKGS=extlib,lwt,eliom.server,camlhighlight
-STATIC_PKGS=ocsigenserver,ocsigenserver.commandline,ocsigenserver.ext.ocsipersist-sqlite,ocsigenserver.ext.staticmod,eliom.server,extlib,camlhighlight
+PKGS=lwt,eliom.server,camlhighlight
+STATIC_PKGS=ocsigenserver,ocsigenserver.commandline,ocsigenserver.ext.ocsipersist-sqlite,ocsigenserver.ext.staticmod,eliom.server,camlhighlight
 
-all: $(NAME) $(NAME).opt
+all: $(NAME).byte $(NAME).native
 
-$(NAME): $(NAME).cmo
+$(NAME).byte: $(NAME).cmo
 	ocamlfind ocamlc -package $(STATIC_PKGS) $+ -o $@ -linkpkg -thread
 
-$(NAME).opt: $(NAME).cmx
+$(NAME).native: $(NAME).cmx
 	ocamlfind ocamlopt -package $(STATIC_PKGS) $+ -o $@ -linkpkg -thread
 
 %.cmo: %.ml
@@ -17,5 +17,5 @@ $(NAME).opt: $(NAME).cmx
 	ocamlfind ocamlopt -thread -package $(PKGS) -c $<
 
 clean:
-	rm -f $(NAME).cm[ioax] $(NAME).cmx[as] $(NAME).[oa] $(NAME) $(NAME).opt
+	rm -f $(NAME).cm[ioax] $(NAME).cmx[as] $(NAME).[oa] $(NAME).byte $(NAME).native
 
