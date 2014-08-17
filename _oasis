@@ -18,7 +18,7 @@ Library "camlhighlight"
   FindlibName:		camlhighlight
   Modules:		Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html5
   CSources:		source-highlight_stubs.c
-  CCLib:		-lsource-highlight
+  CCLib:		-lsource-highlight -lstdc++
   CCOpt:		-x c++ -Wall -Wextra -O2
   CompiledObject:	best
   BuildDepends:		threads, batteries, sexplib, tyxml
