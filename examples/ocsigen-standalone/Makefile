@@ -1,6 +1,6 @@
 NAME=test
-PKGS=lwt,eliom.server,camlhighlight
-STATIC_PKGS=ocsigenserver,ocsigenserver.commandline,ocsigenserver.ext.ocsipersist-sqlite,ocsigenserver.ext.staticmod,eliom.server,camlhighlight
+PKGS=sexplib,batteries,lwt,eliom.server,camlhighlight
+STATIC_PKGS=sexplib,batteries,ocsigenserver,ocsigenserver.commandline,ocsigenserver.ext.ocsipersist-sqlite,ocsigenserver.ext.staticmod,lwt,eliom.server,camlhighlight
 
 all: $(NAME).byte $(NAME).native
 

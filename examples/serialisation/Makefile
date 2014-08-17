@@ -1,6 +1,6 @@
 NAME=test
-PKGS=camlhighlight
-LINK_PKGS=camlhighlight
+PKGS=sexplib,batteries,camlhighlight
+LINK_PKGS=sexplib,batteries,camlhighlight
 
 all: $(NAME).byte $(NAME).native
 

@@ -1,5 +1,5 @@
 NAME=test
-PKGS=lwt,eliom.server,camlhighlight
+PKGS=sexplib,batteries,lwt,eliom.server,camlhighlight
 
 all: $(NAME).cma $(NAME).cmxs
 
