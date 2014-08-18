@@ -1,3 +1,9 @@
 _build/
 setup.data
 setup.log
+*.cm[aiox]
+*.cmx[as]
+*.a
+*.o
+*.byte
+*.native
