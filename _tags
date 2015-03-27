@@ -1,8 +1,9 @@
 # OASIS_START
-# DO NOT EDIT (digest: 69a3e4ca53eb72bb7d7575c18961356b)
+# DO NOT EDIT (digest: 20455cf6c336b0cf781a20033cd933ba)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
+true: annot, bin_annot
 <**/.svn>: -traverse
 <**/.svn>: not_hygienic
 ".bzr": -traverse
@@ -15,7 +16,7 @@
 "_darcs": not_hygienic
 # Library camlhighlight
 "src/camlhighlight.cmxs": use_camlhighlight
-<src/*.ml{,i}>: oasis_library_camlhighlight_ccopt
+<src/*.ml{,i,y}>: oasis_library_camlhighlight_ccopt
 "src/source-highlight_stubs.c": oasis_library_camlhighlight_ccopt
 <src/camlhighlight.{cma,cmxa}>: oasis_library_camlhighlight_cclib
 "src/libcamlhighlight_stubs.lib": oasis_library_camlhighlight_cclib
@@ -23,10 +24,10 @@
 "src/libcamlhighlight_stubs.a": oasis_library_camlhighlight_cclib
 "src/dllcamlhighlight_stubs.so": oasis_library_camlhighlight_cclib
 <src/camlhighlight.{cma,cmxa}>: use_libcamlhighlight_stubs
-<src/*.ml{,i}>: pkg_batteries
-<src/*.ml{,i}>: pkg_sexplib
-<src/*.ml{,i}>: pkg_threads
-<src/*.ml{,i}>: pkg_tyxml
+<src/*.ml{,i,y}>: pkg_batteries
+<src/*.ml{,i,y}>: pkg_sexplib
+<src/*.ml{,i,y}>: pkg_threads
+<src/*.ml{,i,y}>: pkg_tyxml
 "src/source-highlight_stubs.c": pkg_batteries
 "src/source-highlight_stubs.c": pkg_sexplib
 "src/source-highlight_stubs.c": pkg_threads
@@ -37,10 +38,10 @@
 <tests/test_parser.{native,byte}>: pkg_threads
 <tests/test_parser.{native,byte}>: pkg_tyxml
 <tests/test_parser.{native,byte}>: use_camlhighlight
-<tests/*.ml{,i}>: pkg_batteries
-<tests/*.ml{,i}>: pkg_sexplib
-<tests/*.ml{,i}>: pkg_threads
-<tests/*.ml{,i}>: pkg_tyxml
-<tests/*.ml{,i}>: use_camlhighlight
+<tests/*.ml{,i,y}>: pkg_batteries
+<tests/*.ml{,i,y}>: pkg_sexplib
+<tests/*.ml{,i,y}>: pkg_threads
+<tests/*.ml{,i,y}>: pkg_tyxml
+<tests/*.ml{,i,y}>: use_camlhighlight
 # OASIS_STOP
-"src/camlhighlight_core.ml": pkg_sexplib.syntax, syntax_camlp4o
+<src/camlhighlight_core.ml>: pkg_sexplib.syntax, syntax_camlp4o

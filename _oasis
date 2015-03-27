@@ -1,12 +1,13 @@
-OASISFormat:		0.3
+OASISFormat:		0.4
 Name:			camlhighlight
-Version:		3.0
+Version:		3.0.1
 Synopsis:		Syntax highlighting for Ocsigen applications
-Authors:		Dario Teixeira
-License:		GPL-2.0
+Authors:		Dario Teixeira <dario.teixeira@nleyten.com>
+Homepage:		http://camlhighlight.forge.ocamlcore.org/
+License:		GPL-2
 LicenseFile:		LICENSE
-Plugins:		META (0.3), DevFiles (0.3)
-BuildTools:		ocamlbuild
+Plugins:		META (0.4), DevFiles (0.4)
+BuildTools:		ocamlbuild, make
 Description:
   Camlhighlight provides syntax highlighting and pretty-printing facilities
   for displaying code samples in Ocsigen applications. The library works
