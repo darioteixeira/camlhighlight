@@ -16,7 +16,7 @@
 exception Cannot_initialize_hiliter
 exception Cannot_initialize_mapper
 exception Uninitialized
-exception Unknown_language of Camlhighlight_core.lang_t
+exception Unknown_language of Camlhighlight_core.lang
 exception Hiliter_error of string
 
 
@@ -29,24 +29,24 @@ exception Hiliter_error of string
 val set_tabspaces: int -> unit
 
 (**	Returns a list of all languages for which syntax highlighting is available.
-	Each language is returned as a {!Camlhighlight_core.lang_t}, which can be
+	Each language is returned as a {!Camlhighlight_core.lang}, which can be
 	given directly to function {!from_string}.
 *)
-val get_available_langs: unit -> Camlhighlight_core.lang_t list
+val get_available_langs: unit -> Camlhighlight_core.lang list
 
 (**	Returns a boolean indicating whether syntax highlighting is available for
 	the given language.
 *)
-val is_available_lang: Camlhighlight_core.lang_t -> bool
+val is_available_lang: Camlhighlight_core.lang -> bool
 
 (**	An invocation of [from_string ~lang source] will create a value of type
 	{!Camlhighlight_core.t} containing the syntax-highlighted version of
 	the source-code in string format passed in the [source] parameter.
 	The optional parameter [lang] tells the highlighter which language
 	conventions should be used for highlighting.  This parameter expects
-	a value of type {!Camlhighlight_core.lang_t}; no actual highlighting
+	a value of type {!Camlhighlight_core.lang}; no actual highlighting
 	will be done if it is not provided (in fact equivalent to specifying
 	["txt"] as the language).
 *)
-val from_string: ?lang:Camlhighlight_core.lang_t -> string -> Camlhighlight_core.t
+val from_string: ?lang:Camlhighlight_core.lang -> string -> Camlhighlight_core.t
 

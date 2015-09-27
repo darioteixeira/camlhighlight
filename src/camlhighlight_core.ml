@@ -18,15 +18,15 @@ open Sexplib.Std
 
 (**	How the source language is specified.
 *)
-type lang_t = string with sexp
+type lang = string with sexp
 
 
-type normal_style_t =
+type normal_style =
 	[ `Norm
 	] with sexp
 
 
-type special_style_t =
+type special_style =
 	(* General common styles *)
 	[ `Kwd			(** keyword *)
 	| `Type			(** type *)
@@ -92,20 +92,20 @@ type special_style_t =
 
 (**	Styles.
 *)
-type style_t = [ normal_style_t | special_style_t ] with sexp
+type style = [ normal_style | special_style ] with sexp
 
 
 (**	An element is a pair consisting of a style and the contents.
 *)
-type elem_t = style_t * string with sexp
+type elem = style * string with sexp
 
 
 (**	A line is composed of a list of individual elements.
 *)
-type line_t = elem_t list with sexp
+type line = elem list with sexp
 
 
 (**	The value of highlighted source-code samples.  It's just a list of lines.
 *)
-type t = line_t list with sexp
+type t = line list with sexp
 

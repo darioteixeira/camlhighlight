@@ -24,10 +24,10 @@ struct
 		let normal_line content = [pcdata "\n"; code ~a:[make_class ["line"]] content] in
 		let dummy = if dummy_lines then [pcdata "\n"; code ~a:[make_class ["line"; "dummy"]] []] else [] in
 		let class_of_special special =
-			Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_special_style_t special) in
+			Sexplib.Sexp.to_string_mach (Camlhighlight_core.sexp_of_special_style special) in
 		let elem_to_xhtml = function
-			| (#normal_style_t, str)	     -> pcdata str
-			| (#special_style_t as special, str) -> span ~a:[make_class [class_of_special special]] [pcdata str] in
+			| (#normal_style, str)	     	   -> pcdata str
+			| (#special_style as special, str) -> span ~a:[make_class [class_of_special special]] [pcdata str] in
 		let convert_nums () =
 			let source_len = List.length source in
 			let width = String.length (string_of_int source_len) in

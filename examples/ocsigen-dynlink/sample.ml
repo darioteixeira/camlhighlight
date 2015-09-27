@@ -1,4 +1,4 @@
-type foo_t =
+type foo =
 	| One
 	| Two
 	| Three

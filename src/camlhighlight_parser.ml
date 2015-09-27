@@ -18,7 +18,7 @@ module String = BatString
 exception Cannot_initialize_hiliter
 exception Cannot_initialize_mapper
 exception Uninitialized
-exception Unknown_language of Camlhighlight_core.lang_t
+exception Unknown_language of Camlhighlight_core.lang
 exception Hiliter_error of string
 
 
