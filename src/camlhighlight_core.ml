@@ -13,11 +13,9 @@ open Sexplib.Std
 (** {1 Type definitions}                                                        *)
 (********************************************************************************)
 
-type lang = string with sexp
+type lang = string [@@deriving sexp]
 
-type normal_style =
-    [ `Norm
-    ] with sexp
+type normal_style = [ `Norm ] [@@deriving sexp]
 
 type special_style =
     [ `Kwd
@@ -59,13 +57,13 @@ type special_style =
     | `Val
     | `Atom
     | `Meta
-    ] with sexp
+    ] [@@deriving sexp]
 
-type style = [ normal_style | special_style ] with sexp
+type style = [ normal_style | special_style ] [@@deriving sexp]
 
-type elem = style * string with sexp
+type elem = style * string [@@deriving sexp]
 
-type line = elem list with sexp
+type line = elem list [@@deriving sexp]
 
-type t = line list with sexp
+type t = line list [@@deriving sexp]
 

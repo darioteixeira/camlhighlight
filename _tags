@@ -44,4 +44,4 @@ true: annot, bin_annot
 <tests/*.ml{,i,y}>: pkg_tyxml
 <tests/*.ml{,i,y}>: use_camlhighlight
 # OASIS_STOP
-<src/camlhighlight_core.ml>: pkg_sexplib.syntax, syntax_camlp4o
+<src/camlhighlight_core.ml*>: pkg_ppx_sexp_conv

@@ -16,11 +16,9 @@
 
 (** How the source language is specified.
 *)
-type lang = string with sexp
+type lang = string [@@deriving sexp]
 
-type normal_style =
-    [ `Norm
-    ] with sexp
+type normal_style = [ `Norm ] [@@deriving sexp] 
 
 type special_style =
     (* General common styles *)
@@ -83,21 +81,21 @@ type special_style =
     (* Oz *)
     | `Atom         (** atom *)
     | `Meta         (** meta *)
-    ] with sexp
+    ] [@@deriving sexp]
 
 (** Styles.
 *)
-type style = [ normal_style | special_style ] with sexp
+type style = [ normal_style | special_style ] [@@deriving sexp]
 
 (** An element is a pair consisting of a style and the contents.
 *)
-type elem = style * string with sexp
+type elem = style * string [@@deriving sexp]
 
 (** A line is composed of a list of individual elements.
 *)
-type line = elem list with sexp
+type line = elem list [@@deriving sexp]
 
 (** The value of highlighted source-code samples.  It's just a list of lines.
 *)
-type t = line list with sexp
+type t = line list [@@deriving sexp]
 
