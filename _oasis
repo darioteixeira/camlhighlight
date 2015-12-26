@@ -1,47 +1,48 @@
-OASISFormat:		0.4
-Name:			camlhighlight
-Version:		3.0.1
-Synopsis:		Syntax highlighting for Ocsigen applications
-Authors:		Dario Teixeira <dario.teixeira@nleyten.com>
-Homepage:		http://camlhighlight.forge.ocamlcore.org/
-License:		GPL-2
-LicenseFile:		LICENSE
-Plugins:		META (0.4), DevFiles (0.4)
-BuildTools:		ocamlbuild, make
+OASISFormat:    0.4
+Name:           camlhighlight
+Version:        4.0
+Synopsis:       Syntax highlighting for Ocsigen applications
+Authors:        Dario Teixeira <dario.teixeira@nleyten.com>
+Homepage:       http://camlhighlight.forge.ocamlcore.org/
+License:        GPL-2
+LicenseFile:    LICENSE
+Plugins:        META (0.4), DevFiles (0.4)
+BuildTools:     ocamlbuild, make
 Description:
-  Camlhighlight provides syntax highlighting and pretty-printing facilities
-  for displaying code samples in Ocsigen applications. The library works
-  by interfacing with the library portion of GNU Source-highlight, a popular
-  application supporting the most common programming and markup languages.
+    Camlhighlight provides syntax highlighting and pretty-printing facilities
+    for displaying code samples in Ocsigen applications. The library works
+    by interfacing with the library portion of GNU Source-highlight, a popular
+    application supporting the most common programming and markup languages.
 
 Library "camlhighlight"
-  Path:			src
-  FindlibName:		camlhighlight
-  Modules:		Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html5
-  CSources:		source-highlight_stubs.c
-  CCLib:		-lsource-highlight -lstdc++
-  CCOpt:		-x c++ -Wall -Wextra -O2
-  CompiledObject:	best
-  BuildDepends:		threads, batteries, sexplib, tyxml
+    Path:                   src
+    FindlibName:            camlhighlight
+    Modules:                Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html5
+    CSources:               source-highlight_stubs.c
+    CCLib:                  -lsource-highlight -lstdc++
+    CCOpt:                  -x c++ -Wall -Wextra -O2
+    CompiledObject:         best
+    BuildDepends:           threads, batteries, sexplib, tyxml
 
 Document "camlhighlight"
-  Install:		true
-  InstallDir:		$htmldir
-  Title:		API reference for Camlhighlight
-  Type:			ocamlbuild (0.3)
-  BuildTools+:		ocamldoc
-  XOCamlbuildPath:	src
-  XOCamlbuildLibraries:	camlhighlight
+    Install:                true
+    InstallDir:             $htmldir
+    Title:                  API reference for Camlhighlight
+    Type:                   ocamlbuild (0.4)
+    BuildTools+:            ocamldoc
+    XOCamlbuildPath:        src
+    XOCamlbuildLibraries:   camlhighlight
 
 Executable "test_parser"
-  Build$:		flag(tests)
-  Path:			tests
-  MainIs:		test_parser.ml
-  Install:		false
-  BuildDepends:		camlhighlight
-  CompiledObject:	best
+    Build$:                 flag(tests)
+    Path:                   tests
+    MainIs:                 test_parser.ml
+    Install:                false
+    BuildDepends:           camlhighlight
+    CompiledObject:         best
 
 Test "test_parser"
-  Run$:			flag(tests)
-  Command:		$test_parser
-  WorkingDirectory:	tests
+    Run$:                   flag(tests)
+    Command:                $test_parser
+    WorkingDirectory:       tests
+
