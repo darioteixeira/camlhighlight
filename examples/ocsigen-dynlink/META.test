@@ -1,5 +1,0 @@
-directory = "."
-requires = "camlhighlight"
-archive(plugin,byte) = "test.cma"
-archive(plugin,native) = "test.cmxs"
-
