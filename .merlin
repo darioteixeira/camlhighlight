@@ -1,0 +1,6 @@
+S src/**
+B _build/**
+PKG batteries
+PKG sexplib
+PKG tyxml
+FLG -w -40
