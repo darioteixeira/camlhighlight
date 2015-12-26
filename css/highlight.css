@@ -1,4 +1,9 @@
-.hl_main
+.hl_inline
+    {
+    font-family: monospace;
+    }
+
+.hl_block
     {
     font-family: monospace;
     border: 1px dashed #666;
