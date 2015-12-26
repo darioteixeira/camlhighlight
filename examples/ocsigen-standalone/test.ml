@@ -20,22 +20,37 @@ module Html5_writer = Camlhighlight_write_html5.Make
 end)
 
 
-let test_service =
+let (!!) = Lazy.force
+
+
+let inline_service =
+    lazy (Eliom_service.Http.service 
+        ~path: ["inline"]
+        ~get_params: Eliom_parameter.unit
+        ())
+
+
+let block_service =
+    lazy (Eliom_service.Http.service 
+        ~path: ["block"]
+        ~get_params: Eliom_parameter.unit
+        ())
+
+
+let main_service =
     lazy (Eliom_service.Http.service 
         ~path: []
         ~get_params: Eliom_parameter.unit
         ())
 
 
-let test_handler () () =
-    let ch = open_in "sample.ml" in
-    let str = BatPervasives.input_all ch in
-    let () = close_in ch in
+let inline_handler () () =
     let () = Camlhighlight_parser.set_tabspaces 8 in
+    let str = "type foo = One | Two | Three" in
     let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
     let sexp = Camlhighlight_core.sexp_of_t hilite in
     let sexp_str = Sexplib.Sexp.to_string_hum sexp in
-    let hilite_xhtml = Html5_writer.write ~linenums:true ~extra_classes:["hl_zebra"] hilite in
+    let hilite_xhtml = Html5_writer.write_inline hilite in
     let hilite_str =
         let buf = Buffer.create 100 in
         Html5.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
@@ -43,21 +58,57 @@ let test_handler () () =
     let css_uri = make_uri (Eliom_service.static_dir ()) ["css"; "highlight.css"] in
     Lwt.return
         (html
-            (head (title (pcdata "Test")) [css_link ~a:[(a_media [`All]); (a_title "Default")] ~uri:css_uri ()])
-            (body   [
-                h1 [pcdata "Original source:"];
-                pre [pcdata str];
-                h1 [pcdata "S-expression:"];
-                pre [pcdata sexp_str];
-                h1 [pcdata "Raw HTML5:"];
-                pre [pcdata hilite_str];
-                h1 [pcdata "Rendered HTML5:"];
-                hilite_xhtml;
+            (head (title (pcdata "Inline Test")) [css_link ~a:[(a_media [`All]); (a_title "Default")] ~uri:css_uri ()])
+            (body
+                [
+                h1 [pcdata "Original source:"]; pre [pcdata str];
+                h1 [pcdata "S-expression:"]; pre [pcdata sexp_str];
+                h1 [pcdata "Raw HTML5:"]; pre [pcdata hilite_str];
+                h1 [pcdata "Rendered HTML5 (within paragraph):"]; p [pcdata "Hello "; hilite_xhtml; pcdata " World"];
+                ]))
+
+
+let block_handler () () =
+    let ch = open_in "sample.ml" in
+    let str = BatPervasives.input_all ch in
+    let () = close_in ch in
+    let () = Camlhighlight_parser.set_tabspaces 8 in
+    let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
+    let sexp = Camlhighlight_core.sexp_of_t hilite in
+    let sexp_str = Sexplib.Sexp.to_string_hum sexp in
+    let hilite_xhtml = Html5_writer.write_block ~linenums:true ~extra_classes:["hl_zebra"] hilite in
+    let hilite_str =
+        let buf = Buffer.create 100 in
+        Html5.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
+        Buffer.contents buf in
+    let css_uri = make_uri (Eliom_service.static_dir ()) ["css"; "highlight.css"] in
+    Lwt.return
+        (html
+            (head (title (pcdata "Block Test")) [css_link ~a:[(a_media [`All]); (a_title "Default")] ~uri:css_uri ()])
+            (body
+                [
+                h1 [pcdata "Original source:"]; pre [pcdata str];
+                h1 [pcdata "S-expression:"]; pre [pcdata sexp_str];
+                h1 [pcdata "Raw HTML5:"]; pre [pcdata hilite_str];
+                h1 [pcdata "Rendered HTML5:"]; hilite_xhtml;
+                ]))
+
+
+let main_handler () () =
+    Lwt.return
+        (html
+            (head (title (pcdata "Main Test")) [])
+            (body
+                [
+                h1 [a !!inline_service [pcdata "Inline test"] ()];
+                h1 [a !!block_service [pcdata "Block test"] ()];
                 ]))
 
 
 let register () =
-    Eliom_registration.Html5.register (Lazy.force test_service) test_handler
+    Eliom_registration.Html5.register !!inline_service inline_handler;
+    Eliom_registration.Html5.register !!block_service block_handler;
+    Eliom_registration.Html5.register !!main_service main_handler
 
 
 let () =
