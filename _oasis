@@ -22,7 +22,7 @@ Library "camlhighlight"
     CCLib:                  -lsource-highlight -lstdc++
     CCOpt:                  -x c++ -Wall -Wextra -O2
     CompiledObject:         best
-    BuildDepends:           threads, batteries, sexplib, tyxml
+    BuildDepends:           batteries, sexplib, threads, tyxml
 
 Document "camlhighlight"
     Install:                true
