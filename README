@@ -3,7 +3,7 @@
 |                                                                       |
 | http://camlhighlight.forge.ocamlcore.org/                             |
 |                                                                       |
-| Dario Teixeira (dario.teixeira@yahoo.com)                             |
+| Dario Teixeira (dario.teixeira@nleyten.com)                           |
 =========================================================================
 
 
@@ -19,10 +19,11 @@ application supporting the most common programming and markup languages.
 2. Dependencies
 ===============
 
-On the OCaml side, Camlhighlight depends on Batteries, Sexplib, and TyXML [2,3,4].
-TyXML (which is part of the Ocsigen project [5]) is required because Camlhighlight
-provides functions that output valid Html5 values using TyXML's Html5 module,
-whereas Sexplib is used to provide serialisation facilities.
+On the OCaml side, Camlhighlight depends on Batteries, ppx_sexp_conv,
+Sexplib, and TyXML [2,3,4,5].  TyXML (which is part of the Ocsigen project
+[6]) is required because Camlhighlight provides functions that output valid
+Html5 values using TyXML's Html5 module, whereas Sexplib is used to provide
+serialisation facilities.
 
 Camlhighlight requires also GNU Source-highlight, of course.  Note that for many
 Linux distributions you may need to manually download and build the source-code
@@ -53,9 +54,10 @@ See LICENSE file for full license text.
 References
 ==========
 
-[1] http://www.gnu.org/software/src-highlite/
-[2] http://batteries.forge.ocamlcore.org/
-[3] http://forge.ocamlcore.org/projects/sexplib/
-[4] http://www.ocsigen.org/tyxml
-[5] http://www.ocsigen.org/
+[1] https://www.gnu.org/software/src-highlite/
+[2] https://batteries.forge.ocamlcore.org/
+[3] https://github.com/janestreet/ppx_sexp_conv
+[4] https://github.com/janestreet/sexplib
+[5] https://www.ocsigen.org/tyxml
+[6] https://www.ocsigen.org/
 
