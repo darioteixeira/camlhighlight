@@ -15,12 +15,12 @@ build: [
 install: [[make "install"]]
 remove: [["ocamlfind" "remove" "camlhighlight"]]
 depends: [
+  "ocamlbuild" {build}
   "ocamlfind"
   "batteries" {>= "2"}
-  "sexplib"
   "ppx_sexp_conv"
+  "sexplib"
   "tyxml" {>= "3.2" & < "4"}
-  "ocamlbuild" {build}
 ]
 depexts: [
   [["debian"] ["libsource-highlight-dev"]]
