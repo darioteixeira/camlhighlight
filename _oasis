@@ -1,6 +1,6 @@
 OASISFormat:    0.4
 Name:           camlhighlight
-Version:        4.0
+Version:        5.0
 Synopsis:       Syntax highlighting for Ocsigen applications
 Authors:        Dario Teixeira <dario.teixeira@nleyten.com>
 Homepage:       http://camlhighlight.forge.ocamlcore.org/
@@ -22,7 +22,7 @@ Library "camlhighlight"
     CCLib:                  -lsource-highlight -lstdc++
     CCOpt:                  -x c++ -Wall -Wextra -O2
     CompiledObject:         best
-    BuildDepends:           batteries, sexplib, threads, tyxml
+    BuildDepends:           batteries (>= 2), sexplib, threads, tyxml (>= 3.6)
 
 Document "camlhighlight"
     Install:                true
