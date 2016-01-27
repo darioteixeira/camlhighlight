@@ -20,9 +20,9 @@ application supporting the most common programming and markup languages.
 ===============
 
 On the OCaml side, Camlhighlight depends on Batteries, ppx_sexp_conv,
-Sexplib, and TyXML [2,3,4,5].  TyXML (which is part of the Ocsigen project
+Sexplib, and Tyxml [2,3,4,5].  Tyxml (which is part of the Ocsigen project
 [6]) is required because Camlhighlight provides functions that output valid
-Html5 values using TyXML's Html5 module, whereas Sexplib is used to provide
+Html5 values using Tyxml's Html5 module, whereas Sexplib is used to provide
 serialisation facilities.
 
 Camlhighlight requires also GNU Source-highlight, of course.  Note that for many
