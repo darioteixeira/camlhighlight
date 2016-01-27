@@ -15,7 +15,7 @@ module List = BatList
 (** {1 Public functors}                                                         *)
 (********************************************************************************)
 
-module Make (Html5: Html5_sigs.T with type 'a Xml.wrap = 'a and type 'a wrap = 'a and type 'a list_wrap = 'a list) =
+module Make (Html5: Html5_sigs.NoWrap) =
 struct
     open Html5
 
