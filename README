@@ -19,18 +19,15 @@ application supporting the most common programming and markup languages.
 2. Dependencies
 ===============
 
-On the OCaml side, Camlhighlight depends on Batteries, ppx_sexp_conv,
-Sexplib, and Tyxml [2,3,4,5].  Tyxml (which is part of the Ocsigen project
-[6]) is required because Camlhighlight provides functions that output valid
-Html5 values using Tyxml's Html5 module, whereas Sexplib is used to provide
-serialisation facilities.
+On the OCaml side, Camlhighlight depends on Sexplib, ppx_sexp_conv, and Tyxml
+[2,3,4].  Tyxml is required because Camlhighlight provides functions that
+output valid Html values using Tyxml's Html module, whereas Sexplib is used
+for parsing and to provide serialisation facilities.
 
-Camlhighlight requires also GNU Source-highlight, of course.  Note that for many
-Linux distributions you may need to manually download and build the source-code
-for GNU Source-highlight.  There are however some distros that already package the
-library's runtime and development versions.  Debian and Ubuntu users, for instance,
-should install packages 'libsource-highlight-common', 'libsource-highlight4' and
-'libsource-highlight-dev'.
+Camlhighlight requires also GNU Source-highlight, of course.  Note that for
+many Linux distributions you may need to manually download and build the
+source-code for GNU Source-highlight.  There are however some distros that
+already package the library's runtime and development versions.
 
 
 3. Building and installing
@@ -55,9 +52,7 @@ References
 ==========
 
 [1] https://www.gnu.org/software/src-highlite/
-[2] https://batteries.forge.ocamlcore.org/
+[2] https://github.com/janestreet/sexplib
 [3] https://github.com/janestreet/ppx_sexp_conv
-[4] https://github.com/janestreet/sexplib
-[5] https://www.ocsigen.org/tyxml
-[6] https://www.ocsigen.org/
+[4] https://www.ocsigen.org/tyxml
 
