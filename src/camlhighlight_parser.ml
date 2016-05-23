@@ -8,8 +8,6 @@
 
 open Sexplib
 
-module String = BatString
-
 
 (********************************************************************************)
 (** {1 Exceptions}                                                              *)
@@ -32,6 +30,24 @@ external set_tabspaces: int -> unit = "set_tabspaces"
 external get_langs: unit -> string list = "get_langs"
 external has_mapping: string -> bool = "has_mapping"
 external highlight: string -> string -> string = "highlight"
+
+let split_lines str =
+	let len = String.length str in
+	let rec loop idx count accum =
+		if idx < 0
+		then
+			String.sub str (idx + 1) count :: accum
+		else
+			if String.unsafe_get str idx = '\n'
+			then
+				let accum = String.sub str (idx + 1) count :: accum in
+				let idx' = if idx > 0 && String.unsafe_get str (idx - 1) = '\r' then idx - 2 else idx - 1 in
+				loop idx' 0 accum
+			else
+				loop (idx - 1) (count + 1) accum in
+	if len = 0
+	then []
+	else loop (len - 1) 0 []
 
 
 (********************************************************************************)
@@ -93,7 +109,7 @@ let from_string ?(lang = "txt") source =
     let line_of_sexp = function
         | Sexp.List l -> List.map elem_of_sexp l
         | _           -> failwith "line_of_sexp" in
-    let lines = String.nsplit (highlight lang source) "\n" in
+    let lines = split_lines (highlight lang source) in
     let conv line = line_of_sexp (Sexp.of_string ("(" ^ line ^ ")"))
     in List.map conv lines
 

@@ -8,7 +8,25 @@
 
 open Camlhighlight_core
 
-module List = BatList
+
+(********************************************************************************)
+(** {1 Private modules}                                                         *)
+(********************************************************************************)
+
+module List =
+struct
+    include List
+
+    let init n f =
+        let rec loop idx accum =
+            if idx >= 0
+            then
+                let accum' = f idx :: accum in
+                loop (idx - 1) accum'
+            else
+                accum in
+        loop (n - 1) []
+end
 
 
 (********************************************************************************)
