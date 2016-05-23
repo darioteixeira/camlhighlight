@@ -19,7 +19,7 @@ depends: [
   "ocamlfind"
   "ppx_sexp_conv"
   "sexplib"
-  "tyxml" {>= "3.6"}
+  "tyxml" {>= "4"}
 ]
 depexts: [
   [["debian"] ["libsource-highlight-dev"]]

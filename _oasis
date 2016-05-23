@@ -22,7 +22,7 @@ Library "camlhighlight"
     CCLib:                  -lsource-highlight -lstdc++
     CCOpt:                  -x c++ -Wall -Wextra -O2
     CompiledObject:         best
-    BuildDepends:           sexplib, threads, tyxml (>= 3.6)
+    BuildDepends:           sexplib, threads, tyxml (>= 4)
 
 Document "camlhighlight"
     Install:                true
