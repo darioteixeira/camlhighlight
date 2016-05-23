@@ -13,7 +13,7 @@ open Eliom_content
 open Html5.F
 
 
-module Html5_writer = Camlhighlight_write_html5.Make
+module Html_writer = Camlhighlight_write_html.Make
 (struct
     include Eliom_content.Html5.F.Raw
     module Svg = Eliom_content.Svg.F.Raw
@@ -50,7 +50,7 @@ let inline_handler () () =
     let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
     let sexp = Camlhighlight_core.sexp_of_t hilite in
     let sexp_str = Sexplib.Sexp.to_string_hum sexp in
-    let hilite_xhtml = Html5_writer.write_inline hilite in
+    let hilite_xhtml = Html_writer.write_inline hilite in
     let hilite_str =
         let buf = Buffer.create 100 in
         Html5.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
@@ -76,7 +76,7 @@ let block_handler () () =
     let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
     let sexp = Camlhighlight_core.sexp_of_t hilite in
     let sexp_str = Sexplib.Sexp.to_string_hum sexp in
-    let hilite_xhtml = Html5_writer.write_block ~linenums:true ~extra_classes:["hl_zebra"] hilite in
+    let hilite_xhtml = Html_writer.write_block ~linenums:true ~extra_classes:["hl_zebra"] hilite in
     let hilite_str =
         let buf = Buffer.create 100 in
         Html5.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];

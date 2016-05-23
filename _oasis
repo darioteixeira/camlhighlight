@@ -1,6 +1,6 @@
 OASISFormat:    0.4
 Name:           camlhighlight
-Version:        5.0
+Version:        6.0
 Synopsis:       Syntax highlighting for Ocsigen applications
 Authors:        Dario Teixeira <dario.teixeira@nleyten.com>
 Homepage:       http://camlhighlight.forge.ocamlcore.org/
@@ -17,7 +17,7 @@ Description:
 Library "camlhighlight"
     Path:                   src
     FindlibName:            camlhighlight
-    Modules:                Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html5
+    Modules:                Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html
     CSources:               source-highlight_stubs.c
     CCLib:                  -lsource-highlight -lstdc++
     CCOpt:                  -x c++ -Wall -Wextra -O2
