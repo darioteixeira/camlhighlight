@@ -1,4 +1,11 @@
 ---------------------------
+(next) version 6.0:
+
+  * Port to Tyxml 4.0.
+  * Renaming: Camlhighlight_write_html5 -> Camlhighlight_write_html
+    (For the sake of consistency with Tyxml)
+
+---------------------------
 (2016-01-27) version 5.0:
 
   * Port to the new wrapping signature introduced with Tyxml 3.6.
