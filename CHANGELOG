@@ -6,7 +6,7 @@
 ---------------------------
 (2016-01-26) version 4.0:
 
-  * Split Camlhighlight_write_html5.write function
+  * Split Camlhighlight_write_html.write function
     into write_inline/write_block variants.
   * Drop the '_t' suffix from types names.
   * Use ppx_type_conv instead of Camlp4.

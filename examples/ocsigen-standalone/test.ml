@@ -13,7 +13,7 @@ open Eliom_content
 open Html.F
 
 
-module Html_writer = Camlhighlight_write_html5.Make
+module Html_writer = Camlhighlight_write_html.Make
 (struct
     include Eliom_content.Html.F.Raw
     module Svg = Eliom_content.Svg.F.Raw

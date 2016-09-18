@@ -1,5 +1,5 @@
 (********************************************************************************)
-(*  Camlhighlight_write_html5.mli
+(*  Camlhighlight_write_html.mli
     Copyright (c) 2010-2014 Dario Teixeira (dario.teixeira@yahoo.com)
     This software is distributed under the terms of the GNU GPL version 2.
     See LICENSE file for full license text.
@@ -20,7 +20,7 @@
     feeding Eliom's [Html.F.Raw] and [Eliom_content.Svg.F.Raw] to the functor,
     as exemplified by the code below:
     {v
-    module My_writer = Camlhighlight_write_html5.Make
+    module My_writer = Camlhighlight_write_html.Make
     (struct
         include Eliom_content.Html.F.Raw
         module Svg = Eliom_content.Svg.F.Raw

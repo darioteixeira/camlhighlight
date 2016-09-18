@@ -17,7 +17,7 @@ Description:
 Library "camlhighlight"
     Path:                   src
     FindlibName:            camlhighlight
-    Modules:                Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html5
+    Modules:                Camlhighlight_core, Camlhighlight_parser, Camlhighlight_write_html
     CSources:               source-highlight_stubs.c
     CCLib:                  -lsource-highlight -lstdc++
     CCOpt:                  -x c++ -Wall -Wextra -O2

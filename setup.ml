@@ -6965,7 +6965,7 @@ let setup_t =
                         [
                            "Camlhighlight_core";
                            "Camlhighlight_parser";
-                           "Camlhighlight_write_html5"
+                           "Camlhighlight_write_html"
                         ];
                       lib_pack = false;
                       lib_internal_modules = [];
