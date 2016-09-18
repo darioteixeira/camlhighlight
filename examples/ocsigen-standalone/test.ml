@@ -10,12 +10,12 @@
 *)
 
 open Eliom_content
-open Html5.F
+open Html.F
 
 
-module Html5_writer = Camlhighlight_write_html5.Make
+module Html_writer = Camlhighlight_write_html5.Make
 (struct
-    include Eliom_content.Html5.F.Raw
+    include Eliom_content.Html.F.Raw
     module Svg = Eliom_content.Svg.F.Raw
 end)
 
@@ -50,10 +50,10 @@ let inline_handler () () =
     let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
     let sexp = Camlhighlight_core.sexp_of_t hilite in
     let sexp_str = Sexplib.Sexp.to_string_hum sexp in
-    let hilite_xhtml = Html5_writer.write_inline hilite in
+    let hilite_xhtml = Html_writer.write_inline hilite in
     let hilite_str =
         let buf = Buffer.create 100 in
-        Html5.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
+        Html.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
         Buffer.contents buf in
     let css_uri = make_uri (Eliom_service.static_dir ()) ["css"; "highlight.css"] in
     Lwt.return
@@ -76,10 +76,10 @@ let block_handler () () =
     let hilite = Camlhighlight_parser.from_string ~lang:"caml" str in
     let sexp = Camlhighlight_core.sexp_of_t hilite in
     let sexp_str = Sexplib.Sexp.to_string_hum sexp in
-    let hilite_xhtml = Html5_writer.write_block ~linenums:true ~extra_classes:["hl_zebra"] hilite in
+    let hilite_xhtml = Html_writer.write_block ~linenums:true ~extra_classes:["hl_zebra"] hilite in
     let hilite_str =
         let buf = Buffer.create 100 in
-        Html5.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
+        Html.Printer.print_list ~output:(Buffer.add_string buf) [hilite_xhtml];
         Buffer.contents buf in
     let css_uri = make_uri (Eliom_service.static_dir ()) ["css"; "highlight.css"] in
     Lwt.return
@@ -106,9 +106,9 @@ let main_handler () () =
 
 
 let register () =
-    Eliom_registration.Html5.register !!inline_service inline_handler;
-    Eliom_registration.Html5.register !!block_service block_handler;
-    Eliom_registration.Html5.register !!main_service main_handler
+    Eliom_registration.Html.register !!inline_service inline_handler;
+    Eliom_registration.Html.register !!block_service block_handler;
+    Eliom_registration.Html.register !!main_service main_handler
 
 
 let () =

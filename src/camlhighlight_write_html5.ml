@@ -15,9 +15,9 @@ module List = BatList
 (** {1 Public functors}                                                         *)
 (********************************************************************************)
 
-module Make (Html5: Html5_sigs.NoWrap) =
+module Make (Html: Html_sigs.NoWrap) =
 struct
-    open Html5
+    open Html
 
     let make_class ~class_prefix ?(extra_classes = []) names =
         a_class (List.fold_right (fun x accum -> (class_prefix ^ x) :: accum) names extra_classes)
