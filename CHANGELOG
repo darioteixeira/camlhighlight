@@ -3,7 +3,8 @@
 
   * Port to Tyxml 4.0.
   * Renaming: Camlhighlight_write_html5 -> Camlhighlight_write_html
-    (For the sake of consistency with Tyxml)
+    (For the sake of consistency with Tyxml.)
+  * Batteries no longer a dependency.
 
 ---------------------------
 (2016-01-27) version 5.0:
