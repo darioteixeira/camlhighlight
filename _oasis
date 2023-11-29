@@ -2,7 +2,7 @@ OASISFormat:    0.4
 Name:           camlhighlight
 Version:        6.0
 Synopsis:       Syntax highlighting for Ocsigen applications
-Authors:        Dario Teixeira <dario.teixeira@nleyten.com>
+Authors:        Dario Teixeira <dario.teixeira@yahoo.com>
 Homepage:       http://camlhighlight.forge.ocamlcore.org/
 License:        GPL-2
 LicenseFile:    LICENSE
